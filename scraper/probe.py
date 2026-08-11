@@ -278,6 +278,52 @@ def ats_markers(label, url):
 
 
 def main():
+    """Round 7 — Microsoft only. Ask the app shell what its Eightfold domain is.
+
+    Round 6's guess (domain=microsoft.com) returned ok=False. Rather than guess
+    again, read the config out of the page the SPA boots from — the same
+    read-it-off-the-page move that produced dentsu's DAN_GLOBAL after seven
+    wrong guesses.
+    """
+    section("Microsoft — Eightfold config in the app shell")
+
+    def shell():
+        r = requests.get("https://jobs.careers.microsoft.com/global/en/search",
+                         headers=BROWSER_UA, timeout=T)
+        h = r.text
+        print(f"  shell -> {r.status_code} len={len(h)}")
+        for pat in (r'"domain"\s*:\s*"([^"]{3,40})"',
+                    r'domain=([a-z0-9.-]+\.[a-z]{2,})',
+                    r'"companyName"\s*:\s*"([^"]{2,40})"',
+                    r'apply/v2/[a-z]+', r'([a-z0-9-]+)\.eightfold\.ai'):
+            hits = sorted({m.group(1) if m.groups() else m.group(0)
+                           for m in re.finditer(pat, h, re.I)})
+            if hits:
+                print(f"    {pat[:30]}: {hits[:6]}")
+    show("shell", shell)
+
+    for label, host, domain in (
+            ("careers.microsoft.com domain", "jobs.careers.microsoft.com",
+             "careers.microsoft.com"),
+            ("microsoft.com domain", "jobs.careers.microsoft.com", "microsoft.com"),
+            ("bare host", "careers.microsoft.com", "microsoft.com")):
+        try_get(f"  {label}",
+                f"https://{host}/api/apply/v2/jobs?domain={domain}&query=finance"
+                f"&start=0&num=3", probe_keys=("count", "positions"))
+
+    # Diagnostic only: is the gcsservices failure a cert-chain problem or a
+    # block? We would not ship verify=False — this only tells us which it is.
+    def gcs_unverified():
+        import urllib3
+        urllib3.disable_warnings()
+        r = requests.get("https://gcsservices.careers.microsoft.com/search/api/v1/"
+                         "search?q=finance&l=en_us&pg=1&pgSz=3", headers=BROWSER_UA,
+                         timeout=T, verify=False)
+        print(f"  gcs verify=False -> {r.status_code} len={len(r.text)}")
+    show("gcs-unverified", gcs_unverified)
+
+
+def round6():
     """Round 6 — exercise the three new configs end-to-end before enabling.
 
     Rounds 4-5 identified Netflix + Microsoft as Eightfold and read dentsu's

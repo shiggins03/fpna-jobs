@@ -175,7 +175,9 @@ companies:
       Microsoft runs Eightfold, found sideways in probe round 5 — its documented
       gcsservices.careers.microsoft.com API fails TLS from the Actions runner
       (SSLError on every attempt), but the jobs host served an Eightfold app
-      shell. Pending round-6 end-to-end verification of the domain value.
+      shell. Round 6 ran the adapter end-to-end and it returned ok=False for
+      both queries, so the domain/path guess is still wrong — do not enable on
+      the strength of the app shell alone.
   - name: Netflix
     tier: A
     category: bigtech
@@ -183,13 +185,15 @@ companies:
     eightfold_host: explore.jobs.netflix.net
     eightfold_domain: netflix.com
     job_url_template: https://explore.jobs.netflix.net/careers/job/{id}
-    enabled: false
+    enabled: true
     note: >-
       Eightfold, verified in probe round 4 (count=16 for a finance query) and
       its payload mapped in round 5: the list endpoint returns an EMPTY
       job_description, so the adapter must fetch the per-job detail call — a
       list-only implementation would have shipped every Netflix role with no
-      text to score. Pending round-6 end-to-end verification.
+      text to score. Round 6 ran the real adapter end-to-end: inventory 485,
+      full descriptions on every record. Expect most hits to be Los Angeles or
+      overseas — the location gate drops them, which is correct, not breakage.
   - name: Uber
     tier: A
     category: bigtech
@@ -290,12 +294,15 @@ companies:
     workday_host: dentsuaegis.wd3.myworkdayjobs.com
     workday_tenant: dentsuaegis
     workday_site: DAN_GLOBAL
-    enabled: false
+    enabled: true
     note: >-
       Workday tenant dentsuaegis, site DAN_GLOBAL — read off the real handoff
       link on dentsu.com/careers in probe round 5 after seven guessed site names
       all returned 400. Lesson: get the site name from the page, don't guess it.
-      Pending round-6 end-to-end verification.
+      Round 6 verified end-to-end: inventory 900, and it surfaced a
+      "Manager, FP&A" and a "Financial Reporting Director" in New York. This is
+      also the roster's biggest source of client/commercial-finance noise, which
+      is exactly what exclude.title_terms is for.
   - name: Havas
     tier: C
     category: advertising
