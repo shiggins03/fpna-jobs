@@ -165,6 +165,9 @@ def _card(j, prestige, roles, narrate):
         extra_bits.append("bonus mentioned")
     if extras.get("equity"):
         extra_bits.append("equity/RSUs mentioned")
+    if j.get("comp_multi"):
+        extra_bits.append("posting states several location ranges — "
+                          "this may not be the New York one")
     extra_txt = (f' <span style="color:var(--muted)">&middot; '
                  f'{esc(", ".join(extra_bits))}</span>' if extra_bits else "")
     posted = esc(j.get("posted_date")) or "Not listed"
@@ -207,7 +210,39 @@ Fit <b>{j.get('fit', 0)}</b>/100 &middot; FP&amp;A transition <b>{j.get('pivot',
 </div>"""
 
 
-def generate(store, companies, cities, roles, warnings, today):
+def _triage_section(triage):
+    """Postings the employer's own search matched, whose text we can't read.
+
+    Meta is the case that forced this: its search returns titles with no
+    description at all, and those titles are exactly the target roles
+    ("Director, Corporate Finance", "Director, Infrastructure Finance"). They
+    can't be scored without body text, but burying them in a JSON file while
+    the dashboard shows ten jobs would be the worst outcome. Title and link are
+    verbatim; nothing else is claimed.
+    """
+    rows = [t for t in (triage or []) if t.get("title") and t.get("url")]
+    if not rows:
+        return ""
+    cards = []
+    for t in rows:
+        cards.append(
+            f'<div class="card"><div class="co">{esc(t["company"])}'
+            f'<span class="badge plain" title="{esc(t.get("note"))}">'
+            f'not scored</span></div>'
+            f'<div class="title"><a href="{esc(t["url"])}" target="_blank" '
+            f'rel="noopener">{esc(t["title"])}</a></div>'
+            f'<div class="meta">Location: Not listed &middot; Comp: Not listed '
+            f'&middot; Found: {esc(t.get("first_seen"))}</div></div>')
+    return (f'<section><details class="fold"><summary>Worth a look — not '
+            f'scoreable ({len(rows)})</summary>'
+            f'<div class="meta">These matched the employer\'s own finance search, '
+            f'but their posting text isn\'t machine-readable, so there is no fit '
+            f'score and no location or comp to show. Open the link to judge them. '
+            f'Mostly Meta, whose job search returns titles only.</div>'
+            f'{"".join(cards)}</details></section>')
+
+
+def generate(store, companies, cities, roles, warnings, today, triage=None):
     from .filters import narrative
     prestige = {norm(c["name"]): c["tier"] for c in companies}
 
@@ -302,6 +337,7 @@ def generate(store, companies, cities, roles, warnings, today):
 {section("Below comp target", below, fold=True,
          note="Stated comp tops out under the target. Kept because a posted "
               "range is not the whole package.")}
+{_triage_section(triage)}
 {section("No longer listed", gone, fold=True)}
 {roster_section()}
 <footer>

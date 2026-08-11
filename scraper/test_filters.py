@@ -10,10 +10,11 @@ from pathlib import Path
 
 import yaml
 
-from .filters import (excluded, fit_score, function_hits, gap_flags, is_non_us,
-                      is_remote, location_scope, pivot_score, qualifies,
-                      score_job, seniority_level, comp_sort_value,
-                      function_areas, transferable_hits, demote_hits)
+from .filters import (comp_is_multi_range, comp_sort_value, demote_hits,
+                      excluded, extract_stated_comp, fit_score, function_areas,
+                      function_hits, gap_flags, is_non_us, is_remote,
+                      location_scope, pivot_score, qualifies, score_job,
+                      seniority_level, title_finance_hits, transferable_hits)
 
 CONFIG = Path(__file__).resolve().parent.parent / "config"
 KW = yaml.safe_load((CONFIG / "keywords.yaml").read_text(encoding="utf-8"))
@@ -202,6 +203,23 @@ check("single sql mention ignored",
 check("range top", comp_sort_value("$190,000 - $240,000"), 240000.0)
 check("k suffix", comp_sort_value("$200K-$250K"), 250000.0)
 check("no comp", comp_sort_value(None), -1.0)
+
+# REGRESSION 2026-08-10: Airbnb states its range as "Pay Range\n$168,000\n—\n
+# $206,000 USD". The em-dash wasn't in the dash class and the newlines broke the
+# labelled pattern, so a posting WITH a stated range rendered "Not listed".
+AIRBNB_COMP = "Pay Range\n$168,000\n—\n$206,000 USD\nBenefits apply."
+check("em-dash range across newlines", extract_stated_comp(AIRBNB_COMP),
+      "$168,000 — $206,000 USD")
+check("single range is not multi", comp_is_multi_range(AIRBNB_COMP), False)
+
+# Accenture posts one range per metro. We quote the first, which alone is
+# misleading, so the card carries a note — see comp_is_multi_range.
+ACC_COMP = ("Role Location Annual Salary Range\nCalifornia $122,700 to $317,200\n"
+            "New York $135,000 to $350,000")
+check("multi-range detected", comp_is_multi_range(ACC_COMP), True)
+check_true("multi-range still quotes verbatim",
+           extract_stated_comp(ACC_COMP).startswith("$122,700"))
+check("no comp text", extract_stated_comp("No pay information here."), None)
 
 if fails:
     print(f"FAIL ({len(fails)})")

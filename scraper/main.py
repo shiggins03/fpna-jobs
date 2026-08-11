@@ -126,10 +126,11 @@ def run():
             h["inventory"] = inventory  # source's total visible jobs (aliveness)
         h["last_run"] = today
 
-    def add_triage(company, url, note, source):
+    def add_triage(company, url, note, source, title=None):
         if (company, url) not in triage_keys:
             triage.append({"company": company, "url": url, "note": note,
-                           "source": source, "first_seen": today})
+                           "source": source, "first_seen": today,
+                           "title": title})
             triage_keys.add((company, url))
 
     seen_this_run = {}  # source name -> set of job ids seen
@@ -179,8 +180,9 @@ def run():
                         and seniority_level(r.get("title"), kw)
                         and not excluded(r.get("title"), kw)):
                     add_triage(r["company"], r["url"],
-                               f"employer search matched but posting text "
-                               f"unavailable — verify: {r.get('title')}", src)
+                               "employer search matched but the posting text is "
+                               "not machine-readable — open the link to judge it",
+                               src, title=r.get("title"))
                 continue
             comp = r.get("comp") or extract_stated_comp(r.get("description"))
             job = models.make_job(
@@ -357,7 +359,8 @@ def run():
                                  key=lambda x: (x["status"] != "active",
                                                 -(x.get("fit") or 0)))],
     })
-    site_gen.generate(store, companies, cities, roles, warnings, today)
+    site_gen.generate(store, companies, cities, roles, warnings, today,
+                      [t for t in triage if not t.get("status")])
 
     active = sum(1 for j in store.values() if j["status"] == "active")
     new = sum(1 for j in store.values() if "new" in j["flags"])

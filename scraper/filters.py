@@ -77,9 +77,14 @@ COMP_RE = re.compile(
     r"(\$[\d,]+(?:\.\d+)?(?:\s*[-–to]+\s*\$?[\d,]+(?:\.\d+)?)?"
     r"(?:\s*(?:/|per\s*)?(?:year|yr|hour|hr|annum|annually|hourly))?"
     r"[^.\n]{0,120}?(?:bonus|equity)?[^.\n]{0,40})", re.I)
+# The dash class must cover em-dash and minus, and the separator must tolerate
+# newlines: Airbnb renders its range as "Pay Range\n$168,000\n—\n$206,000 USD",
+# which the hyphen/en-dash-only pattern missed entirely on 2026-08-10 — the card
+# said "Not listed" while the posting stated a range.
 DOLLAR_RANGE_RE = re.compile(
-    r"\$[\d,]{4,}(?:\.\d+)?\s*(?:[-–]|to)\s*\$?[\d,]{4,}(?:\.\d+)?"
-    r"(?:\s*(?:/|per\s*)?(?:year|yr|hour|hr|annum|annually|hourly))?", re.I)
+    r"\$[\d,]{4,}(?:\.\d+)?\s*(?:[-–—−]|to)\s*\$?[\d,]{4,}(?:\.\d+)?"
+    r"(?:\s*(?:/|per\s*)?(?:year|yr|hour|hr|annum|annually|hourly))?"
+    r"(?:\s*usd)?", re.I)
 SALARY_NUM_RE = re.compile(r"\$?([\d,]+(?:\.\d+)?)\s*([kK])?")
 
 # Bonus/equity are shown separately from base per the owner's spec, so we look
@@ -206,16 +211,32 @@ def blocklisted(company, title, bl):
 # ------------------------------------------------------------------ comp ----
 
 def extract_stated_comp(description):
-    """The posting's own compensation text, verbatim, or None."""
+    """The posting's own compensation text, quoted. Internal whitespace is
+    collapsed so a range split across newlines reads as one line; no word is
+    changed, added or inferred."""
     if not description:
         return None
-    m = COMP_RE.search(description)
-    if m:
-        return m.group(0).strip()
-    m = DOLLAR_RANGE_RE.search(description)
-    if m:
-        return m.group(0).strip()
+    for pattern in (COMP_RE, DOLLAR_RANGE_RE):
+        m = pattern.search(description)
+        if m:
+            return re.sub(r"\s+", " ", m.group(0)).strip()
     return None
+
+
+def comp_is_multi_range(description):
+    """True when the posting states SEVERAL pay ranges (Accenture lists one per
+    metro: California $122,700 to $317,200, Cleveland ..., New York ...).
+
+    We quote the first one, which on its own is misleading — the reader can't
+    tell it isn't the New York range. Rather than guess which range applies,
+    the card carries a note pointing at the posting. Derived flag, not a comp
+    value, so rule 1 holds.
+    """
+    if not description:
+        return False
+    found = {re.sub(r"\s+", " ", m.group(0)).strip()
+             for m in DOLLAR_RANGE_RE.finditer(description)}
+    return len(found) > 1
 
 
 def comp_sort_value(comp):
@@ -494,6 +515,7 @@ def score_job(job, kw, roles, cities, tier=None):
     job["scope"] = location_scope(job.get("location"), cities)
     job["remote"] = is_remote(job.get("location"), body, cities)
     job["extras"] = comp_extras(body)
+    job["comp_multi"] = comp_is_multi_range(body)
     job["below_comp"] = 0 <= comp_sort_value(job.get("comp")) < (
         kw.get("comp") or {}).get("hard_floor", 150000)
     return job
