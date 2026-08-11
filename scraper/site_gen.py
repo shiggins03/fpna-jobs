@@ -22,7 +22,8 @@ from .models import norm
 
 DOCS = Path(__file__).resolve().parent.parent / "docs"
 TIER_ORDER = {"A": 0, "B": 1, "C": 2}
-CAT_LABEL = {"bigtech": "Big Tech", "tech": "Tech", "advertising": "Advertising"}
+CAT_LABEL = {"bigtech": "Big Tech", "tech": "Tech", "advertising": "Advertising",
+             "finance": "Financial services", "media": "Media"}
 SEV_LABEL = {"green": "GREEN", "yellow": "YELLOW", "red": "RED"}
 REC_CLASS = {"Strong Apply": "rec-strong", "Apply": "rec-apply",
              "Stretch Apply": "rec-stretch", "Skip": "rec-skip"}

@@ -761,3 +761,83 @@ companies:
     ashby_org: 1password
     enabled: true
     note: verified by probe round 10 (60 jobs).
+
+  # ---------------- Roster expansion 3, probe round 11 (2026-08-11) ----
+  # The sector the board was missing entirely: NYC financial services and
+  # media, where the density of senior corporate FP&A seats is highest.
+  # Round 10's slug brute-force found none of these because their Workday
+  # tenants don't match their names (Apollo's is `athene`, S&P's is `spgi`).
+  # Every triple below was read off the employer's own job-search page.
+  # Also found, NOT yet added because we lack the adapter or the config:
+  #   Moody's + New York Life -> SuccessFactors (adapter exists, needs sf_base)
+  #   MetLife -> metlife.avature.net (adapter exists, needs a feed_url)
+  #   MSCI + SiriusXM -> iCIMS (no adapter)
+  #   WBD, Paramount -> Phenom/SF CDN markers only, host not conclusive
+  # No marker at all on: BlackRock, Visa, Equitable, KKR, IBM, NBCUniversal,
+  # Disney, Etsy, Bloomberg, Spotify.
+  # American Express stays disabled: aexp.eightfold.ai answers 200 for
+  # domain=aexp.com but with count=0, and 404 for the other two spellings,
+  # so the tenant domain is still unknown.
+  - name: S&P Global
+    tier: A
+    category: finance
+    ats: workday
+    workday_host: spgi.wd5.myworkdayjobs.com
+    workday_tenant: spgi
+    workday_site: SPGI_Careers
+    enabled: true
+    note: read off careers.spglobal.com/search-jobs (round 11). Large NYC corporate FP&A org.
+  - name: Citi
+    tier: A
+    category: finance
+    ats: workday
+    workday_host: citi.wd5.myworkdayjobs.com
+    workday_tenant: citi
+    workday_site: 2
+    enabled: true
+    note: read off jobs.citi.com/search-jobs (round 11). The site name really is "2" — from the /en-US/2 path. They also run citi.eightfold.ai; Workday is the ATS.
+  - name: Blackstone
+    tier: A
+    category: finance
+    ats: workday
+    workday_host: blackstone.wd1.myworkdayjobs.com
+    workday_tenant: blackstone
+    workday_site: Blackstone_Careers
+    enabled: true
+    note: read off blackstone.com/careers (round 11).
+  - name: Apollo Global
+    tier: A
+    category: finance
+    ats: workday
+    workday_host: athene.wd5.myworkdayjobs.com
+    workday_tenant: athene
+    workday_site: Apollo_Careers
+    enabled: true
+    note: read off apollo.com/careers (round 11). Tenant is athene, not apollo — exactly why round 10's slug brute-force found nothing.
+  - name: Prudential
+    tier: B
+    category: finance
+    ats: workday
+    workday_host: pru.wd5.myworkdayjobs.com
+    workday_tenant: pru
+    workday_site: Careers
+    enabled: true
+    note: read off prudential.com/careers (round 11). Newark NJ — in the NYC metro bucket.
+  - name: TIAA
+    tier: B
+    category: finance
+    ats: workday
+    workday_host: tiaa.wd1.myworkdayjobs.com
+    workday_tenant: tiaa
+    workday_site: Search
+    enabled: true
+    note: read off careers.tiaa.org (round 11). NYC HQ.
+  - name: Warner Music Group
+    tier: B
+    category: media
+    ats: workday
+    workday_host: wmg.wd1.myworkdayjobs.com
+    workday_tenant: wmg
+    workday_site: WMGUS
+    enabled: true
+    note: read off wmg.com/careers (round 11). WMGUS is the US site; WMGGLOBAL also exists and would pull non-US roles the scope filter then drops. NYC HQ.
