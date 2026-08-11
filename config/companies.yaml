@@ -51,9 +51,16 @@ companies:
       useless here (every careers page contains the word "finance"). Probe
       round 1 (2026-08-10) ruled out both v3 search shapes: careers.google.com
       /api/v3/search returned 404 JSON and the www.google.com/about/careers
-      /applications/api/v3/search path returned a 404 HTML page. Needs a fresh
-      capture of what the live careers UI actually calls (browser XHR sniff,
-      the technique that cracked Meta in unifier-jobs).
+      /applications/api/v3/search path returned a 404 HTML page. Round 6
+      mapped what IS available: the results HTML does carry real job data (17
+      finance hits, 15 job-id links for an FP&A query), but the job links have
+      NO anchor text, so titles aren't recoverable from the results page, and
+      the detail pages carry no ld+json — the title is only in <title> and the
+      body text is unstructured. So Google is implementable as
+      "extract ids from results HTML, then fetch and scrape each detail page",
+      at roughly 15 detail fetches of ~1.1MB per query. That is 10-20x the cost
+      of every other adapter here and it is HTML-shape-brittle, so it is a
+      deliberate not-yet rather than a dead end. Ask before building it.
   - name: NVIDIA
     tier: A
     category: bigtech
@@ -175,9 +182,16 @@ companies:
       Microsoft runs Eightfold, found sideways in probe round 5 — its documented
       gcsservices.careers.microsoft.com API fails TLS from the Actions runner
       (SSLError on every attempt), but the jobs host served an Eightfold app
-      shell. Round 6 ran the adapter end-to-end and it returned ok=False for
-      both queries, so the domain/path guess is still wrong — do not enable on
-      the strength of the app shell alone.
+      shell. SETTLED 2026-08-11, do not spend more rounds here: round 7 read
+      the real config out of that shell — the API is Eightfold's MULTI-TENANT
+      host, app.eightfold.ai with domain=microsoft.com, not any microsoft.com
+      path (which is why every microsoft.com URL returned the SPA shell). Round
+      8 then found app.eightfold.ai answers 403 to every header combination
+      tried (browser UA, +Referer, +Origin, adapter UA) while a CONTROL call to
+      explore.jobs.netflix.net succeeded in the same run — so it is tenant-level
+      blocking of non-browser callers, not our egress and not a wrong path.
+      Microsoft needs real browser automation, which a daily cron can't do.
+      Use config/seed_jobs.yaml to add a Microsoft role by hand if one matters.
   - name: Netflix
     tier: A
     category: bigtech

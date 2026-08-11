@@ -185,6 +185,35 @@ can't do. So `COMP_OFFSITE_RE` detects that sentence and the card says
 listed", which was actively misleading. No figure is ever invented; rule 1 is
 intact. Don't add browser automation for this without the owner asking.
 
+## Roster status after probe rounds 4-8 (2026-08-11) — 16 of 27 live
+
+**Newly live:** Netflix (Eightfold), dentsu (Workday `dentsuaegis/DAN_GLOBAL`),
+DoorDash (Greenhouse `doordashusa`).
+
+**New adapter:** `eightfold` — list endpoint + per-job detail fetch, because the
+list returns an empty `job_description`; a list-only version would have shipped
+every posting with no text to score.
+
+**Blocked, with the reason (don't re-litigate without new information):**
+
+| Company | Verdict |
+|---|---|
+| Microsoft | Eightfold multi-tenant host `app.eightfold.ai` 403s every header combo; a control call to Netflix's Eightfold succeeded in the same run, so it's tenant-level bot blocking. Needs a real browser. |
+| Apple | No CSRF token in the search page; `/api/v1/jobmodel/search` 401s, other paths 404. |
+| Uber, Spotify | Careers pages are JS shells with no API path or ATS marker in the HTML. Needs browser capture. |
+| Google | Implementable but expensive — see its note in `companies.yaml`. Results HTML has job ids but no anchor text; detail pages have no ld+json and are ~1.1MB each. Ask before building. |
+| Intuit | Workday tenant is authenticated (401 on every site name). |
+| WPP, Omnicom, Publicis, Havas | Holdco careers pages 404 or carry no ATS handoff at all. They hire through operating companies (GroupM, Ogilvy, BBDO…), so each is 5+ endpoints for roles that are mostly client finance — i.e. excluded by design. Lowest yield on the roster. |
+| LinkedIn | Policy: no LinkedIn scraping (rule 3). |
+
+**Two lessons worth keeping:**
+- **Read the config off the page; don't guess it.** dentsu took seven wrong site
+  names before its careers page yielded `DAN_GLOBAL` directly, and Microsoft's
+  real API host only appeared by grepping its app shell.
+- **Always run a control in the same probe.** The Microsoft 403 only became
+  interpretable because a Netflix call in the same run returned 200 — otherwise
+  it reads as "the runner is blocked" and sends you down the wrong path.
+
 ## Diagnosing endpoints (the probe workflow)
 
 Claude-session sandboxes usually can't reach career sites (proxy policy), but

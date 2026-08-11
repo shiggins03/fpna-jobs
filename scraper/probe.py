@@ -278,6 +278,14 @@ def ats_markers(label, url):
 
 
 def main():
+    """Empty between investigations — see the rounds below for worked examples.
+
+    Convention: write the next round here, push, dispatch `probe`, read the log,
+    record findings in companies.yaml notes, then clear this again.
+    """
+
+
+def round8():
     """Round 8 — last Microsoft attempt, then it gets documented and dropped.
 
     Round 7 found the real host in the app shell: app.eightfold.ai with
