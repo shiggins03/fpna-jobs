@@ -37,14 +37,14 @@
   },
   "oracle_orc:Oracle": {
     "counts": [
-      12,
+      2,
       2,
       2,
       2,
       2
     ],
     "fail_streak": 0,
-    "inventory": 1615,
+    "inventory": 1607,
     "last_run": "2026-08-11"
   },
   "workday:Accenture": {
@@ -52,18 +52,14 @@
       1,
       1,
       1,
-      1,
+      0,
       0
     ],
     "fail_streak": 0,
     "inventory": 2000,
     "last_run": "2026-08-11"
   },
-  "_warnings": [
-    "greenhouse:Pinterest: zero results for 3+ runs (was returning data)",
-    "greenhouse:Datadog: zero results for 3+ runs (was returning data)",
-    "greenhouse:Block: zero results for 3+ runs (was returning data)"
-  ],
+  "_warnings": [],
   "workday:Adobe": {
     "counts": [
       0,
@@ -73,7 +69,7 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 801,
+    "inventory": 795,
     "last_run": "2026-08-11"
   },
   "workday:Salesforce": {
@@ -85,7 +81,7 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 1482,
+    "inventory": 1495,
     "last_run": "2026-08-11"
   },
   "workday:PayPal": {
@@ -102,62 +98,62 @@
   },
   "greenhouse:Airbnb": {
     "counts": [
-      3,
+      1,
       1,
       1,
       1,
       1
     ],
     "fail_streak": 0,
-    "inventory": 182,
+    "inventory": 177,
     "last_run": "2026-08-11"
   },
   "greenhouse:Pinterest": {
     "counts": [
-      2,
+      0,
       0,
       0,
       0,
       0
     ],
     "fail_streak": 0,
-    "inventory": 217,
+    "inventory": 216,
     "last_run": "2026-08-11"
   },
   "greenhouse:Stripe": {
     "counts": [
-      6,
+      2,
       2,
       2,
       2,
       2
     ],
     "fail_streak": 0,
-    "inventory": 562,
+    "inventory": 563,
     "last_run": "2026-08-11"
   },
   "greenhouse:Datadog": {
     "counts": [
-      2,
+      0,
       0,
       0,
       0,
       0
     ],
     "fail_streak": 0,
-    "inventory": 443,
+    "inventory": 441,
     "last_run": "2026-08-11"
   },
   "greenhouse:Block": {
     "counts": [
-      5,
+      0,
       0,
       0,
       0,
       0
     ],
     "fail_streak": 0,
-    "inventory": 190,
+    "inventory": 188,
     "last_run": "2026-08-11"
   }
 }

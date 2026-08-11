@@ -1,10 +1,6 @@
 {
   "updated": "2026-08-11",
-  "warnings": [
-    "greenhouse:Pinterest: zero results for 3+ runs (was returning data)",
-    "greenhouse:Datadog: zero results for 3+ runs (was returning data)",
-    "greenhouse:Block: zero results for 3+ runs (was returning data)"
-  ],
+  "warnings": [],
   "roster": [
     {
       "name": "Amazon",
@@ -452,29 +448,6 @@
       "below_comp": false
     },
     {
-      "id": "6c14a4ea125b12c8",
-      "kind": "direct",
-      "company": "Accenture",
-      "category": "advertising",
-      "title": "Customer Growth Strategy Senior Manager | Financial Services",
-      "location": "New York, One Manhattan West, Corp",
-      "url": "https://accenture.wd103.myworkdayjobs.com/en-US/AccentureCareers/job/New-York-One-Manhattan-West-Corp/Customer-Growth-Strategy-Senior-Manager---Financial-Services_R00337307-1",
-      "posted_date": "Posted 12 Days Ago",
-      "comp": "$122,700 to $317,200",
-      "status": "active",
-      "gone_date": null,
-      "flags": [],
-      "fit": 69,
-      "pivot": 5,
-      "level": "senior_manager",
-      "level_label": "Senior Manager",
-      "gap_severity": "green",
-      "scope": "nyc",
-      "remote": false,
-      "recommendation": "Stretch Apply",
-      "below_comp": false
-    },
-    {
       "id": "d24af102c1e93507",
       "kind": "direct",
       "company": "Oracle",
@@ -493,6 +466,29 @@
       "level_label": "Senior Manager",
       "gap_severity": "yellow",
       "scope": "unknown",
+      "remote": false,
+      "recommendation": "Stretch Apply",
+      "below_comp": false
+    },
+    {
+      "id": "6c14a4ea125b12c8",
+      "kind": "direct",
+      "company": "Accenture",
+      "category": "advertising",
+      "title": "Customer Growth Strategy Senior Manager | Financial Services",
+      "location": "New York, One Manhattan West, Corp",
+      "url": "https://accenture.wd103.myworkdayjobs.com/en-US/AccentureCareers/job/New-York-One-Manhattan-West-Corp/Customer-Growth-Strategy-Senior-Manager---Financial-Services_R00337307-1",
+      "posted_date": "Posted 12 Days Ago",
+      "comp": "$122,700 to $317,200",
+      "status": "gone",
+      "gone_date": "2026-08-11",
+      "flags": [],
+      "fit": 69,
+      "pivot": 5,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
       "remote": false,
       "recommendation": "Stretch Apply",
       "below_comp": false
