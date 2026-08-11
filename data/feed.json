@@ -1,6 +1,10 @@
 {
   "updated": "2026-08-11",
-  "warnings": [],
+  "warnings": [
+    "greenhouse:Pinterest: zero results for 3+ runs (was returning data)",
+    "greenhouse:Datadog: zero results for 3+ runs (was returning data)",
+    "greenhouse:Block: zero results for 3+ runs (was returning data)"
+  ],
   "roster": [
     {
       "name": "Amazon",
@@ -298,7 +302,7 @@
       "fit": 76,
       "pivot": 10,
       "level": "manager",
-      "level_label": "Manager",
+      "level_label": null,
       "gap_severity": "red",
       "scope": "nyc",
       "remote": false,
@@ -323,7 +327,7 @@
       "fit": 76,
       "pivot": 9,
       "level": "manager",
-      "level_label": "Manager",
+      "level_label": null,
       "gap_severity": "green",
       "scope": "unknown",
       "remote": true,
@@ -392,7 +396,7 @@
       "fit": 74,
       "pivot": 9,
       "level": "manager",
-      "level_label": "Manager",
+      "level_label": null,
       "gap_severity": "yellow",
       "scope": "nyc",
       "remote": true,
