@@ -278,6 +278,66 @@ def ats_markers(label, url):
 
 
 def main():
+    """Round 6 — exercise the three new configs end-to-end before enabling.
+
+    Rounds 4-5 identified Netflix + Microsoft as Eightfold and read dentsu's
+    real Workday site name off its careers page. Nothing gets `enabled: true`
+    until the actual adapter returns scoreable records here — the round-1
+    SmartRecruiters lesson (a 200 with zero results looked like verification).
+    """
+    import yaml
+    from pathlib import Path
+    cos = yaml.safe_load(
+        (Path(__file__).resolve().parent.parent / "config" / "companies.yaml")
+        .read_text(encoding="utf-8"))["companies"]
+    by_name = {c["name"]: c for c in cos}
+
+    for name in ("Netflix", "Microsoft", "Dentsu"):
+        section(f"{name} — end-to-end via the real adapter")
+        co = by_name[name]
+        fn = sources.DIRECT_ADAPTERS[co["ats"]]
+        for q in ("financial planning", "finance manager"):
+            print(f"  query={q!r}")
+            show(name, lambda co=co, fn=fn, q=q: run_adapter(name, fn, co, q))
+
+    section("Google — are titles recoverable from the results HTML?")
+
+    def goog2():
+        r = requests.get("https://www.google.com/about/careers/applications/jobs/"
+                         "results/", params={"q": "financial planning analysis"},
+                         headers=BROWSER_UA, timeout=T)
+        h = r.text
+        # Titles sit in the anchor text of the job links in the server HTML; if
+        # they do not, Google needs a browser and is out of scope for a cron.
+        soup = BeautifulSoup(h, "html.parser")
+        rows = []
+        for a in soup.find_all("a", href=re.compile(r"jobs/results/\d+")):
+            t = a.get_text(" ", strip=True)
+            if t:
+                rows.append((a["href"].split("/")[-1][:28], t[:70]))
+        print(f"  anchors with text: {len(rows)}")
+        for rid, t in rows[:8]:
+            print(f"    {rid} | {t}")
+        one = re.search(r"jobs/results/(\d+)", h)
+        if one:
+            d = requests.get("https://www.google.com/about/careers/applications/"
+                             f"jobs/results/{one.group(1)}", headers=BROWSER_UA,
+                             timeout=T)
+            dd = BeautifulSoup(d.text, "html.parser")
+            ld = dd.find("script", {"type": "application/ld+json"})
+            print(f"  detail page -> {d.status_code} len={len(d.text)} "
+                  f"ld+json={'yes' if ld else 'no'}")
+            if ld:
+                print(f"    ld head: {ld.string[:200]!r}")
+            txt = dd.get_text(" ", strip=True)
+            m = FIN_HINT.search(txt)
+            print(f"    finance text present: {bool(m)}")
+            if m:
+                print(f"    ...{txt[max(0, m.start()-120):m.start()+160]!r}")
+    show("google", goog2)
+
+
+def round5():
     """Round 5 — resolve what round 4 left open.
 
     Round 4 settled two: Netflix is Eightfold (count=16 for a finance query)

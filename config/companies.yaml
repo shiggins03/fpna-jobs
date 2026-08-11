@@ -166,19 +166,30 @@ companies:
   - name: Microsoft
     tier: A
     category: bigtech
-    ats: generic_page
-    url: https://jobs.careers.microsoft.com/global/en/search
+    ats: eightfold
+    eightfold_host: jobs.careers.microsoft.com
+    eightfold_domain: microsoft.com
+    job_url_template: https://jobs.careers.microsoft.com/global/en/job/{id}
     enabled: false
-    note: needs a custom adapter — gcsservices.careers.microsoft.com JSON API.
+    note: >-
+      Microsoft runs Eightfold, found sideways in probe round 5 — its documented
+      gcsservices.careers.microsoft.com API fails TLS from the Actions runner
+      (SSLError on every attempt), but the jobs host served an Eightfold app
+      shell. Pending round-6 end-to-end verification of the domain value.
   - name: Netflix
     tier: A
     category: bigtech
-    ats: generic_page
-    url: https://explore.jobs.netflix.net/careers
+    ats: eightfold
+    eightfold_host: explore.jobs.netflix.net
+    eightfold_domain: netflix.com
+    job_url_template: https://explore.jobs.netflix.net/careers/job/{id}
     enabled: false
-    note: needs a custom adapter — Eightfold ATS (explore.jobs.netflix.net
-      /api/apply/v2/jobs). Eightfold is also used by several other targets, so
-      this adapter would pay for itself.
+    note: >-
+      Eightfold, verified in probe round 4 (count=16 for a finance query) and
+      its payload mapped in round 5: the list endpoint returns an EMPTY
+      job_description, so the adapter must fetch the per-job detail call — a
+      list-only implementation would have shipped every Netflix role with no
+      text to score. Pending round-6 end-to-end verification.
   - name: Uber
     tier: A
     category: bigtech
@@ -275,10 +286,16 @@ companies:
   - name: Dentsu
     tier: C
     category: advertising
-    ats: generic_page
-    url: https://www.dentsu.com/careers
+    ats: workday
+    workday_host: dentsuaegis.wd3.myworkdayjobs.com
+    workday_tenant: dentsuaegis
+    workday_site: DAN_GLOBAL
     enabled: false
-    note: ATS unidentified — sweep for ATS markers first.
+    note: >-
+      Workday tenant dentsuaegis, site DAN_GLOBAL — read off the real handoff
+      link on dentsu.com/careers in probe round 5 after seven guessed site names
+      all returned 400. Lesson: get the site name from the page, don't guess it.
+      Pending round-6 end-to-end verification.
   - name: Havas
     tier: C
     category: advertising

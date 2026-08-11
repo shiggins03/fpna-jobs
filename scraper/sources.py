@@ -5,6 +5,7 @@ Direct adapters return (records, ok, inventory): inventory is the source's TOTAL
 visible job count regardless of keyword (aliveness check — 0 or None-when-expected
 means the monitor may be blind, not that no jobs match). Discovery adapters
 return (records, ok)."""
+import datetime as _dt
 import html
 import json
 import os
@@ -165,6 +166,70 @@ def fetch_greenhouse(co, query):
             "description": desc,
         })
     return out, True, len(jobs)
+
+
+def fetch_eightfold(co, query):
+    """Eightfold ATS (explore.jobs.<host>/api/apply/v2/jobs).
+
+    Netflix and Microsoft both run it — Microsoft's own search API host
+    (gcsservices) fails TLS from the runner, but its jobs host serves an
+    Eightfold app, which is how this adapter came to cover two Tier A
+    employers instead of one (probe rounds 4-5, 2026-08-11).
+
+    The list endpoint returns `job_description: ''` — descriptions only exist on
+    the per-job detail call, so this fetches details like the Workday adapter
+    does. `t_create` is a unix timestamp; it is rendered as its own date, the
+    same formatting-only transformation as trimming an ISO timestamp.
+    """
+    host, domain = co["eightfold_host"], co["eightfold_domain"]
+    base = f"https://{host}/api/apply/v2/jobs"
+    params = {"domain": domain, "query": query, "start": 0,
+              "num": co.get("eightfold_num", 25), "sort_by": "relevance"}
+    if co.get("eightfold_location"):
+        params["location"] = co["eightfold_location"]
+    try:
+        r = requests.get(base, params=params, headers=UA, timeout=TIMEOUT)
+        r.raise_for_status()
+        positions = r.json().get("positions") or []
+    except Exception:
+        return [], False, None
+    inventory = None
+    try:
+        inv = requests.get(base, params={"domain": domain, "start": 0, "num": 1},
+                           headers=UA, timeout=TIMEOUT)
+        if inv.ok:
+            inventory = inv.json().get("count")
+    except Exception:
+        pass
+    out = []
+    for p in positions:
+        pid = p.get("id")
+        if not pid:
+            continue
+        desc = _clean_html(p.get("job_description"))
+        if not desc:
+            try:
+                d = requests.get(f"{base}/{pid}", params={"domain": domain},
+                                 headers=UA, timeout=TIMEOUT)
+                if d.ok:
+                    desc = _clean_html(d.json().get("job_description"))
+            except Exception:
+                pass
+        loc = p.get("location")
+        if not loc and p.get("locations"):
+            loc = "; ".join(x for x in p["locations"] if x)
+        posted = p.get("t_create")
+        if posted and str(posted).isdigit():
+            posted = _dt.datetime.utcfromtimestamp(int(posted)).date().isoformat()
+        url = (co.get("job_url_template") or
+               f"https://{host}/careers/job/{{id}}").format(id=pid)
+        out.append({
+            "company": co["name"], "title": p.get("name"),
+            "location": loc, "url": url,
+            "posted_date": posted, "description": desc,
+            "search_matched": desc is None,
+        })
+    return out, True, inventory
 
 
 def fetch_posting_text(url):
@@ -642,4 +707,5 @@ DIRECT_ADAPTERS = {
     "amazon_jobs": fetch_amazon_jobs,
     "avature_feed": fetch_avature_feed,
     "phenom": fetch_phenom,
+    "eightfold": fetch_eightfold,
 }
