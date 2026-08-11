@@ -182,9 +182,40 @@ Inherited lessons worth not relearning:
   - Amazon's 100 relevance-ranked results were almost all Seattle/Bellevue, so
     `loc_queries` runs a New York-scoped pass alongside the unscoped one.
     Amazon descriptions come inline, so each pass costs one request.
-- First baseline run (5 companies, before round 1 landed): 14 active listings,
-  3 at fit 75+, 5 triage entries, 0 health warnings. Skip counts printed by the
-  run are the fastest read on whether a gate is mistuned.
+- **Live board as of the 2026-08-10 evening run: 10 scored listings** (3 at fit
+  75+) plus 5 unscoreable Meta titles, 0 health warnings. Amazon NYC finance
+  managers, two Stripe Finance & Strategy partners, Airbnb Principal Strategic
+  Finance, an Oracle Central FP&A manager, Accenture. Thin but clean — every
+  row is a real senior finance role in scope.
+- Skip counts printed at the end of each run are the fastest read on whether a
+  gate is mistuned. Current shape: excluded title term ~945, outside US ~546,
+  outside NYC/remote ~442, not a finance title ~227, below seniority ~39.
+- **Three bugs the first live runs exposed** (all now have regression tests —
+  this is the pattern to keep: ship, read the actual board, fix what the data
+  shows):
+  1. `unknown_patterns` were substring-searched, so "united states" matched
+     inside "Nashville, TN, United States" and put Tennessee on a NYC board.
+     They are `re.fullmatch`ed now.
+  2. Body-only function matching admitted "Manager, Mid-Market Sales",
+     "Director of Field Sales", "Marketing Operations Lead" and
+     "Sr. Data Scientist" — sales and marketing descriptions are full of
+     forecasting, KPIs, P&L and business partnering. Hence `require.title_terms`
+     and the narrow non-finance title exclusions. **"Sales finance" is
+     deliberately still allowed** — that is real business finance.
+  3. Airbnb's "Pay Range\n$168,000\n—\n$206,000 USD" was missed because the
+     dash class lacked the em-dash and the newlines broke the labelled pattern:
+     a posting *with* a stated range displayed "Not listed". Whenever a card
+     says "Not listed", check whether the parser missed it before believing it.
+- Comp is genuinely absent for Amazon, Oracle and Stripe here: their pay blurb
+  is not in the fields the adapters fetch (Amazon's `search.json` returns
+  description + qualifications only). "Not listed" is honest, not a parser bug.
+  Fixing it would mean a per-job detail fetch — not worth the request budget yet.
+- **Next levers if the board is too thin**, cheapest first: (1) get Intuit,
+  DoorDash, Spotify and the SmartRecruiters tokens right — pure config, one
+  probe round; (2) widen `keywords.yaml: queries` (watch the request budget);
+  (3) an Eightfold adapter, which unlocks Netflix and others at once;
+  (4) an Adzuna key to switch discovery on; (5) ad-holdco operating companies,
+  the most work for the least expected yield.
 - **Deferred on purpose** (need bespoke adapters, not config guesses): Apple,
   Microsoft, Netflix (Eightfold — would pay for itself), Uber, Spotify,
   LinkedIn, Block. Ad holdcos WPP/Omnicom/Dentsu/Havas hire through operating
