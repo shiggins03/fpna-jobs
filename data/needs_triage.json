@@ -1,0 +1,37 @@
+[
+  {
+    "company": "Meta",
+    "url": "https://www.metacareers.com/jobs/3544152862419658/",
+    "note": "employer search matched but posting text unavailable — verify: Director, Corporate Finance",
+    "source": "meta_graphql:Meta",
+    "first_seen": "2026-08-11"
+  },
+  {
+    "company": "Meta",
+    "url": "https://www.metacareers.com/jobs/1975865713070215/",
+    "note": "employer search matched but posting text unavailable — verify: Finance Manager, Infrastructure",
+    "source": "meta_graphql:Meta",
+    "first_seen": "2026-08-11"
+  },
+  {
+    "company": "Meta",
+    "url": "https://www.metacareers.com/jobs/1458720342722020/",
+    "note": "employer search matched but posting text unavailable — verify: Director, Infrastructure Finance",
+    "source": "meta_graphql:Meta",
+    "first_seen": "2026-08-11"
+  },
+  {
+    "company": "Meta",
+    "url": "https://www.metacareers.com/jobs/1253893466685626/",
+    "note": "employer search matched but posting text unavailable — verify: Director, Finance Infrastructure Deals",
+    "source": "meta_graphql:Meta",
+    "first_seen": "2026-08-11"
+  },
+  {
+    "company": "Meta",
+    "url": "https://www.metacareers.com/jobs/1757764105644534/",
+    "note": "employer search matched but posting text unavailable — verify: Director, Business Development - Top Partners",
+    "source": "meta_graphql:Meta",
+    "first_seen": "2026-08-11"
+  }
+]

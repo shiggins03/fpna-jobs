@@ -1,0 +1,43 @@
+{
+  "amazon_jobs:Amazon": {
+    "counts": [
+      5
+    ],
+    "fail_streak": 0,
+    "inventory": 10000,
+    "last_run": "2026-08-11"
+  },
+  "meta_graphql:Meta": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 5,
+    "last_run": "2026-08-11"
+  },
+  "workday:NVIDIA": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 2000,
+    "last_run": "2026-08-11"
+  },
+  "oracle_orc:Oracle": {
+    "counts": [
+      12
+    ],
+    "fail_streak": 0,
+    "inventory": 1641,
+    "last_run": "2026-08-11"
+  },
+  "workday:Accenture": {
+    "counts": [
+      1
+    ],
+    "fail_streak": 0,
+    "inventory": 2000,
+    "last_run": "2026-08-11"
+  },
+  "_warnings": []
+}
