@@ -44,15 +44,15 @@
       2
     ],
     "fail_streak": 0,
-    "inventory": 1604,
+    "inventory": 1603,
     "last_run": "2026-08-11"
   },
   "workday:Accenture": {
     "counts": [
       1,
+      0,
+      0,
       1,
-      0,
-      0,
       1
     ],
     "fail_streak": 0,
@@ -129,7 +129,7 @@
       2
     ],
     "fail_streak": 0,
-    "inventory": 564,
+    "inventory": 565,
     "last_run": "2026-08-11"
   },
   "greenhouse:Datadog": {
@@ -154,6 +154,30 @@
     ],
     "fail_streak": 0,
     "inventory": 188,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:DoorDash": {
+    "counts": [
+      1
+    ],
+    "fail_streak": 0,
+    "inventory": 467,
+    "last_run": "2026-08-11"
+  },
+  "eightfold:Netflix": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 485,
+    "last_run": "2026-08-11"
+  },
+  "workday:Dentsu": {
+    "counts": [
+      1
+    ],
+    "fail_streak": 0,
+    "inventory": 900,
     "last_run": "2026-08-11"
   }
 }

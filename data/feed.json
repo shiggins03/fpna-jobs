@@ -103,8 +103,8 @@
       "tier": "A",
       "ats": "greenhouse",
       "category": "bigtech",
-      "enabled": false,
-      "note": "probe round 1 (2026-08-10) got 404 for the \"doordash\" board token — they have moved off the public Greenhouse board API. Find the current ATS from a job link on careersatdoordash.com before re-enabling."
+      "enabled": true,
+      "note": "the board token is \"doordashusa\", not \"doordash\" — probe round 4 (2026-08-11) verified it at 467 jobs while plain \"doordash\", \"doordashcareers\" and \"doordashinc\" all 404. Round 1's 404 was a wrong guess, not a company that had left Greenhouse; careersatdoordash.com itself 403s bots, so the board API is the only way in."
     },
     {
       "name": "Apple",
@@ -117,18 +117,18 @@
     {
       "name": "Microsoft",
       "tier": "A",
-      "ats": "generic_page",
+      "ats": "eightfold",
       "category": "bigtech",
       "enabled": false,
-      "note": "needs a custom adapter — gcsservices.careers.microsoft.com JSON API."
+      "note": "Microsoft runs Eightfold, found sideways in probe round 5 — its documented gcsservices.careers.microsoft.com API fails TLS from the Actions runner (SSLError on every attempt), but the jobs host served an Eightfold app shell. Round 6 ran the adapter end-to-end and it returned ok=False for both queries, so the domain/path guess is still wrong — do not enable on the strength of the app shell alone."
     },
     {
       "name": "Netflix",
       "tier": "A",
-      "ats": "generic_page",
+      "ats": "eightfold",
       "category": "bigtech",
-      "enabled": false,
-      "note": "needs a custom adapter — Eightfold ATS (explore.jobs.netflix.net /api/apply/v2/jobs). Eightfold is also used by several other targets, so this adapter would pay for itself."
+      "enabled": true,
+      "note": "Eightfold, verified in probe round 4 (count=16 for a finance query) and its payload mapped in round 5: the list endpoint returns an EMPTY job_description, so the adapter must fetch the per-job detail call — a list-only implementation would have shipped every Netflix role with no text to score. Round 6 ran the real adapter end-to-end: inventory 485, full descriptions on every record. Expect most hits to be Los Angeles or overseas — the location gate drops them, which is correct, not breakage."
     },
     {
       "name": "Uber",
@@ -205,10 +205,10 @@
     {
       "name": "Dentsu",
       "tier": "C",
-      "ats": "generic_page",
+      "ats": "workday",
       "category": "advertising",
-      "enabled": false,
-      "note": "ATS unidentified — sweep for ATS markers first."
+      "enabled": true,
+      "note": "Workday tenant dentsuaegis, site DAN_GLOBAL — read off the real handoff link on dentsu.com/careers in probe round 5 after seven guessed site names all returned 400. Lesson: get the site name from the page, don't guess it. Round 6 verified end-to-end: inventory 900, and it surfaced a \"Manager, FP&A\" and a \"Financial Reporting Director\" in New York. This is also the roster's biggest source of client/commercial-finance noise, which is exactly what exclude.title_terms is for."
     },
     {
       "name": "Havas",
@@ -257,6 +257,32 @@
     }
   ],
   "jobs": [
+    {
+      "id": "3807901629b61a04",
+      "kind": "direct",
+      "company": "DoorDash",
+      "category": "bigtech",
+      "title": "Senior Manager, Finance & Strategy - Digital Ordering - SaaS",
+      "location": "San Francisco, CA; New York, NY; Los Angeles, CA; Seattle, WA; Chicago, IL; Boston, MA; United States - Remote",
+      "url": "https://job-boards.greenhouse.io/doordashusa/jobs/7875403",
+      "posted_date": "2026-05-05T21:23:41-04:00",
+      "comp": "$163,200 — $240,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new",
+        "long-posted"
+      ],
+      "fit": 84,
+      "pivot": 7,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": true,
+      "recommendation": "Apply",
+      "below_comp": false
+    },
     {
       "id": "f8b50359e8cb06c1",
       "kind": "direct",
@@ -469,6 +495,31 @@
       "remote": false,
       "recommendation": "Stretch Apply",
       "below_comp": false
+    },
+    {
+      "id": "49d3452a6c2aa594",
+      "kind": "direct",
+      "company": "Dentsu",
+      "category": "advertising",
+      "title": "Manager, FP&A",
+      "location": "New York",
+      "url": "https://dentsuaegis.wd3.myworkdayjobs.com/en-US/DAN_GLOBAL/job/New-York/Manager--FP-A_R1128248",
+      "posted_date": "Posted 13 Days Ago",
+      "comp": "salary range for this position is ($94,000 - $125,000)",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 65,
+      "pivot": 6,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": true,
+      "recommendation": "Stretch Apply",
+      "below_comp": true
     },
     {
       "id": "d24af102c1e93507",
