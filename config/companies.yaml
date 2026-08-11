@@ -60,7 +60,9 @@ companies:
       "extract ids from results HTML, then fetch and scrape each detail page",
       at roughly 15 detail fetches of ~1.1MB per query. That is 10-20x the cost
       of every other adapter here and it is HTML-shape-brittle, so it is a
-      deliberate not-yet rather than a dead end. Ask before building it.
+      deliberate not-yet rather than a dead end. DECLINED by the owner
+      2026-08-11 on cost — not money (public repo, unlimited Actions minutes)
+      but runtime and brittleness. Do NOT build this without asking again.
   - name: NVIDIA
     tier: A
     category: bigtech
