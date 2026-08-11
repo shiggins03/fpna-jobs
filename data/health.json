@@ -1,6 +1,7 @@
 {
   "amazon_jobs:Amazon": {
     "counts": [
+      5,
       5
     ],
     "fail_streak": 0,
@@ -9,6 +10,7 @@
   },
   "meta_graphql:Meta": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -17,6 +19,7 @@
   },
   "workday:NVIDIA": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -25,19 +28,85 @@
   },
   "oracle_orc:Oracle": {
     "counts": [
+      12,
       12
     ],
     "fail_streak": 0,
-    "inventory": 1641,
+    "inventory": 1634,
     "last_run": "2026-08-11"
   },
   "workday:Accenture": {
     "counts": [
+      1,
       1
     ],
     "fail_streak": 0,
     "inventory": 2000,
     "last_run": "2026-08-11"
   },
-  "_warnings": []
+  "_warnings": [],
+  "workday:Adobe": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 801,
+    "last_run": "2026-08-11"
+  },
+  "workday:Salesforce": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 1467,
+    "last_run": "2026-08-11"
+  },
+  "workday:PayPal": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 110,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Airbnb": {
+    "counts": [
+      3
+    ],
+    "fail_streak": 0,
+    "inventory": 181,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Pinterest": {
+    "counts": [
+      2
+    ],
+    "fail_streak": 0,
+    "inventory": 218,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Stripe": {
+    "counts": [
+      6
+    ],
+    "fail_streak": 0,
+    "inventory": 557,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Datadog": {
+    "counts": [
+      2
+    ],
+    "fail_streak": 0,
+    "inventory": 445,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Block": {
+    "counts": [
+      5
+    ],
+    "fail_streak": 0,
+    "inventory": 190,
+    "last_run": "2026-08-11"
+  }
 }
