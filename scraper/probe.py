@@ -371,7 +371,118 @@ def wd_matrix(slug, hosts=("wd1", "wd3", "wd5"), sites=None):
                 pass
 
 
+def marker_hunt(name, urls):
+    """Grep several candidate careers URLs for ANY ATS we already support.
+
+    Round 9 only fetched landing pages and mostly found nothing; the handoff
+    link usually lives on the /search or /jobs subpage. Also looks for phenom,
+    avature, successfactors, eightfold and icims — Mastercard and WBD both
+    showed phenom markers, and we already have adapters for three of those, so
+    a hit here is a config change rather than new code.
+    """
+    pats = {
+        "workday": r"([a-z0-9-]+)\.(wd\d+)\.myworkdayjobs\.com(?:/[a-z]{2}-[A-Z]{2})?/([A-Za-z0-9_-]+)",
+        "phenom": r"([a-z0-9-]+)\.phenompeople\.com",
+        "avature": r"([a-z0-9-]+)\.avature\.net",
+        "successfactors": r"([a-z0-9-]+)\.successfactors\.com",
+        "eightfold": r"([a-z0-9-]+)\.eightfold\.ai",
+        "icims": r"([a-z0-9-]+)\.icims\.com",
+        "greenhouse": r"(?:boards|job-boards)\.greenhouse\.io/([a-z0-9-]+)",
+        "smartrecruiters": r"api\.smartrecruiters\.com/v1/companies/([A-Za-z0-9_-]+)",
+        "oracle": r"([a-z0-9-]+)\.oraclecloud\.com",
+    }
+    for url in urls:
+        try:
+            r = requests.get(url, headers=BROWSER_UA, timeout=20,
+                             allow_redirects=True)
+            found = []
+            for k, pat in pats.items():
+                hits = {m.group(0) for m in re.finditer(pat, r.text, re.I)}
+                if hits:
+                    found.append(f"{k}={sorted(hits)[:2]}")
+            if found:
+                print(f"  {name:<14} {url[:52]:<52} {r.status_code} "
+                      f"{' '.join(found)}", flush=True)
+                return
+        except Exception:
+            pass
+    print(f"  {name:<14} no ATS marker on {len(urls)} candidate pages", flush=True)
+
+
 def main():
+    """Round 11 — the missing sector: NYC financial services and media.
+
+    The board is at 46 roles / 24 at fit 75+ against a 40+ target. Every
+    remaining gain is supply, and the densest untapped pool is exactly the
+    sector with the most senior corporate FP&A seats in this city: banks, asset
+    managers, insurers, index/ratings firms and the media conglomerates. Round
+    10 proved their Workday tenants don't follow the company slug, so this
+    hunts the handoff link on their job-search subpages instead.
+    """
+    section("Amex — verify the Eightfold tenant found in round 9")
+    for dom in ("aexp.com", "americanexpress.com", "amex.com"):
+        try_get(f"  aexp domain={dom}",
+                f"https://aexp.eightfold.ai/api/apply/v2/jobs?domain={dom}"
+                f"&query=finance&start=0&num=3", probe_keys=("count", "positions"))
+
+    section("marker hunt — financial services")
+    for name, urls in (
+            ("BlackRock", ["https://careers.blackrock.com/search-jobs",
+                           "https://careers.blackrock.com/early-careers",
+                           "https://www.blackrock.com/corporate/careers/professionals"]),
+            ("Visa", ["https://usa.visa.com/careers/job-search.html",
+                      "https://jobs.visa.com/search-jobs",
+                      "https://usa.visa.com/careers.html"]),
+            ("Moody's", ["https://careers.moodys.com/search-jobs",
+                         "https://careers.moodys.com/jobs"]),
+            ("S&P Global", ["https://careers.spglobal.com/search-jobs",
+                            "https://www.spglobal.com/en/careers/jobs"]),
+            ("MSCI", ["https://careers.msci.com/search-jobs",
+                      "https://www.msci.com/careers/open-positions"]),
+            ("MetLife", ["https://jobs.metlife.com/search-jobs",
+                         "https://www.metlife.com/about-us/careers/"]),
+            ("Prudential", ["https://jobs.prudential.com/search-jobs",
+                            "https://www.prudential.com/careers"]),
+            ("New York Life", ["https://jobs.newyorklife.com/search-jobs",
+                               "https://www.newyorklife.com/careers"]),
+            ("TIAA", ["https://careers.tiaa.org/search-jobs",
+                      "https://www.tiaa.org/public/about-tiaa/careers"]),
+            ("Equitable", ["https://careers.equitable.com/search-jobs",
+                           "https://equitable.com/about-us/careers"]),
+            ("Citi", ["https://jobs.citi.com/search-jobs",
+                      "https://www.citigroup.com/global/careers"]),
+            ("Blackstone", ["https://www.blackstone.com/careers/open-positions/",
+                            "https://www.blackstone.com/careers/"]),
+            ("KKR", ["https://www.kkr.com/careers", "https://jobs.kkr.com/"]),
+            ("Apollo", ["https://www.apollo.com/careers",
+                        "https://careers.apollo.com/"])):
+        marker_hunt(name, urls)
+
+    section("marker hunt — media & large tech")
+    for name, urls in (
+            ("IBM", ["https://www.ibm.com/careers/search?field_keyword_08[0]=Finance",
+                     "https://www.ibm.com/careers/us-en/"]),
+            ("NBCUniversal", ["https://www.nbcunicareers.com/search-jobs",
+                              "https://jobs.nbcuni.com/search-jobs"]),
+            ("Paramount", ["https://careers.paramount.com/search-jobs",
+                           "https://www.paramount.com/careers/jobs"]),
+            ("WBD", ["https://careers.wbd.com/search-jobs",
+                     "https://careers.wbd.com/global/en/search-results"]),
+            ("Disney", ["https://jobs.disneycareers.com/search-jobs",
+                        "https://www.disneycareers.com/en/search-jobs"]),
+            ("Etsy", ["https://careers.etsy.com/jobs/search",
+                      "https://careers.etsy.com/"]),
+            ("Bloomberg", ["https://bloomberg.com/company/careers/search/",
+                           "https://careers.bloomberg.com/job/search"]),
+            ("SiriusXM", ["https://careers.siriusxm.com/search-jobs",
+                          "https://careers.siriusxm.com/"]),
+            ("Warner Music", ["https://www.wmg.com/careers",
+                              "https://careers.wmg.com/search-jobs"]),
+            ("Spotify", ["https://www.lifeatspotify.com/jobs?l=new-york"])):
+        marker_hunt(name, urls)
+
+
+def round10():
     """Round 10 — second expansion pass, aiming at the owner's 40+ target.
 
     Round 9 took the board to 39 roles / 20 at fit 75+. Reaching 40+ at 75+
