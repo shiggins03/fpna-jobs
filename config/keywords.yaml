@@ -20,10 +20,28 @@ queries:
   - "finance manager"
   - "finance director"
 
-# A qualifying posting must hit at least MIN_FUNCTION_HITS of these somewhere
-# in title or body. These are the planning/analysis verbs that separate FP&A
-# from accounting — deliberately not just the word "finance".
 require:
+  # GATE 1a — the title must place the role IN finance.
+  # Learned from the first live run (2026-08-10): body-only matching let in
+  # "Manager, Mid-Market Sales", "Director of Field Sales", "Marketing
+  # Operations Lead" and "Sr. Data Scientist" — sales and marketing job
+  # descriptions are full of forecasting, KPIs, P&L and business partnering,
+  # so the planning terms alone do not identify a finance role.
+  min_title_hits: 1
+  title_terms:
+    - finance
+    - financial
+    - fp&a
+    - fpna
+    - financial planning
+    - planning & analysis
+    - planning and analysis
+    - business planning
+    - strategic finance
+    - treasury          # excluded by title elsewhere; here only for completeness
+  # GATE 1b — and it must hit at least min_hits of these planning/analysis
+  # terms in title or body. These separate FP&A from accounting; deliberately
+  # not just the word "finance".
   min_hits: 2
   terms:
     - financial planning
@@ -94,6 +112,29 @@ exclude:
     - underwriting
     - credit analyst
     - collections analyst
+    # Added 2026-08-10 after the first live run. These titles carried a finance
+    # word ("Staff Data Scientist, Finance & Business Ops") or sat in a finance
+    # org, but the job is not financial planning. Note "sales finance" is NOT
+    # excluded — that is legitimate business finance — so the patterns here are
+    # narrow on purpose.
+    - data scientist
+    - scientist
+    - product manager
+    - program manager
+    - engineer
+    - engineering manager
+    - sales representative
+    - account executive
+    - field sales
+    - enterprise sales
+    - mid-market sales
+    - sales engineering
+    - sales operations
+    - marketing operations
+    - growth marketing
+    - solution consultant
+    - recruiter
+    - talent acquisition
   # Softer signal: these in the BODY don't disqualify, but they pull the
   # FP&A-transition score down because the role leans back toward the owner's
   # existing experience rather than expanding it.

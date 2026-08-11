@@ -153,7 +153,11 @@ def location_scope(location, cities):
                for p in cities.get("remote_excluded_patterns", [])):
             return "other"
         return "remote"
-    if any(re.search(p, low, re.I) for p in cities.get("unknown_patterns", [])):
+    # fullmatch, not search: "Nashville, TN, United States" is Tennessee, not an
+    # unspecified US location. Searching for 'united states' inside the string
+    # put out-of-scope roles on the board on 2026-08-10.
+    if any(re.fullmatch(p, low.strip(), re.I)
+           for p in cities.get("unknown_patterns", [])):
         return "unknown"
     return "other"
 
@@ -294,6 +298,18 @@ def function_hits(title, body, kw):
     return [t for t in kw["require"]["terms"] if _hit(t, text)]
 
 
+def title_finance_hits(title, kw):
+    """Whether the TITLE places the role in finance.
+
+    Necessary because sales and marketing postings are full of forecasting,
+    KPIs, P&L and business partnering: on the first live run the planning-term
+    gate alone admitted "Manager, Mid-Market Sales" and "Marketing Operations
+    Lead". Checked on the title only — a finance role announces itself there.
+    """
+    t = _words(title)
+    return [x for x in kw["require"].get("title_terms", []) if _hit(x, t)]
+
+
 def function_areas(title, body, roles):
     """Distinct FP&A capability areas the posting covers (keys of
     roles.functions). Breadth across areas is what the transition score
@@ -364,6 +380,8 @@ def qualifies(title, body, location, kw, cities):
         return False, f"outside NYC/remote scope: {location}"
     if seniority_level(title, kw) is None:
         return False, "below seniority floor"
+    if len(title_finance_hits(title, kw)) < kw["require"].get("min_title_hits", 1):
+        return False, "title is not a finance role"
     hits = function_hits(title, body, kw)
     if len(hits) < kw["require"].get("min_hits", 2):
         return False, f"only {len(hits)} planning/analysis signal(s)"

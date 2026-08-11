@@ -22,13 +22,18 @@ remote_rank: 3
 other_us_rank: 9
 
 # Locations that state nothing usable. Kept in scope; never treated as "other".
+# These are matched against the WHOLE stripped location string (re.fullmatch),
+# not searched inside it. That distinction was a live bug on 2026-08-10: as a
+# substring search, 'united states$' matched "Nashville, TN, United States" and
+# put Tennessee roles on a NYC board.
 unknown_patterns:
   - '\d+\s+locations?'
   - 'multiple locations'
   - 'various locations'
   - 'multiple cities'
-  - 'united states$'
-  - '^usa?$'
+  - 'united states'
+  - 'usa?'
+  - 'us'
 
 # Remote wording. A posting is remote-eligible only if it says so; per the
 # owner's rule nothing is inferred. "Hybrid" alone is NOT remote — a hybrid

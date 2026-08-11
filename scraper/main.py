@@ -8,8 +8,8 @@ import yaml
 
 from . import models, sources, site_gen
 from .filters import (blocklisted, city_rank, excluded, extract_stated_comp,
-                      function_hits, is_non_us, location_scope, qualifies,
-                      score_job, seniority_level)
+                      is_non_us, location_scope, qualifies, score_job,
+                      seniority_level, title_finance_hits)
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "config"
@@ -81,9 +81,25 @@ def run():
     # are now out of scope leave immediately instead of lingering two runs and
     # then being mislabelled "no longer listed" — they are still listed, just
     # not for us.
+    # The same reasoning covers the title-based gates (excluded term, "is this
+    # even a finance role", seniority floor): tightening them must reach jobs
+    # already stored, or yesterday's mistakes live on the board forever and then
+    # get mislabelled "no longer listed" when qualification quietly stops
+    # matching them.
+    # Deliberately NOT re-applied: the planning-signal gate, which reads the
+    # description. A posting whose description failed to fetch this run would be
+    # purged for a fetch problem rather than for what it is.
+    def unqualified_on_title(j):
+        title = j.get("title")
+        return (excluded(title, kw)
+                or len(title_finance_hits(title, kw))
+                < kw["require"].get("min_title_hits", 1)
+                or seniority_level(title, kw) is None)
+
     dropped_scope = [k for k, j in store.items()
                      if is_non_us(j.get("location"))
-                     or location_scope(j.get("location"), cities) == "other"]
+                     or location_scope(j.get("location"), cities) == "other"
+                     or unqualified_on_title(j)]
     for k in dropped_scope:
         del store[k]
     for j in store.values():
@@ -159,7 +175,7 @@ def run():
                 # 1), and without this guard every one of them would land in
                 # the triage queue on every single run.
                 if (r.get("search_matched") and "planning/analysis" in reason
-                        and function_hits(r.get("title"), None, kw)
+                        and title_finance_hits(r.get("title"), kw)
                         and seniority_level(r.get("title"), kw)
                         and not excluded(r.get("title"), kw)):
                     add_triage(r["company"], r["url"],

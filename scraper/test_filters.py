@@ -96,6 +96,13 @@ check("austin out", location_scope("Austin, TX", CITIES), "other")
 check("multi unknown", location_scope("4 Locations", CITIES), "unknown")
 check("none unknown", location_scope(None, CITIES), "unknown")
 check("us only unknown", location_scope("United States", CITIES), "unknown")
+# REGRESSION 2026-08-10: unknown_patterns were searched instead of fullmatched,
+# so 'united states' matched inside a real city string and put Tennessee roles
+# on a NYC board.
+check("nashville is not unknown",
+      location_scope("Nashville, TN, United States", CITIES), "other")
+check("santa clara is not unknown",
+      location_scope("US, CA, Santa Clara", CITIES), "other")
 # non-US scope is a separate, earlier gate
 check("india non-us", is_non_us("Bengaluru, India"), True)
 check("greece ny is us", is_non_us("Greece, NY"), False)
@@ -123,6 +130,32 @@ check("analyst rejected", ok, False)
 ok, why = qualifies("Finance Manager", "Support the team with forecasting.",
                     "New York, NY", KW, CITIES)
 check("single signal rejected", ok, False)
+
+# REGRESSION 2026-08-10: sales and marketing postings are full of forecasting,
+# KPIs, P&L and business partnering, so the planning-term gate alone admitted
+# them. The title must place the role in finance.
+SALES_BODY = """
+Own the forecast for your territory, partner with business leaders across the
+org, manage the P&L for your book, build financial models for deal structures
+and report KPIs to executive leadership. Budgeting input required.
+"""
+for bad_title in ("Manager, Mid-Market Sales", "Director of Field Sales - NYC",
+                  "Marketing Operations Lead", "Head of Enterprise Sales",
+                  "Sr. Data Scientist, Performance Marketing",
+                  "Staff Product Data Scientist, Lending",
+                  "Product Manager, Advanced Insights & Modeling",
+                  "Regional Manager, Sales Engineering"):
+    ok, why = qualifies(bad_title, SALES_BODY, "New York, NY", KW, CITIES)
+    check(f"non-finance rejected: {bad_title}", ok, False)
+# ...while real finance titles must survive the same gate
+for good_title in ("Finance Manager, Hub Delivery Finance",
+                   "Senior Finance Manager, Cloud Infrastructure",
+                   "Finance and Strategy Partner",
+                   "Sr. Central FP&A Manager, Sales & Marketing",
+                   "Director, Financial Planning & Analysis",
+                   "Manager, Sales Finance"):
+    ok, why = qualifies(good_title, FPNA_BODY, "New York, NY", KW, CITIES)
+    check(f"finance kept: {good_title}", ok, True)
 
 # ---- scoring --------------------------------------------------------------
 strong = {"title": "Director, FP&A", "description": FPNA_BODY,
