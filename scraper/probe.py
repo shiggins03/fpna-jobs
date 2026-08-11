@@ -278,6 +278,38 @@ def ats_markers(label, url):
 
 
 def main():
+    """Round 8 — last Microsoft attempt, then it gets documented and dropped.
+
+    Round 7 found the real host in the app shell: app.eightfold.ai with
+    domain=microsoft.com (Eightfold's multi-tenant host, not Microsoft's own
+    domain — which is why every microsoft.com path returned the SPA shell).
+    That host answers 403 from the local sandbox under any UA, so the question
+    is whether it wants a Referer or simply blocks non-browser callers.
+    """
+    section("Microsoft — app.eightfold.ai access")
+    base = "https://app.eightfold.ai/api/apply/v2/jobs"
+    q = "?domain=microsoft.com&query=finance&start=0&num=3"
+    ref = {"Referer": "https://jobs.careers.microsoft.com/",
+           "Origin": "https://jobs.careers.microsoft.com"}
+    try_get("  browser UA only", base + q, probe_keys=("count", "positions"))
+    try_get("  browser UA + referer", base + q,
+            ua={**BROWSER_UA, **ref, "Accept": "application/json"},
+            probe_keys=("count", "positions"))
+    try_get("  adapter UA + referer", base + q,
+            ua={**ADAPTER_UA, **ref}, probe_keys=("count", "positions"))
+    try_get("  netflix host, ms domain",
+            "https://explore.jobs.netflix.net/api/apply/v2/jobs"
+            "?domain=microsoft.com&query=finance&start=0&num=3",
+            probe_keys=("count", "positions"))
+    # Control: the Netflix call still works from this runner, so a 403 above is
+    # about this host/tenant and not about the runner's egress.
+    try_get("  CONTROL netflix/netflix",
+            "https://explore.jobs.netflix.net/api/apply/v2/jobs"
+            "?domain=netflix.com&query=finance&start=0&num=2",
+            probe_keys=("count",))
+
+
+def round7():
     """Round 7 — Microsoft only. Ask the app shell what its Eightfold domain is.
 
     Round 6's guess (domain=microsoft.com) returned ok=False. Rather than guess
