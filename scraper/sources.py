@@ -194,12 +194,20 @@ def fetch_amazon_jobs(co, query):
     nonsense query returns 0 hits (verified 2026-07-30 in unifier-jobs), so no
     echo guard is needed. One query per call — main.run() merges the query set."""
     out, seen = [], set()
-    for q in (query,):
+    # `loc_queries` matters more than it looks: search.json returns 100 results
+    # ranked by relevance across all of the US, and probe round 1 showed those
+    # 100 were almost entirely Seattle/Bellevue for every finance query — NYC
+    # postings exist but never reach the page. Configuring a location-scoped
+    # pass alongside the unscoped one is what makes Amazon usable here.
+    # Descriptions come inline, so each pass is ONE request with no per-job
+    # detail fetch.
+    for loc_q in (co.get("loc_queries") or [None]):
+        params = {"base_query": query, "result_limit": 100, "country": "USA"}
+        if loc_q:
+            params["loc_query"] = loc_q
         try:
             r = requests.get("https://www.amazon.jobs/en/search.json",
-                             params={"base_query": q, "result_limit": 100,
-                                     "country": "USA"},
-                             headers=UA, timeout=TIMEOUT)
+                             params=params, headers=UA, timeout=TIMEOUT)
             r.raise_for_status()
             jobs = r.json().get("jobs", [])
         except Exception:

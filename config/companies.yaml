@@ -22,6 +22,10 @@ companies:
     tier: A
     category: bigtech
     ats: amazon_jobs
+    # See the comment in fetch_amazon_jobs: the unscoped pass is dominated by
+    # Seattle/Bellevue for every finance query, so a New York-scoped pass runs
+    # alongside it. Both passes are merged on URL.
+    loc_queries: ["New York", null]
     enabled: true
     note: public search.json, full-text over the posting body; endpoint reused
       from unifier-jobs where it was live-verified 2026-07-30. Amazon's NYC
@@ -42,9 +46,14 @@ companies:
     ats: google_careers
     url: https://careers.google.com/api/v3/search/?q={query}&location=New%20York%2C%20NY
     enabled: false
-    note: unifier-jobs monitored Google via generic_page keyword check, which is
-      useless here (every careers page says "finance"). This needs the real
-      careers API verified — first probe target.
+    note: >-
+      unifier-jobs monitored Google via a generic_page keyword check, which is
+      useless here (every careers page contains the word "finance"). Probe
+      round 1 (2026-08-10) ruled out both v3 search shapes: careers.google.com
+      /api/v3/search returned 404 JSON and the www.google.com/about/careers
+      /applications/api/v3/search path returned a 404 HTML page. Needs a fresh
+      capture of what the live careers UI actually calls (browser XHR sniff,
+      the technique that cracked Meta in unifier-jobs).
   - name: NVIDIA
     tier: A
     category: bigtech
@@ -63,9 +72,9 @@ companies:
     workday_host: adobe.wd5.myworkdayjobs.com
     workday_tenant: adobe
     workday_site: external_experienced
-    enabled: false
-    note: standard Workday tenant guess — verify host/tenant/site in the first
-      batch probe before enabling.
+    enabled: true
+    note: cxs verified by probe round 1 on 2026-08-10 (200, inventory 801). The
+      AdobeCareers site name is a 404 — external_experienced is the right one.
   - name: Salesforce
     tier: A
     category: bigtech
@@ -73,8 +82,9 @@ companies:
     workday_host: salesforce.wd12.myworkdayjobs.com
     workday_tenant: salesforce
     workday_site: External_Career_Site
-    enabled: false
-    note: Workday tenant guess — batch probe.
+    enabled: true
+    note: cxs verified by probe round 1 on 2026-08-10 (200, inventory 1467).
+      Host matters — wd12 works, wd1 answers 422 for the same tenant/site.
   - name: Intuit
     tier: A
     category: bigtech
@@ -83,7 +93,10 @@ companies:
     workday_tenant: intuit
     workday_site: intuitcareers
     enabled: false
-    note: Workday tenant guess — batch probe.
+    note: probe round 1 (2026-08-10) got 401 for both intuitcareers and
+      IntuitExternalCareerSite on wd1 — authenticated tenant, not a wrong site
+      name. Find the real host/site from a jobs link on intuit.com/careers
+      before guessing again.
   - name: PayPal
     tier: A
     category: bigtech
@@ -91,45 +104,50 @@ companies:
     workday_host: paypal.wd1.myworkdayjobs.com
     workday_tenant: paypal
     workday_site: jobs
-    enabled: false
-    note: Workday tenant guess — batch probe.
+    enabled: true
+    note: cxs verified by probe round 1 on 2026-08-10 (200, inventory 110).
+      That inventory is small for PayPal — if the board looks thin, check
+      whether this site holds only part of their req population.
   - name: Airbnb
     tier: A
     category: bigtech
     ats: greenhouse
     greenhouse_board: airbnb
-    enabled: false
-    note: Greenhouse board-token guess — batch probe. Greenhouse returns the
-      whole board and filters client-side, so one request covers every query.
+    enabled: true
+    note: verified by probe round 1 on 2026-08-10 (200, 181 jobs on the board).
+      Greenhouse returns the whole board and we filter client-side, so one
+      request covers every query — see queries_for() in main.py.
   - name: Pinterest
     tier: A
     category: bigtech
     ats: greenhouse
     greenhouse_board: pinterest
-    enabled: false
-    note: Greenhouse board-token guess — batch probe.
+    enabled: true
+    note: verified by probe round 1 on 2026-08-10 (200, 218 jobs).
   - name: Stripe
     tier: A
     category: bigtech
     ats: greenhouse
     greenhouse_board: stripe
-    enabled: false
-    note: Greenhouse board-token guess — batch probe.
+    enabled: true
+    note: verified by probe round 1 on 2026-08-10 (200, 557 jobs).
   - name: Datadog
     tier: A
     category: bigtech
     ats: greenhouse
     greenhouse_board: datadog
-    enabled: false
-    note: Greenhouse board-token guess — batch probe. NYC-headquartered, so a
-      high share of its finance org is in scope.
+    enabled: true
+    note: verified by probe round 1 on 2026-08-10 (200, 445 jobs).
+      NYC-headquartered, so a high share of its finance org is in scope.
   - name: DoorDash
     tier: A
     category: bigtech
     ats: greenhouse
     greenhouse_board: doordash
     enabled: false
-    note: Greenhouse board-token guess — batch probe.
+    note: probe round 1 (2026-08-10) got 404 for the "doordash" board token —
+      they have moved off the public Greenhouse board API. Find the current ATS
+      from a job link on careersatdoordash.com before re-enabling.
 
   # ---------------- Tier A / needs a custom adapter ----------------
   # Deliberately deferred from v1 (owner's call: ship a thin board fast rather
@@ -172,7 +190,8 @@ companies:
     ats: generic_page
     url: https://www.lifeatspotify.com/jobs
     enabled: false
-    note: needs a custom adapter — lifeatspotify.com/api/jobs.
+    note: needs a custom adapter — lifeatspotify.com/api/jobs. Probe round 1
+      also ruled out a "spotify" Greenhouse board (404).
   - name: LinkedIn
     tier: A
     category: bigtech
@@ -185,13 +204,11 @@ companies:
   - name: Block
     tier: A
     category: bigtech
-    ats: generic_page
-    url: https://block.xyz/careers/jobs
-    enabled: false
-    note: >-
-      ATS unidentified — sweep the careers page for
-      myworkdayjobs/greenhouse/lever/ashby markers before guessing (the
-      unifier-jobs lesson: a brochure careers page is not the real ATS portal).
+    ats: greenhouse
+    greenhouse_board: block
+    enabled: true
+    note: verified by probe round 1 on 2026-08-10 (200, 190 jobs) — the
+      "block" Greenhouse board token is live, so no custom adapter needed.
 
   # ---------------- Tier B / large tech & enterprise ----------------
   - name: Oracle
@@ -230,8 +247,13 @@ companies:
     ats: smartrecruiters
     smartrecruiters_company: PublicisGroupe
     enabled: false
-    note: SmartRecruiters company-token guess — batch probe. The adapter itself
-      is proven (built for Turner & Townsend in unifier-jobs).
+    note: >-
+      probe round 1 (2026-08-10): the postings API answers 200 with
+      totalFound=0 for PublicisGroupe, Publicis, Havas and dentsu alike, so a
+      200 here does not mean the token is right — an unknown company returns an
+      empty result, not a 404. Read the real token off a live SmartRecruiters
+      apply URL before enabling. The adapter itself is proven (built for
+      Turner & Townsend in unifier-jobs).
   - name: WPP
     tier: C
     category: advertising

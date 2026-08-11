@@ -158,15 +158,33 @@ Inherited lessons worth not relearning:
   longer hardcodes a second "Primavera" query, and `fetch_google_careers`
   templates `{query}` into its configured URL (it previously took a fixed
   single-keyword URL).
-- **Live on day one (endpoints reused from unifier-jobs, verified there):**
-  Amazon, Meta, NVIDIA, Accenture, Oracle. Everything else ships **disabled**
-  with a note, and shows greyed on the dashboard.
-- **Probe round 1 is written and waiting in `probe.py:main()`**: Workday tenant
-  guesses (Adobe, Salesforce, Intuit, PayPal), Greenhouse board tokens
-  (Airbnb, Pinterest, Stripe, Datadog, DoorDash, Block, Spotify),
-  SmartRecruiters tokens (Publicis, Havas, dentsu), the Google careers API
-  shape, and an end-to-end FP&A-query run of the five enabled adapters.
-  Dispatch it, then enable what verifies.
+- **13 of 27 companies live.** Reused from unifier-jobs: Amazon, Meta, NVIDIA,
+  Accenture, Oracle. Added by probe round 1: Adobe, Salesforce, PayPal
+  (Workday), Airbnb, Pinterest, Stripe, Datadog, Block (Greenhouse).
+- **Probe round 1 verdicts (2026-08-10)** — per-company detail is in
+  `companies.yaml` notes; the transferable lessons:
+  - Workday host and site name both matter: `salesforce` works on wd12 and
+    422s on wd1; Adobe is `external_experienced`, not `AdobeCareers`.
+  - Intuit's Workday answers **401** for every site name — authenticated
+    tenant, not a wrong guess. Don't keep guessing site names at a 401.
+  - Greenhouse board tokens: airbnb/pinterest/stripe/datadog/block live;
+    doordash and spotify 404 (moved off the public board API). Block needed no
+    custom adapter after all.
+  - **SmartRecruiters gives a false green**: an unknown company token returns
+    200 with `totalFound=0`, not a 404. All four guesses looked "fine" and were
+    all wrong. Read the token off a live apply URL.
+  - Both Google careers v3 search shapes 404. Needs an XHR capture from the
+    live careers UI (the technique that cracked Meta in unifier-jobs).
+  - Meta returns five fuzzy hits per query with **no descriptions** —
+    "Planning Lead" for a financial-planning query. `main.run()` now guards the
+    triage path with a title-only function/seniority/exclusion check, or Meta
+    would refill the triage queue on every run.
+  - Amazon's 100 relevance-ranked results were almost all Seattle/Bellevue, so
+    `loc_queries` runs a New York-scoped pass alongside the unscoped one.
+    Amazon descriptions come inline, so each pass costs one request.
+- First baseline run (5 companies, before round 1 landed): 14 active listings,
+  3 at fit 75+, 5 triage entries, 0 health warnings. Skip counts printed by the
+  run are the fastest read on whether a gate is mistuned.
 - **Deferred on purpose** (need bespoke adapters, not config guesses): Apple,
   Microsoft, Netflix (Eightfold — would pay for itself), Uber, Spotify,
   LinkedIn, Block. Ad holdcos WPP/Omnicom/Dentsu/Havas hire through operating

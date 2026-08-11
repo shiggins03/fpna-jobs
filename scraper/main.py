@@ -7,8 +7,9 @@ from pathlib import Path
 import yaml
 
 from . import models, sources, site_gen
-from .filters import (blocklisted, city_rank, extract_stated_comp, is_non_us,
-                      location_scope, qualifies, score_job)
+from .filters import (blocklisted, city_rank, excluded, extract_stated_comp,
+                      function_hits, is_non_us, location_scope, qualifies,
+                      score_job, seniority_level)
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "config"
@@ -151,8 +152,16 @@ def run():
                 note_skip(reason)
                 # The employer's own search matched but we couldn't read the
                 # posting text — can't judge it, so a human should look rather
-                # than it vanishing silently.
-                if r.get("search_matched") and "planning/analysis" in reason:
+                # than it vanishing silently. Guarded by a title-only check:
+                # Meta's search returns five fuzzy hits per query with no
+                # description at all ("Planning Lead", "Capacity Strategy &
+                # Planning Manager" for a financial-planning query, probe round
+                # 1), and without this guard every one of them would land in
+                # the triage queue on every single run.
+                if (r.get("search_matched") and "planning/analysis" in reason
+                        and function_hits(r.get("title"), None, kw)
+                        and seniority_level(r.get("title"), kw)
+                        and not excluded(r.get("title"), kw)):
                     add_triage(r["company"], r["url"],
                                f"employer search matched but posting text "
                                f"unavailable — verify: {r.get('title')}", src)
