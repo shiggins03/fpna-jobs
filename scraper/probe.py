@@ -145,10 +145,55 @@ def amazon_pay(job_id):
             print(f"  {label}: EXC {type(e).__name__}: {str(e)[:160]}")
 
 
+def amazon_pay_page(job_id):
+    """Round 2 proved no search.json field holds a dollar figure. Try the
+    detail endpoint with an explicit Accept (it 406'd on the default) and the
+    rendered job page, and locate a stable container for the pay paragraph."""
+    money = re.compile(r"\$[\d,]{4,}")
+    try:
+        r = requests.get(f"https://www.amazon.jobs/en/jobs/{job_id}.json",
+                         headers={**ADAPTER_UA, "Accept": "application/json"},
+                         timeout=T)
+        print(f"  detail.json (Accept set) -> {r.status_code} len={len(r.text)} "
+              f"money={bool(money.search(r.text))}")
+        if r.ok:
+            for k, v in sorted((r.json().get("job") or r.json()).items()):
+                s = "" if v is None else str(v)
+                if money.search(s):
+                    m = money.search(s)
+                    print(f"    FIELD {k}: ...{s[max(0, m.start()-160):m.start()+110]}...")
+    except Exception as e:
+        print(f"  detail.json: EXC {type(e).__name__}: {str(e)[:140]}")
+
+    for ua_name, ua in (("adapter-UA", ADAPTER_UA), ("browser-UA", BROWSER_UA)):
+        try:
+            r = requests.get(f"https://www.amazon.jobs/en/jobs/{job_id}", headers=ua,
+                             timeout=T)
+            hits = money.findall(r.text)
+            print(f"  page {ua_name} -> {r.status_code} len={len(r.text)} "
+                  f"money-hits={len(hits)}")
+            if r.ok and hits:
+                soup = BeautifulSoup(r.text, "html.parser")
+                text = soup.get_text("\n")
+                m = money.search(text)
+                if m:
+                    print("    TEXT: ..."
+                          + re.sub(r"\s+", " ",
+                                   text[max(0, m.start() - 220):m.start() + 160])
+                          + "...")
+                for tag in soup.find_all(attrs={"class": True}):
+                    t = tag.get_text(" ", strip=True)
+                    if money.search(t) and len(t) < 900:
+                        print(f"    CONTAINER class={tag.get('class')} len={len(t)}")
+                        break
+        except Exception as e:
+            print(f"  page {ua_name}: EXC {type(e).__name__}: {str(e)[:140]}")
+
+
 def main():
-    """Round 2 — find Amazon's pay field. See amazon_pay()."""
-    section("round 2 — amazon pay location")
-    amazon_pay(10488409)
+    """Round 3 — can we read Amazon's pay paragraph at all?"""
+    section("round 3 — amazon pay, detail endpoint + rendered page")
+    amazon_pay_page(10488409)
 
 
 def round1():
