@@ -597,3 +597,167 @@ companies:
     enabled: true
     note: host/tenant/site read off careers.bms.com in round 9. NYC HQ with
       a large corporate finance org.
+
+  # ---------------- Roster expansion 2, probe round 10 (2026-08-11) ----
+  # Second pass for volume, after round 9 got the board to 39 roles / 20 at
+  # fit 75+. Same rule: every token verified by a live board call, job count
+  # in the note. A parallel brute-force hunt for the Workday tenants of the
+  # big financial-services and media employers (Visa, BlackRock, Moody's,
+  # S&P, MSCI, IBM, Disney, Paramount, NBCU, Etsy, the NYC insurers) tried
+  # 25 slugs x 15 host/site combinations and hit NOTHING — their tenant
+  # names don't follow the company slug, so that route needs each careers
+  # page to expose a job link. Still the biggest untapped pool in this city.
+  - name: OpenAI
+    tier: A
+    category: tech
+    ats: ashby
+    ashby_org: openai
+    enabled: true
+    note: verified by probe round 10 (736 jobs, 619 with a stated pay tier — the single richest priced board on the roster).
+  - name: Anthropic
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: anthropic
+    enabled: true
+    note: verified by probe round 10 (400 jobs).
+  - name: Scale AI
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: scaleai
+    enabled: true
+    note: verified by probe round 10 (210 jobs).
+  - name: Flexport
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: flexport
+    enabled: true
+    note: verified by probe round 10 (157 jobs).
+  - name: ClickHouse
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: clickhouse
+    enabled: true
+    note: verified by probe round 10 (176 jobs (also on Ashby — Greenhouse chosen so the same board isn't fetched twice)).
+  - name: Vercel
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: vercel
+    enabled: true
+    note: verified by probe round 10 (84 jobs).
+  - name: Duolingo
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: duolingo
+    enabled: true
+    note: verified by probe round 10 (61 jobs — NYC-heavy finance org).
+  - name: Mercury
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: mercury
+    enabled: true
+    note: verified by probe round 10 (57 jobs).
+  - name: Fireblocks
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: fireblocks
+    enabled: true
+    note: verified by probe round 10 (71 jobs — NYC HQ).
+  - name: Taboola
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: taboola
+    enabled: true
+    note: verified by probe round 10 (95 jobs — NYC HQ).
+  - name: Cockroach Labs
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: cockroachlabs
+    enabled: true
+    note: verified by probe round 10 (32 jobs — NYC HQ).
+  - name: Starburst
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: starburst
+    enabled: true
+    note: verified by probe round 10 (16 jobs).
+  - name: SeatGeek
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: seatgeek
+    enabled: true
+    note: verified by probe round 10 (26 jobs — NYC HQ).
+  - name: Octave
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: octave
+    enabled: true
+    note: verified by probe round 10 (27 jobs).
+  - name: Trumid
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: trumid
+    enabled: true
+    note: verified by probe round 10 (3 jobs — NYC HQ, fixed-income trading).
+  - name: Headway
+    tier: B
+    category: tech
+    ats: ashby
+    ashby_org: headway
+    enabled: true
+    note: verified by probe round 10 (74 jobs, 66 priced — NYC HQ).
+  - name: Paxos
+    tier: B
+    category: tech
+    ats: ashby
+    ashby_org: paxos
+    enabled: true
+    note: verified by probe round 10 (13 jobs, 10 priced — NYC HQ).
+  - name: Lemonade
+    tier: B
+    category: tech
+    ats: ashby
+    ashby_org: lemonade
+    enabled: true
+    note: verified by probe round 10 (29 jobs — NYC HQ).
+  - name: Kin Insurance
+    tier: B
+    category: tech
+    ats: ashby
+    ashby_org: kin
+    enabled: true
+    note: verified by probe round 10 (22 jobs, all 22 priced).
+  - name: Temporal
+    tier: B
+    category: tech
+    ats: ashby
+    ashby_org: temporal
+    enabled: true
+    note: verified by probe round 10 (52 jobs).
+  - name: Linear
+    tier: B
+    category: tech
+    ats: ashby
+    ashby_org: linear
+    enabled: true
+    note: verified by probe round 10 (31 jobs).
+  - name: 1Password
+    tier: B
+    category: tech
+    ats: ashby
+    ashby_org: 1password
+    enabled: true
+    note: verified by probe round 10 (60 jobs).
