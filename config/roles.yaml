@@ -1,0 +1,141 @@
+# Derived scoring inputs. NOTHING here is displayed as a claim about the
+# posting — these term lists drive the Fit Score, the FP&A Transition Score,
+# the gap flags and the sort. Same category as unifier-jobs' role classifier:
+# a derived tag, marked as derived in the UI, while title/comp/location/date/
+# description always render verbatim. Tune the lists, no code change needed.
+
+# ---- FP&A capability areas -------------------------------------------------
+# The FP&A Transition Score (1-10) counts how many DISTINCT areas a posting
+# covers. Breadth is the point: a role touching six areas expands the resume
+# more than one that mentions "forecasting" nine times.
+functions:
+  corporate_fpna:
+    label: Corporate FP&A
+    terms: [corporate fp&a, corporate finance, fp&a, financial planning and analysis,
+            central finance, corporate planning]
+  planning_cycle:
+    label: AOP / budget / long-range planning
+    terms: [annual operating plan, annual plan, aop, annual budget, budget cycle,
+            budgeting process, long-range plan, long range plan, lrp, 3-year plan,
+            five-year plan, planning cycle, planning process, quarterly planning]
+  pl_ownership:
+    label: P&L ownership
+    terms: [p&l ownership, own the p&l, full p&l, profit and loss, p&l management,
+            p&l responsibility, bottom line, gross margin, contribution margin]
+  opex_headcount:
+    label: OpEx & headcount planning
+    terms: [opex, operating expense, operating expenses, cost center, headcount planning,
+            headcount, hiring plan, workforce planning, spend management, cost management]
+  strategic_finance:
+    label: Strategic finance
+    terms: [strategic finance, financial strategy, strategic planning, capital allocation,
+            investment analysis, business case, roi analysis, m&a, corporate development,
+            long-term strategy]
+  business_partnering:
+    label: Business partnering & decision support
+    terms: [business partner, business partnering, decision support, thought partner,
+            partner with, cross-functional, stakeholder management, advise leadership]
+  business_unit_finance:
+    label: Business-unit / product finance
+    terms: [business unit finance, bu finance, product finance, segment finance,
+            business finance, divisional finance, product p&l, category finance]
+  exec_reporting:
+    label: Executive & board reporting
+    terms: [executive reporting, board reporting, cfo reporting, executive presentation,
+            board deck, leadership reviews, monthly business review, mbr, qbr,
+            operating review]
+  modeling:
+    label: Modeling & scenario planning
+    terms: [financial modeling, financial model, three-statement, scenario planning,
+            scenario analysis, sensitivity analysis, driver-based, cohort model,
+            unit economics]
+  metrics:
+    label: KPI & metrics development
+    terms: [kpi, key performance indicator, metrics development, dashboard,
+            performance metrics, north star metric, reporting automation]
+
+# ---- The owner's existing experience --------------------------------------
+# Drives the Transferability component of the Fit Score (30% weight) and the
+# "why this matches" line. These are the things already on the resume, so a
+# posting asking for them is a point of leverage, not a gap.
+transferable:
+  revenue_forecasting: [revenue forecast, revenue forecasting, revenue planning, forecasting, forecast]
+  variance: [variance analysis, budget vs actual, actual vs plan, plan vs actual]
+  scenario: [scenario model, scenario planning, scenario analysis, sensitivity]
+  margin: [margin analysis, profitability analysis, margin, profitability]
+  reporting: [financial reporting, management reporting, monthly reporting, quarterly reporting]
+  exec: [executive reporting, cfo, executive presentation, senior leadership, c-suite]
+  modeling: [financial modeling, financial model, excel modeling, advanced excel]
+  budgeting: [annual budget, budgeting, budget process]
+  headcount: [headcount, staffing, resource planning, utilization]
+  pricing: [pricing, rate card, compensation model, pricing model]
+  systems: [sap, hyperion, oracle hyperion, essbase, microsoft dynamics, dynamics 365,
+            netsuite, anaplan, adaptive insights, tm1, onestream]
+  leadership: [manage a team, lead a team, people management, direct reports,
+               manage analysts, build a team, mentor]
+  close: [month-end, monthly close, quarterly close, working capital]
+
+# ---- Genuine gaps ---------------------------------------------------------
+# Requirements the owner does NOT clearly have. severity:
+#   green  = easily transferable from existing experience
+#   yellow = learnable / reasonable stretch
+#   red    = real qualification barrier, likely screens the resume out
+# A posting's overall gap severity is the WORST severity present.
+gaps:
+  full_pl:
+    label: Full corporate P&L ownership
+    severity: yellow
+    terms: [own the full p&l, full p&l ownership, end-to-end p&l, complete p&l]
+  long_range:
+    label: Long-range planning
+    severity: green
+    terms: [long-range plan, long range plan, lrp, five-year plan, 3-year plan]
+  product_finance:
+    label: Product finance
+    severity: yellow
+    terms: [product finance, product p&l, product economics, feature-level]
+  capex:
+    label: CapEx planning
+    severity: yellow
+    terms: [capex, capital expenditure, capital planning, capital budget, capitalization]
+  corporate_opex:
+    label: Corporate OpEx planning
+    severity: green
+    terms: [corporate opex, g&a planning, cost center planning, opex planning]
+  sql:
+    label: Advanced SQL / data tooling
+    severity: red
+    terms: [sql, python, tableau, looker, power bi, snowflake, databricks, dbt,
+            data warehouse, etl]
+  investment_modeling:
+    label: Investment / valuation modeling
+    severity: red
+    terms: [dcf, valuation model, discounted cash flow, irr, npv analysis,
+            investment memo, diligence model]
+  public_company:
+    label: Public-company reporting cycle
+    severity: green
+    terms: [earnings, guidance, street, sec reporting, 10-q, 10-k, investor]
+
+# A gap only counts when the posting states it AND the owner's transferable
+# terms don't already cover it. `require_hits` guards against a single
+# incidental mention creating a scary red flag: SQL named once in a
+# "nice to have" list is not the same as a SQL-first analytics role.
+gap_min_hits:
+  red: 2
+  yellow: 1
+  green: 1
+
+# ---- Fit Score weights (must total 100) -----------------------------------
+weights:
+  transferability: 30
+  fpna_opportunity: 25
+  compensation: 20
+  seniority: 15
+  location: 10
+
+# Score thresholds used by the dashboard sections and the recommendation.
+bands:
+  best: 75          # main section
+  stretch: 60       # collapsed "stretch roles" section
+  pivot_star: 8     # ⭐ HIGH-VALUE FP&A PIVOT badge (with fit >= best)

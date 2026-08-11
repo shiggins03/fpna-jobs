@@ -1,0 +1,20 @@
+# Escape hatch for employers whose sites refuse automated clients. Paste the
+# job URL plus whatever fields can be copied VERBATIM from the posting; it
+# renders as a normal listing badged "manual".
+#
+# Hard rule #1 still applies: copy, never paraphrase, and never reconstruct a
+# title from a URL slug. Omit what you can't copy and the card shows
+# "Not listed". Seeds are counted as seen every run so they never age out —
+# delete the entry when the posting closes.
+#
+# Example (delete when adding real entries):
+# jobs:
+#   - company: Microsoft
+#     title: "Director, Finance"
+#     location: "New York, NY"
+#     url: https://jobs.careers.microsoft.com/global/en/job/1234567/
+#     posted_date: "2026-08-08"
+#     comp: "USD $158,400 - $267,200 per year"
+#     description: |
+#       (paste the posting text here, verbatim)
+jobs: []

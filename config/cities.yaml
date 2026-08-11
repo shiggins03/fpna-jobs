@@ -1,0 +1,48 @@
+# Location scope + sort order. Matching is substring against the posting's
+# stated location, lowercased; the DISPLAYED value stays verbatim.
+#
+# Scope is narrower than unifier-jobs: this board is NYC-or-remote only, so
+# `location_scope()` returns nyc / nyc_metro / remote / unknown / other and
+# "other" is dropped. "unknown" is KEPT deliberately — Workday and Google post
+# "4 Locations" / "Multiple locations" for reqs that often include New York,
+# and silently deleting those would lose real jobs. They score neutral on the
+# location component and carry a "location not specific" note on the card.
+metros:
+  - rank: 1
+    name: NYC
+    match: [new york, nyc, manhattan, brooklyn, queens, bronx, staten island]
+  - rank: 2
+    name: NYC metro
+    match: [jersey city, newark, hoboken, weehawken, long island city, long island,
+            white plains, yonkers, westchester, stamford, greenwich ct, norwalk,
+            new rochelle, tarrytown, harrison ny, purchase ny, hackensack,
+            fort lee, secaucus, jersey shore, edison nj, iselin, morristown,
+            florham park, parsippany, princeton]
+remote_rank: 3
+other_us_rank: 9
+
+# Locations that state nothing usable. Kept in scope; never treated as "other".
+unknown_patterns:
+  - '\d+\s+locations?'
+  - 'multiple locations'
+  - 'various locations'
+  - 'multiple cities'
+  - 'united states$'
+  - '^usa?$'
+
+# Remote wording. A posting is remote-eligible only if it says so; per the
+# owner's rule nothing is inferred. "Hybrid" alone is NOT remote — a hybrid
+# role still has to sit in an in-scope metro to qualify.
+remote_patterns:
+  - 'remote'
+  - 'work from home'
+  - 'virtual'
+  - 'telecommute'
+  - 'distributed'
+
+# Remote postings that exclude New York residents are out of scope. Rare in
+# the posting text, so this is a light net, not a guarantee.
+remote_excluded_patterns:
+  - 'excluding new york'
+  - 'not available in new york'
+  - 'except new york'

@@ -1,0 +1,141 @@
+# What qualifies as a posting for this board.
+#
+# Unlike a rare-token search ("Unifier"), finance titles are high-volume and
+# most matches are noise. So qualification is a THREE-gate test, all of which
+# must pass (see filters.qualify):
+#   1. FUNCTION  — the posting is about planning/analysis, not accounting
+#   2. SENIORITY — Manager and above (company leveling beats title wording)
+#   3. SCOPE     — NYC metro or remote-US, and not an excluded role type
+# Comp is NOT a gate: a strong role with no posted salary still shows, per the
+# owner's spec ("label it Unknown rather than excluding an otherwise strong
+# role"). Stated comp below the floor goes to a collapsed section, not deleted.
+
+# Queries sent to each employer's own ATS search. Each is run separately and
+# results are merged on URL. Keep this list SHORT — every query multiplies the
+# request count across the whole roster (see CLAUDE.md runtime note).
+queries:
+  - "FP&A"
+  - "financial planning and analysis"
+  - "strategic finance"
+  - "finance manager"
+  - "finance director"
+
+# A qualifying posting must hit at least MIN_FUNCTION_HITS of these somewhere
+# in title or body. These are the planning/analysis verbs that separate FP&A
+# from accounting — deliberately not just the word "finance".
+require:
+  min_hits: 2
+  terms:
+    - financial planning
+    - fp&a
+    - forecasting
+    - forecast
+    - budgeting
+    - annual operating plan
+    - operating plan
+    - long-range plan
+    - long range plan
+    - strategic finance
+    - business finance
+    - variance analysis
+    - financial modeling
+    - financial model
+    - scenario planning
+    - scenario model
+    - headcount planning
+    - opex
+    - operating expense
+    - p&l
+    - profit and loss
+    - management reporting
+    - business partnering
+    - decision support
+    - revenue planning
+    - resource allocation
+    - kpi
+    - investment analysis
+    - capital allocation
+
+# Hard exclusions. Any hit in the TITLE disqualifies outright; the board is a
+# pivot tool, so a role that replicates the owner's current job is a miss even
+# when it scores well on every other axis.
+exclude:
+  title_terms:
+    # accounting / control / compliance — explicitly out of scope
+    - controller
+    - accounting
+    - accountant
+    - bookkeep
+    - audit
+    - internal control
+    - sox
+    - tax
+    - treasury
+    - treasurer
+    - accounts payable
+    - accounts receivable
+    - collections
+    - billing
+    - payroll
+    - revenue accounting
+    - technical accounting
+    - financial reporting manager
+    # the owner's current job — the whole point is to leave this lane
+    - client finance
+    - commercial finance
+    - client services finance
+    # not finance at all / wrong function
+    - procurement
+    - sourcing
+    - investor relations
+    - equity research
+    - investment banking
+    - actuarial
+    - underwriting
+    - credit analyst
+    - collections analyst
+  # Softer signal: these in the BODY don't disqualify, but they pull the
+  # FP&A-transition score down because the role leans back toward the owner's
+  # existing experience rather than expanding it.
+  body_demote:
+    - client profitability
+    - client billing
+    - agency finance
+    - scope of work pricing
+    - staff plan billing
+    - revenue recognition
+    - asc 606
+    - unbilled
+    - accounts receivable
+
+# Seniority gate. Levels are ranked; anything below `min_level` is dropped.
+# NOTE (owner directive): do NOT reject a "Manager" title. At Tier A tech
+# companies Manager/Senior Manager are senior IC-or-above levels that pay in
+# range, so `tier_a_manager_bonus` lifts their score instead.
+seniority:
+  min_level: manager
+  levels:
+    cfo: [chief financial officer, cfo]
+    svp: [svp, senior vice president]
+    vp: [vp, vice president, head of finance, head of fp&a]
+    senior_director: [senior director, sr director, sr. director]
+    director: [director]
+    senior_manager: [senior manager, sr manager, sr. manager, senior finance manager, group manager, lead]
+    manager: [manager]
+  # Titles that carry no level word at all (e.g. "Business Finance, Ads") are
+  # treated as unknown, not as junior — dropping them would silently lose real
+  # Tier A postings whose leveling lives in the body. They score as manager.
+  unknown_as: manager
+  # Analyst/associate/coordinator titles are below the floor no matter what.
+  below_floor: [analyst, associate, coordinator, assistant, intern, specialist, clerk, apprentice]
+
+# Comp handling. Not a gate — see header. `floor` is the owner's target base;
+# stated ranges whose top is below `hard_floor` go to a collapsed section.
+comp:
+  target_base: 190000
+  # A stated range whose TOP is below this is materially under the $200K goal,
+  # so it drops to the collapsed "below comp target" section rather than the
+  # main board. Set at 175K, not 200K: comp_sort_value reads the top of a
+  # range, and a $170-195K posting can still land above $200K all-in once
+  # bonus and equity are counted — which the posting usually doesn't state.
+  hard_floor: 175000

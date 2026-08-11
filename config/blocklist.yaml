@@ -1,0 +1,39 @@
+# Bulk staffing / recruiter spam filter. Matches route to
+# data/quarantine.jsonl, never the dashboard. Company match is
+# case-insensitive substring. False positive? Delete the entry and the job
+# resurfaces on the next run.
+#
+# Finance job boards have a different spam profile than IT contract boards:
+# the noise here is contingency recruiters reposting the same "Director of
+# FP&A - Confidential Client" req across every metro. Named end-client or it
+# goes to quarantine.
+companies:
+  # generic finance-recruiting body shops
+  - Robert Half
+  - Michael Page
+  - Randstad
+  - Kforce
+  - Adecco
+  - Aerotek
+  - Insight Global
+  - Beacon Hill
+  - Atrium Staffing
+  - CyberCoders
+  - Jobot
+  - Talentify
+  - Lensa
+  - ClickJobs
+  - Get It Recruit
+  - Recruiting from Scratch
+  - Confidential Company
+  - Confidential Employer
+  - Undisclosed Company
+# Title/description red flags (any match = quarantine)
+title_patterns:
+  - 'c2c'
+  - 'corp to corp'
+  - 'corp-to-corp'
+  - 'w2 only'
+  - 'commission only'
+  - '100% commission'
+  - 'unpaid'

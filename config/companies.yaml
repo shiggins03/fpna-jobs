@@ -1,0 +1,264 @@
+# Direct-monitor roster. Direct employer listings are the product — see
+# CLAUDE.md rule 4.
+#
+# tier   = comp/prestige band for a senior finance career. A = top-of-market
+#          tech comp (base + meaningful equity), B = large established firms
+#          with solid but not top-of-band comp, C = everything else.
+#          Tier leads the sort inside each fit band.
+# category = bigtech | tech | advertising — drives the card badge and answers
+#          the owner's "Big Tech" vs "Advertising" split without duplicating
+#          jobs into separate sections.
+# ats    = workday | greenhouse | smartrecruiters | amazon_jobs | meta_graphql
+#          | oracle_orc | google_careers | successfactors | phenom | avature_feed
+# enabled: true  = endpoint shape proven (either reused from unifier-jobs where
+#          it was live-verified, or verified here by a probe run)
+#          false = needs fingerprinting; see the note. Nothing is silently
+#          dropped — disabled companies still show greyed on the dashboard.
+# search_queries: optional per-company override of keywords.yaml `queries`
+#          (use when an ATS search is fuzzy or the default set returns junk).
+companies:
+  # ---------------- Tier A / big tech ----------------
+  - name: Amazon
+    tier: A
+    category: bigtech
+    ats: amazon_jobs
+    enabled: true
+    note: public search.json, full-text over the posting body; endpoint reused
+      from unifier-jobs where it was live-verified 2026-07-30. Amazon's NYC
+      finance org (Ads, Prime Video, Devices) is the densest single source of
+      in-range Finance Manager / Sr Finance Manager roles on this roster.
+  - name: Meta
+    tier: A
+    category: bigtech
+    ats: meta_graphql
+    doc_id: "27807005005556827"
+    enabled: true
+    note: graphql CPJobSearchSourceQuery; doc_id + request shape reused from
+      unifier-jobs (captured 2026-07-17, long-lived but can rotate — a rotation
+      shows up as a fail_streak health warning, not silent zeroes).
+  - name: Google
+    tier: A
+    category: bigtech
+    ats: google_careers
+    url: https://careers.google.com/api/v3/search/?q={query}&location=New%20York%2C%20NY
+    enabled: false
+    note: unifier-jobs monitored Google via generic_page keyword check, which is
+      useless here (every careers page says "finance"). This needs the real
+      careers API verified — first probe target.
+  - name: NVIDIA
+    tier: A
+    category: bigtech
+    ats: workday
+    workday_host: nvidia.wd5.myworkdayjobs.com
+    workday_tenant: nvidia
+    workday_site: NVIDIAExternalCareerSite
+    enabled: true
+    note: cxs endpoint reused from unifier-jobs (verified 2026-07-30,
+      inventory 2000). Workday searchText is fuzzy — expect unrelated hits that
+      the function/seniority gates drop. That is noise, not breakage.
+  - name: Adobe
+    tier: A
+    category: bigtech
+    ats: workday
+    workday_host: adobe.wd5.myworkdayjobs.com
+    workday_tenant: adobe
+    workday_site: external_experienced
+    enabled: false
+    note: standard Workday tenant guess — verify host/tenant/site in the first
+      batch probe before enabling.
+  - name: Salesforce
+    tier: A
+    category: bigtech
+    ats: workday
+    workday_host: salesforce.wd12.myworkdayjobs.com
+    workday_tenant: salesforce
+    workday_site: External_Career_Site
+    enabled: false
+    note: Workday tenant guess — batch probe.
+  - name: Intuit
+    tier: A
+    category: bigtech
+    ats: workday
+    workday_host: intuit.wd1.myworkdayjobs.com
+    workday_tenant: intuit
+    workday_site: intuitcareers
+    enabled: false
+    note: Workday tenant guess — batch probe.
+  - name: PayPal
+    tier: A
+    category: bigtech
+    ats: workday
+    workday_host: paypal.wd1.myworkdayjobs.com
+    workday_tenant: paypal
+    workday_site: jobs
+    enabled: false
+    note: Workday tenant guess — batch probe.
+  - name: Airbnb
+    tier: A
+    category: bigtech
+    ats: greenhouse
+    greenhouse_board: airbnb
+    enabled: false
+    note: Greenhouse board-token guess — batch probe. Greenhouse returns the
+      whole board and filters client-side, so one request covers every query.
+  - name: Pinterest
+    tier: A
+    category: bigtech
+    ats: greenhouse
+    greenhouse_board: pinterest
+    enabled: false
+    note: Greenhouse board-token guess — batch probe.
+  - name: Stripe
+    tier: A
+    category: bigtech
+    ats: greenhouse
+    greenhouse_board: stripe
+    enabled: false
+    note: Greenhouse board-token guess — batch probe.
+  - name: Datadog
+    tier: A
+    category: bigtech
+    ats: greenhouse
+    greenhouse_board: datadog
+    enabled: false
+    note: Greenhouse board-token guess — batch probe. NYC-headquartered, so a
+      high share of its finance org is in scope.
+  - name: DoorDash
+    tier: A
+    category: bigtech
+    ats: greenhouse
+    greenhouse_board: doordash
+    enabled: false
+    note: Greenhouse board-token guess — batch probe.
+
+  # ---------------- Tier A / needs a custom adapter ----------------
+  # Deliberately deferred from v1 (owner's call: ship a thin board fast rather
+  # than spend the day on eight bespoke endpoints). Each needs its own adapter,
+  # not a config guess. They stay on the roster so the dashboard shows the gap.
+  - name: Apple
+    tier: A
+    category: bigtech
+    ats: generic_page
+    url: https://jobs.apple.com/en-us/search
+    enabled: false
+    note: needs a custom adapter — jobs.apple.com posts to its own
+      search-reference API (csrf token required). Not a Workday/Greenhouse shape.
+  - name: Microsoft
+    tier: A
+    category: bigtech
+    ats: generic_page
+    url: https://jobs.careers.microsoft.com/global/en/search
+    enabled: false
+    note: needs a custom adapter — gcsservices.careers.microsoft.com JSON API.
+  - name: Netflix
+    tier: A
+    category: bigtech
+    ats: generic_page
+    url: https://explore.jobs.netflix.net/careers
+    enabled: false
+    note: needs a custom adapter — Eightfold ATS (explore.jobs.netflix.net
+      /api/apply/v2/jobs). Eightfold is also used by several other targets, so
+      this adapter would pay for itself.
+  - name: Uber
+    tier: A
+    category: bigtech
+    ats: generic_page
+    url: https://www.uber.com/us/en/careers/list/
+    enabled: false
+    note: needs a custom adapter — uber.com/api/loadSearchJobsResults (POST).
+  - name: Spotify
+    tier: A
+    category: bigtech
+    ats: generic_page
+    url: https://www.lifeatspotify.com/jobs
+    enabled: false
+    note: needs a custom adapter — lifeatspotify.com/api/jobs.
+  - name: LinkedIn
+    tier: A
+    category: bigtech
+    ats: generic_page
+    url: https://www.linkedin.com/company/linkedin/jobs/
+    enabled: false
+    note: careers.linkedin.com only. NOT to be scraped via linkedin.com job
+      search — see CLAUDE.md rule 3 (account-ban risk). Leave disabled unless a
+      non-LinkedIn-domain endpoint is found.
+  - name: Block
+    tier: A
+    category: bigtech
+    ats: generic_page
+    url: https://block.xyz/careers/jobs
+    enabled: false
+    note: >-
+      ATS unidentified — sweep the careers page for
+      myworkdayjobs/greenhouse/lever/ashby markers before guessing (the
+      unifier-jobs lesson: a brochure careers page is not the real ATS portal).
+
+  # ---------------- Tier B / large tech & enterprise ----------------
+  - name: Oracle
+    tier: B
+    category: tech
+    ats: oracle_orc
+    url: https://eeho.fa.us2.oraclecloud.com/hcmRestApi/resources/latest/recruitingCEJobRequisitions
+    site_number: CX_45001
+    search_query: "financial planning"
+    enabled: true
+    note: endpoint reused from unifier-jobs (needs expand=all, limit 100).
+      Its keyword match is fuzzy across the whole site, so a single narrower
+      search_query beats the default query set here.
+  - name: Accenture
+    tier: B
+    category: advertising
+    ats: workday
+    workday_host: accenture.wd103.myworkdayjobs.com
+    workday_tenant: accenture
+    workday_site: AccentureCareers
+    enabled: true
+    note: reused from unifier-jobs. Their cxs endpoint is intermittently flaky
+      (returns HTML instead of JSON some hours) — treat fail_streaks of 3 or
+      fewer as flakiness, not breakage. Categorised advertising because
+      Accenture Song is the owner's adjacent-industry route, but its corporate
+      finance org is the actual target here.
+
+  # ---------------- Advertising / communications holdcos ----------------
+  # WARNING (owner's spec): these are the most likely source of roles that
+  # REPLICATE the owner's current job. keywords.yaml `exclude.title_terms`
+  # drops client/commercial finance titles outright, and body_demote pulls
+  # down anything that leans agency-side. Expect low yield per endpoint.
+  - name: Publicis Groupe
+    tier: C
+    category: advertising
+    ats: smartrecruiters
+    smartrecruiters_company: PublicisGroupe
+    enabled: false
+    note: SmartRecruiters company-token guess — batch probe. The adapter itself
+      is proven (built for Turner & Townsend in unifier-jobs).
+  - name: WPP
+    tier: C
+    category: advertising
+    ats: generic_page
+    url: https://www.wpp.com/careers
+    enabled: false
+    note: holdco careers page is a brochure. WPP hires through its operating
+      companies (GroupM, Ogilvy, VML, Hogarth, Burson), each with its own ATS —
+      so this is 5+ endpoints, not one. Deferred; expand only if the board is thin.
+  - name: Omnicom
+    tier: C
+    category: advertising
+    ats: generic_page
+    url: https://www.omnicomgroup.com/careers/
+    enabled: false
+    note: same fragmentation as WPP (BBDO, DDB, OMD, Annalect each separate).
+  - name: Dentsu
+    tier: C
+    category: advertising
+    ats: generic_page
+    url: https://www.dentsu.com/careers
+    enabled: false
+    note: ATS unidentified — sweep for ATS markers first.
+  - name: Havas
+    tier: C
+    category: advertising
+    ats: generic_page
+    url: https://havas.com/careers/
+    enabled: false
+    note: ATS unidentified — sweep for ATS markers first.
