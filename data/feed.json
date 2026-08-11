@@ -306,6 +306,31 @@
       "below_comp": false
     },
     {
+      "id": "9ce5694c480b768d",
+      "kind": "direct",
+      "company": "Airbnb",
+      "category": "bigtech",
+      "title": "Principal, Strategic Finance, Community Support",
+      "location": "United States ",
+      "url": "https://careers.airbnb.com/positions/7759059?gh_jid=7759059",
+      "posted_date": "2026-03-26T15:58:01-04:00",
+      "comp": "$168,000 — $206,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "long-posted"
+      ],
+      "fit": 76,
+      "pivot": 9,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "unknown",
+      "remote": true,
+      "recommendation": "Apply",
+      "below_comp": false
+    },
+    {
       "id": "6d52fc373c668c35",
       "kind": "direct",
       "company": "Amazon",
@@ -442,32 +467,6 @@
       "gap_severity": "green",
       "scope": "nyc",
       "remote": false,
-      "recommendation": "Stretch Apply",
-      "below_comp": false
-    },
-    {
-      "id": "9ce5694c480b768d",
-      "kind": "direct",
-      "company": "Airbnb",
-      "category": "bigtech",
-      "title": "Principal, Strategic Finance, Community Support",
-      "location": "United States ",
-      "url": "https://careers.airbnb.com/positions/7759059?gh_jid=7759059",
-      "posted_date": "2026-03-26T15:58:01-04:00",
-      "comp": null,
-      "status": "active",
-      "gone_date": null,
-      "flags": [
-        "new",
-        "long-posted"
-      ],
-      "fit": 69,
-      "pivot": 9,
-      "level": "manager",
-      "level_label": "Manager",
-      "gap_severity": "green",
-      "scope": "unknown",
-      "remote": true,
       "recommendation": "Stretch Apply",
       "below_comp": false
     },
