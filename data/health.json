@@ -44,14 +44,14 @@
       2
     ],
     "fail_streak": 0,
-    "inventory": 1603,
+    "inventory": 1607,
     "last_run": "2026-08-11"
   },
   "workday:Accenture": {
     "counts": [
+      0,
+      0,
       1,
-      0,
-      0,
       1,
       1
     ],
@@ -69,7 +69,7 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 796,
+    "inventory": 797,
     "last_run": "2026-08-11"
   },
   "workday:Salesforce": {
@@ -158,26 +158,301 @@
   },
   "greenhouse:DoorDash": {
     "counts": [
+      1,
       1
     ],
     "fail_streak": 0,
-    "inventory": 467,
+    "inventory": 466,
     "last_run": "2026-08-11"
   },
   "eightfold:Netflix": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
-    "inventory": 485,
+    "inventory": 486,
     "last_run": "2026-08-11"
   },
   "workday:Dentsu": {
     "counts": [
+      1,
       1
     ],
     "fail_streak": 0,
-    "inventory": 900,
+    "inventory": 899,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Databricks": {
+    "counts": [
+      2
+    ],
+    "fail_streak": 0,
+    "inventory": 814,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Figma": {
+    "counts": [
+      1
+    ],
+    "fail_streak": 0,
+    "inventory": 164,
+    "last_run": "2026-08-11"
+  },
+  "ashby:Notion": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 128,
+    "last_run": "2026-08-11"
+  },
+  "ashby:Ramp": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 133,
+    "last_run": "2026-08-11"
+  },
+  "ashby:Plaid": {
+    "counts": [
+      4
+    ],
+    "fail_streak": 0,
+    "inventory": 102,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Coinbase": {
+    "counts": [
+      1
+    ],
+    "fail_streak": 0,
+    "inventory": 166,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Robinhood": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 138,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Reddit": {
+    "counts": [
+      1
+    ],
+    "fail_streak": 0,
+    "inventory": 164,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Roblox": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 221,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Instacart": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 115,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:MongoDB": {
+    "counts": [
+      1
+    ],
+    "fail_streak": 0,
+    "inventory": 410,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Affirm": {
+    "counts": [
+      2
+    ],
+    "fail_streak": 0,
+    "inventory": 197,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Brex": {
+    "counts": [
+      3
+    ],
+    "fail_streak": 0,
+    "inventory": 289,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Chime": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 57,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:SoFi": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 59,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Betterment": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 32,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Gemini": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 42,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Marqeta": {
+    "counts": [
+      2
+    ],
+    "fail_streak": 0,
+    "inventory": 42,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Squarespace": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 20,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Peloton": {
+    "counts": [
+      1
+    ],
+    "fail_streak": 0,
+    "inventory": 58,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Discord": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 49,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Braze": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 251,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Asana": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 140,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Airtable": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 17,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Amplitude": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 31,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Klaviyo": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 148,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Justworks": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 99,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Zocdoc": {
+    "counts": [
+      1
+    ],
+    "fail_streak": 0,
+    "inventory": 52,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Attentive": {
+    "counts": [
+      2
+    ],
+    "fail_streak": 0,
+    "inventory": 40,
+    "last_run": "2026-08-11"
+  },
+  "greenhouse:Dataiku": {
+    "counts": [
+      1
+    ],
+    "fail_streak": 0,
+    "inventory": 21,
+    "last_run": "2026-08-11"
+  },
+  "lever:Ro": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 50,
+    "last_run": "2026-08-11"
+  },
+  "workday:Mastercard": {
+    "counts": [
+      5
+    ],
+    "fail_streak": 0,
+    "inventory": 1120,
+    "last_run": "2026-08-11"
+  },
+  "workday:Nasdaq": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 187,
+    "last_run": "2026-08-11"
+  },
+  "workday:Bristol Myers Squibb": {
+    "counts": [
+      1
+    ],
+    "fail_streak": 0,
+    "inventory": 671,
     "last_run": "2026-08-11"
   }
 }

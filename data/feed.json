@@ -24,7 +24,7 @@
       "ats": "google_careers",
       "category": "bigtech",
       "enabled": false,
-      "note": "unifier-jobs monitored Google via a generic_page keyword check, which is useless here (every careers page contains the word \"finance\"). Probe round 1 (2026-08-10) ruled out both v3 search shapes: careers.google.com /api/v3/search returned 404 JSON and the www.google.com/about/careers /applications/api/v3/search path returned a 404 HTML page. Needs a fresh capture of what the live careers UI actually calls (browser XHR sniff, the technique that cracked Meta in unifier-jobs)."
+      "note": "unifier-jobs monitored Google via a generic_page keyword check, which is useless here (every careers page contains the word \"finance\"). Probe round 1 (2026-08-10) ruled out both v3 search shapes: careers.google.com /api/v3/search returned 404 JSON and the www.google.com/about/careers /applications/api/v3/search path returned a 404 HTML page. Round 6 mapped what IS available: the results HTML does carry real job data (17 finance hits, 15 job-id links for an FP&A query), but the job links have NO anchor text, so titles aren't recoverable from the results page, and the detail pages carry no ld+json — the title is only in <title> and the body text is unstructured. So Google is implementable as \"extract ids from results HTML, then fetch and scrape each detail page\", at roughly 15 detail fetches of ~1.1MB per query. That is 10-20x the cost of every other adapter here and it is HTML-shape-brittle, so it is a deliberate not-yet rather than a dead end. DECLINED by the owner 2026-08-11 on cost — not money (public repo, unlimited Actions minutes) but runtime and brittleness. Do NOT build this without asking again."
     },
     {
       "name": "NVIDIA",
@@ -120,7 +120,7 @@
       "ats": "eightfold",
       "category": "bigtech",
       "enabled": false,
-      "note": "Microsoft runs Eightfold, found sideways in probe round 5 — its documented gcsservices.careers.microsoft.com API fails TLS from the Actions runner (SSLError on every attempt), but the jobs host served an Eightfold app shell. Round 6 ran the adapter end-to-end and it returned ok=False for both queries, so the domain/path guess is still wrong — do not enable on the strength of the app shell alone."
+      "note": "Microsoft runs Eightfold, found sideways in probe round 5 — its documented gcsservices.careers.microsoft.com API fails TLS from the Actions runner (SSLError on every attempt), but the jobs host served an Eightfold app shell. SETTLED 2026-08-11, do not spend more rounds here: round 7 read the real config out of that shell — the API is Eightfold's MULTI-TENANT host, app.eightfold.ai with domain=microsoft.com, not any microsoft.com path (which is why every microsoft.com URL returned the SPA shell). Round 8 then found app.eightfold.ai answers 403 to every header combination tried (browser UA, +Referer, +Origin, adapter UA) while a CONTROL call to explore.jobs.netflix.net succeeded in the same run — so it is tenant-level blocking of non-browser callers, not our egress and not a wrong path. Microsoft needs real browser automation, which a daily cron can't do. Use config/seed_jobs.yaml to add a Microsoft role by hand if one matters."
     },
     {
       "name": "Netflix",
@@ -217,6 +217,286 @@
       "category": "advertising",
       "enabled": false,
       "note": "ATS unidentified — sweep for ATS markers first."
+    },
+    {
+      "name": "Databricks",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (814 jobs)."
+    },
+    {
+      "name": "Figma",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (164 jobs)."
+    },
+    {
+      "name": "Notion",
+      "tier": "A",
+      "ats": "ashby",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (128 jobs (none priced — Ashby comp is optional per employer))."
+    },
+    {
+      "name": "Ramp",
+      "tier": "A",
+      "ats": "ashby",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (133 jobs, 128 with a stated pay tier — NYC HQ)."
+    },
+    {
+      "name": "Plaid",
+      "tier": "A",
+      "ats": "ashby",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (102 jobs, 96 priced)."
+    },
+    {
+      "name": "Coinbase",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (166 jobs)."
+    },
+    {
+      "name": "Robinhood",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (138 jobs)."
+    },
+    {
+      "name": "Reddit",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (164 jobs)."
+    },
+    {
+      "name": "Roblox",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (221 jobs)."
+    },
+    {
+      "name": "Instacart",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (115 jobs)."
+    },
+    {
+      "name": "MongoDB",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (410 jobs — NYC HQ)."
+    },
+    {
+      "name": "Affirm",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (197 jobs)."
+    },
+    {
+      "name": "Brex",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (289 jobs)."
+    },
+    {
+      "name": "Chime",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (57 jobs)."
+    },
+    {
+      "name": "SoFi",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (59 jobs)."
+    },
+    {
+      "name": "Betterment",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (32 jobs — NYC HQ)."
+    },
+    {
+      "name": "Gemini",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (42 jobs — NYC HQ)."
+    },
+    {
+      "name": "Marqeta",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (42 jobs)."
+    },
+    {
+      "name": "Squarespace",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (20 jobs — NYC HQ)."
+    },
+    {
+      "name": "Peloton",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (58 jobs — NYC HQ)."
+    },
+    {
+      "name": "Discord",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (49 jobs)."
+    },
+    {
+      "name": "Braze",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (251 jobs — NYC HQ)."
+    },
+    {
+      "name": "Asana",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (140 jobs)."
+    },
+    {
+      "name": "Airtable",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (17 jobs)."
+    },
+    {
+      "name": "Amplitude",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (31 jobs (also on Ashby; Greenhouse chosen — same board, one source))."
+    },
+    {
+      "name": "Klaviyo",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (148 jobs)."
+    },
+    {
+      "name": "Justworks",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (99 jobs — NYC HQ)."
+    },
+    {
+      "name": "Zocdoc",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (52 jobs — NYC HQ)."
+    },
+    {
+      "name": "Attentive",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (40 jobs — NYC HQ)."
+    },
+    {
+      "name": "Dataiku",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (21 jobs — NYC HQ)."
+    },
+    {
+      "name": "Ro",
+      "tier": "B",
+      "ats": "lever",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 9 (50 jobs — NYC HQ)."
+    },
+    {
+      "name": "American Express",
+      "tier": "A",
+      "ats": "eightfold",
+      "category": "tech",
+      "enabled": false,
+      "note": "careers page points at aexp.eightfold.ai (probe round 9). That is a DEDICATED tenant host like Netflix's, not the multi-tenant app.eightfold.ai that 403s us for Microsoft, so it may well work — but the domain value is a guess and nothing here gets enabled on a guess. Verify end-to-end first."
+    },
+    {
+      "name": "Mastercard",
+      "tier": "A",
+      "ats": "workday",
+      "category": "tech",
+      "enabled": true,
+      "note": "host/tenant/site read off careers.mastercard.com in probe round 9 (they also run Phenom for the marketing layer; Workday is the real ATS)."
+    },
+    {
+      "name": "Nasdaq",
+      "tier": "A",
+      "ats": "workday",
+      "category": "tech",
+      "enabled": true,
+      "note": "host/tenant/site read off nasdaq.com/about/careers in round 9."
+    },
+    {
+      "name": "Bristol Myers Squibb",
+      "tier": "A",
+      "ats": "workday",
+      "category": "tech",
+      "enabled": true,
+      "note": "host/tenant/site read off careers.bms.com in round 9. NYC HQ with a large corporate finance org."
     }
   ],
   "triage": [
@@ -258,6 +538,282 @@
   ],
   "jobs": [
     {
+      "id": "3f09c13a153e3ff1",
+      "kind": "direct",
+      "company": "Plaid",
+      "category": "tech",
+      "title": "Strategic Finance Lead, Product & Engineering",
+      "location": "New York City Office; San Francisco HQ",
+      "url": "https://jobs.ashbyhq.com/plaid/453966dc-6854-421d-8cac-0eee80cf2048",
+      "posted_date": "2026-07-22",
+      "comp": "$182K – $265K • Offers Equity",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 99,
+      "pivot": 10,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "yellow",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Strong Apply",
+      "below_comp": false
+    },
+    {
+      "id": "8dc0d8b89ca45db4",
+      "kind": "direct",
+      "company": "Mastercard",
+      "category": "tech",
+      "title": "Vice President, Finance Business Partner, Core Payments, Blockchain & Digital Currencies",
+      "location": "Purchase, New York",
+      "url": "https://mastercard.wd1.myworkdayjobs.com/en-US/CorporateCareers/job/Purchase-New-York/Vice-President--Finance-Business-Partner--Core-Payments--Blockchain---Digital-Currencies_R-282137",
+      "posted_date": "Posted 30+ Days Ago",
+      "comp": "$217,000 - $359,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 97,
+      "pivot": 9,
+      "level": "vp",
+      "level_label": "VP",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Strong Apply",
+      "below_comp": false
+    },
+    {
+      "id": "0ae595de4187004d",
+      "kind": "direct",
+      "company": "Mastercard",
+      "category": "tech",
+      "title": "Director, Finance Business Partner, Digital Payments",
+      "location": "Purchase, New York",
+      "url": "https://mastercard.wd1.myworkdayjobs.com/en-US/CorporateCareers/job/Purchase-New-York/Director--Finance-Business-Partner--Digital-Payments_R-286876",
+      "posted_date": "Posted 6 Days Ago",
+      "comp": "$163,000 - $269,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 95,
+      "pivot": 10,
+      "level": "director",
+      "level_label": "Director",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Strong Apply",
+      "below_comp": false
+    },
+    {
+      "id": "f77a7d2b812d7dfb",
+      "kind": "direct",
+      "company": "Mastercard",
+      "category": "tech",
+      "title": "Manager, Finance Business Partner, Finance Integration",
+      "location": "Purchase, New York",
+      "url": "https://mastercard.wd1.myworkdayjobs.com/en-US/CorporateCareers/job/Purchase-New-York/Manager--Finance-Business-Partner--Finance-Integration_R-282311",
+      "posted_date": "Posted 30+ Days Ago",
+      "comp": "$125,000 - $207,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 93,
+      "pivot": 10,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Strong Apply",
+      "below_comp": false
+    },
+    {
+      "id": "de959577414c1b39",
+      "kind": "direct",
+      "company": "Mastercard",
+      "category": "tech",
+      "title": "Director, Finance Business Partner",
+      "location": "Purchase, New York",
+      "url": "https://mastercard.wd1.myworkdayjobs.com/en-US/CorporateCareers/job/Purchase-New-York/Director--Finance-Business-Partner_R-287478",
+      "posted_date": "Posted 4 Days Ago",
+      "comp": "$163,000 - $269,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 92,
+      "pivot": 7,
+      "level": "director",
+      "level_label": "Director",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Strong Apply",
+      "below_comp": false
+    },
+    {
+      "id": "36304fbd56aca258",
+      "kind": "direct",
+      "company": "Plaid",
+      "category": "tech",
+      "title": "Head of Strategic Finance, Product & Engineering",
+      "location": "New York City Office; San Francisco HQ; Seattle Office",
+      "url": "https://jobs.ashbyhq.com/plaid/568826e2-2abc-43ab-b01d-54cb709de273",
+      "posted_date": "2026-05-21",
+      "comp": "$210K – $390K",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 91,
+      "pivot": 10,
+      "level": "manager",
+      "level_label": null,
+      "gap_severity": "yellow",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Strong Apply",
+      "below_comp": false
+    },
+    {
+      "id": "1cc4a621080c02d2",
+      "kind": "direct",
+      "company": "Coinbase",
+      "category": "tech",
+      "title": "Senior Manager, Finance & Strategy",
+      "location": "Remote - USA",
+      "url": "https://www.coinbase.com/careers/positions/7948222?gh_jid=7948222",
+      "posted_date": "2026-06-09T12:24:25-04:00",
+      "comp": "$201,365 — $236,900 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 89,
+      "pivot": 8,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "green",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Strong Apply",
+      "below_comp": false
+    },
+    {
+      "id": "9b51625c9f12fad9",
+      "kind": "direct",
+      "company": "Brex",
+      "category": "tech",
+      "title": "Finance Manager",
+      "location": "New York, New York, United States",
+      "url": "https://www.brex.com/careers/8606825002?gh_jid=8606825002",
+      "posted_date": "2026-06-24T16:58:50-04:00",
+      "comp": "salary range for this role is $155,488-$194,360 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 89,
+      "pivot": 10,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": true,
+      "recommendation": "Strong Apply",
+      "below_comp": false
+    },
+    {
+      "id": "f4b8a177799b81e2",
+      "kind": "direct",
+      "company": "Dataiku",
+      "category": "tech",
+      "title": "Senior Manager, FP&A (Sales Finance)",
+      "location": "United States, Remote",
+      "url": "https://job-boards.greenhouse.io/dataiku/jobs/6112332004",
+      "posted_date": "2026-07-09T11:28:56-04:00",
+      "comp": "$152,000 — $190,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 87,
+      "pivot": 10,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "green",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Strong Apply",
+      "below_comp": false
+    },
+    {
+      "id": "f59ae11aaea5e690",
+      "kind": "direct",
+      "company": "Figma",
+      "category": "tech",
+      "title": "Strategic Finance",
+      "location": "San Francisco, CA • New York, NY • United States",
+      "url": "https://boards.greenhouse.io/figma/jobs/5792631004?gh_jid=5792631004",
+      "posted_date": "2026-02-04T23:55:46-05:00",
+      "comp": "$115,000 — $245,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new",
+        "long-posted"
+      ],
+      "fit": 86,
+      "pivot": 9,
+      "level": "manager",
+      "level_label": null,
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Strong Apply",
+      "below_comp": false
+    },
+    {
+      "id": "a9bcd4b02fd1a1f8",
+      "kind": "direct",
+      "company": "Plaid",
+      "category": "tech",
+      "title": "GTM Strategic Finance",
+      "location": "New York City Office; San Francisco HQ",
+      "url": "https://jobs.ashbyhq.com/plaid/825c434c-59fd-4e0a-b17d-878df5ee4be4",
+      "posted_date": "2026-07-22",
+      "comp": "$162K – $202K • Offers Equity",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 86,
+      "pivot": 7,
+      "level": "manager",
+      "level_label": null,
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Strong Apply",
+      "below_comp": false
+    },
+    {
       "id": "3807901629b61a04",
       "kind": "direct",
       "company": "DoorDash",
@@ -270,7 +826,6 @@
       "status": "active",
       "gone_date": null,
       "flags": [
-        "new",
         "long-posted"
       ],
       "fit": 84,
@@ -279,6 +834,31 @@
       "level_label": "Senior Manager",
       "gap_severity": "green",
       "scope": "nyc",
+      "remote": true,
+      "recommendation": "Apply",
+      "below_comp": false
+    },
+    {
+      "id": "759655aec2ea77ae",
+      "kind": "direct",
+      "company": "Affirm",
+      "category": "tech",
+      "title": "Affirm Bank Strategic Finance Manager",
+      "location": "Remote US",
+      "url": "https://job-boards.greenhouse.io/affirm/jobs/7812990003",
+      "posted_date": "2026-07-27T11:29:26-04:00",
+      "comp": "$185,000 - $245,000",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 84,
+      "pivot": 7,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "remote",
       "remote": true,
       "recommendation": "Apply",
       "below_comp": false
@@ -355,6 +935,81 @@
       "below_comp": false
     },
     {
+      "id": "b6247d54470b4b55",
+      "kind": "direct",
+      "company": "Reddit",
+      "category": "tech",
+      "title": "Director, Technology FP&A",
+      "location": "Remote - United States",
+      "url": "https://job-boards.greenhouse.io/reddit/jobs/8011163",
+      "posted_date": "2026-06-24T17:06:13-04:00",
+      "comp": "$245,800 — $344,100 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 80,
+      "pivot": 7,
+      "level": "director",
+      "level_label": "Director",
+      "gap_severity": "yellow",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Apply",
+      "below_comp": false
+    },
+    {
+      "id": "21725268e2df6816",
+      "kind": "direct",
+      "company": "MongoDB",
+      "category": "tech",
+      "title": "Senior Manager, Financial Planning & Analysis",
+      "location": "Austin; New York City",
+      "url": "https://www.mongodb.com/careers/job/?gh_jid=8072504",
+      "posted_date": "2026-07-20T13:27:25-04:00",
+      "comp": "$101,000 — $198,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 80,
+      "pivot": 7,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": true,
+      "recommendation": "Apply",
+      "below_comp": false
+    },
+    {
+      "id": "72e432f09f2b4d1c",
+      "kind": "direct",
+      "company": "Zocdoc",
+      "category": "tech",
+      "title": "Senior Manager, FP&A (R&D and Operations)",
+      "location": "New York, NY",
+      "url": "https://job-boards.greenhouse.io/zocdoc/jobs/8080374",
+      "posted_date": "2026-07-22T17:21:19-04:00",
+      "comp": "$150,000 — $200,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 78,
+      "pivot": 10,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": true,
+      "recommendation": "Apply",
+      "below_comp": false
+    },
+    {
       "id": "9ce5694c480b768d",
       "kind": "direct",
       "company": "Airbnb",
@@ -377,6 +1032,57 @@
       "scope": "unknown",
       "remote": true,
       "recommendation": "Apply",
+      "below_comp": false
+    },
+    {
+      "id": "1278a8fcb134099f",
+      "kind": "direct",
+      "company": "Databricks",
+      "category": "tech",
+      "title": "Finance Manager",
+      "location": "Mountain View, California; New York City, New York; San Francisco, California",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8449854002",
+      "posted_date": "2026-03-06T14:41:38-05:00",
+      "comp": "$169,100 — $232,550 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new",
+        "long-posted"
+      ],
+      "fit": 73,
+      "pivot": 6,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Stretch Apply",
+      "below_comp": false
+    },
+    {
+      "id": "a08c7aacf475b40d",
+      "kind": "direct",
+      "company": "Peloton",
+      "category": "tech",
+      "title": "Senior Manager, Financial Systems & Reporting Transformation",
+      "location": "New York, New York",
+      "url": "https://careers.onepeloton.com/en/all-jobs/?gh_jid=8074696",
+      "posted_date": "2026-07-31T12:27:28-04:00",
+      "comp": "$168,750 — $207,300 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 73,
+      "pivot": 6,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Stretch Apply",
       "below_comp": false
     },
     {
@@ -424,6 +1130,31 @@
       "remote": false,
       "recommendation": "Stretch Apply",
       "below_comp": false
+    },
+    {
+      "id": "7d65cc1374f8b516",
+      "kind": "direct",
+      "company": "Attentive",
+      "category": "tech",
+      "title": "FP&A Manager, G&A",
+      "location": "United States",
+      "url": "https://job-boards.greenhouse.io/attentive/jobs/4329097009",
+      "posted_date": "2026-07-22T23:28:31-04:00",
+      "comp": "salary range for this full-time position is $120,000 - $140,000 annually + equity + benefits",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 70,
+      "pivot": 10,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "unknown",
+      "remote": true,
+      "recommendation": "Stretch Apply",
+      "below_comp": true
     },
     {
       "id": "94baf7d2d9e1da1d",
@@ -474,6 +1205,32 @@
       "below_comp": false
     },
     {
+      "id": "13176d5e921e5903",
+      "kind": "direct",
+      "company": "Affirm",
+      "category": "tech",
+      "title": "Strategic Finance Manager (Revenue)",
+      "location": "Remote US",
+      "url": "https://job-boards.greenhouse.io/affirm/jobs/7702469003",
+      "posted_date": "2026-04-27T17:30:51-04:00",
+      "comp": "pay range (CA, WA, NY, NJ, CT) per year: $185,000 - $245,000",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new",
+        "long-posted"
+      ],
+      "fit": 69,
+      "pivot": 5,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Stretch Apply",
+      "below_comp": false
+    },
+    {
       "id": "757c966ae4d63bf0",
       "kind": "direct",
       "company": "Amazon",
@@ -508,15 +1265,38 @@
       "comp": "salary range for this position is ($94,000 - $125,000)",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 65,
       "pivot": 6,
       "level": "manager",
       "level_label": "Manager",
       "gap_severity": "green",
       "scope": "nyc",
+      "remote": true,
+      "recommendation": "Stretch Apply",
+      "below_comp": true
+    },
+    {
+      "id": "3741a28538d69c35",
+      "kind": "direct",
+      "company": "Attentive",
+      "category": "tech",
+      "title": "Finance Manager, Revenue",
+      "location": "United States",
+      "url": "https://job-boards.greenhouse.io/attentive/jobs/4339819009",
+      "posted_date": "2026-07-31T16:21:18-04:00",
+      "comp": "salary range for this full-time position is $120,000 - $140,000 annually + equity + benefits",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 65,
+      "pivot": 8,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "red",
+      "scope": "unknown",
       "remote": true,
       "recommendation": "Stretch Apply",
       "below_comp": true
@@ -543,6 +1323,182 @@
       "remote": false,
       "recommendation": "Stretch Apply",
       "below_comp": false
+    },
+    {
+      "id": "48245178df576abf",
+      "kind": "direct",
+      "company": "Brex",
+      "category": "tech",
+      "title": "Finance Manager, Commissions",
+      "location": "New York, New York, United States",
+      "url": "https://www.brex.com/careers/8494244002?gh_jid=8494244002",
+      "posted_date": "2026-04-03T21:17:10-04:00",
+      "comp": "salary range for this role is $155,000 - $194,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new",
+        "long-posted"
+      ],
+      "fit": 64,
+      "pivot": 6,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": true,
+      "recommendation": "Stretch Apply",
+      "below_comp": false
+    },
+    {
+      "id": "8aac834a03875370",
+      "kind": "direct",
+      "company": "Brex",
+      "category": "tech",
+      "title": "Finance Manager, Partnerships",
+      "location": "New York, New York, United States",
+      "url": "https://www.brex.com/careers/8627546002?gh_jid=8627546002",
+      "posted_date": "2026-07-09T19:28:50-04:00",
+      "comp": "salary range for this role is $155,488-$194,360 USD in our SF, and NYC locations",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 64,
+      "pivot": 6,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Stretch Apply",
+      "below_comp": false
+    },
+    {
+      "id": "0f4cc837477d1084",
+      "kind": "direct",
+      "company": "Databricks",
+      "category": "tech",
+      "title": "Manager, Delivery Solutions Architects - Financial Services",
+      "location": "Georgia; Illinois; New York; Washington, D.C.",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8565280002",
+      "posted_date": "2026-05-27T15:36:59-04:00",
+      "comp": "$197,100 — $270,975 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 61,
+      "pivot": 2,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Stretch Apply",
+      "below_comp": false
+    },
+    {
+      "id": "7a1e21dc81580708",
+      "kind": "direct",
+      "company": "Marqeta",
+      "category": "tech",
+      "title": "FP&A Manager, GTM Finance - Credit Products",
+      "location": "Remote, USA",
+      "url": "https://job-boards.greenhouse.io/marqeta/jobs/7976556",
+      "posted_date": "2026-06-09T12:54:04-04:00",
+      "comp": "$128,000 - $160,000",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 61,
+      "pivot": 7,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "red",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Stretch Apply",
+      "below_comp": true
+    },
+    {
+      "id": "497a528990ccde3c",
+      "kind": "direct",
+      "company": "Marqeta",
+      "category": "tech",
+      "title": "Corporate/Opex Finance Manager",
+      "location": "Remote, USA",
+      "url": "https://job-boards.greenhouse.io/marqeta/jobs/8080813",
+      "posted_date": "2026-08-03T16:35:51-04:00",
+      "comp": "$128,000 - $160,000",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 56,
+      "pivot": 9,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "red",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Skip",
+      "below_comp": true
+    },
+    {
+      "id": "619c4c445dee3a2f",
+      "kind": "direct",
+      "company": "Plaid",
+      "category": "tech",
+      "title": "Product Strategic Finance",
+      "location": "New York City Office; San Francisco HQ",
+      "url": "https://jobs.ashbyhq.com/plaid/ec0f80d3-6805-4f97-893a-9a13c43f3df4",
+      "posted_date": "2026-07-22",
+      "comp": "$130K – $148K • Offers Equity",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 53,
+      "pivot": 6,
+      "level": "manager",
+      "level_label": null,
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Skip",
+      "below_comp": true
+    },
+    {
+      "id": "899f14d3ff5c2009",
+      "kind": "direct",
+      "company": "Bristol Myers Squibb",
+      "category": "tech",
+      "title": "MBA Finance Associates Program Full-time – 2027",
+      "location": "Princeton - NJ - US",
+      "url": "https://bristolmyerssquibb.wd5.myworkdayjobs.com/en-US/BMS/job/Princeton---NJ---US/MBA-Finance-Associates-Program-Full-time---2027_R1605289",
+      "posted_date": "Posted Today",
+      "comp": "$103,700 - $125,660",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 45,
+      "pivot": 5,
+      "level": "manager",
+      "level_label": null,
+      "gap_severity": "yellow",
+      "scope": "nyc_metro",
+      "remote": true,
+      "recommendation": "Skip",
+      "below_comp": true
     }
   ]
 }
