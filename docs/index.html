@@ -1,73 +1,181 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>FP&amp;A / Strategic Finance job watch</title><style>
-:root{--bg:#f7f7f5;--card:#fff;--text:#1a1a1a;--muted:#666;--line:#e2e2de;
---accent:#0c447c;--badge:#e6f1fb;--warn-bg:#faeeda;--warn-text:#633806;
---new:#1d9e75;--gone:#999;--star:#8a5a00;--star-bg:#fdf3d7;
---green:#1d7a4f;--yellow:#8a6100;--red:#a52a2a}
-@media(prefers-color-scheme:dark){:root{--bg:#171715;--card:#22221f;--text:#eee;
---muted:#9a9a94;--line:#3a3a36;--accent:#85b7eb;--badge:#0c2c4c;
---warn-bg:#3a2c10;--warn-text:#fac775;--star:#f0c869;--star-bg:#3a2c10;
---green:#5ec48f;--yellow:#e0b44c;--red:#e88}
-*{box-sizing:border-box}body{margin:0;padding:16px;background:var(--bg);
-color:var(--text);font:16px/1.5 system-ui,-apple-system,sans-serif}
-main{max-width:860px;margin:0 auto}h1{font-size:22px;margin:0 0 4px}
-.sub{color:var(--muted);font-size:13px;margin-bottom:16px}
-.warn{background:var(--warn-bg);color:var(--warn-text);border-radius:8px;
-padding:10px 14px;font-size:14px;margin-bottom:16px}
-h2{font-size:17px;margin:24px 0 10px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;
-padding:14px 16px;margin-bottom:10px}
-.card.applied{opacity:.72}
-.co{font-weight:600}.badge{display:inline-block;font-size:11px;font-weight:600;
-background:var(--badge);color:var(--accent);border-radius:4px;padding:1px 6px;
-margin-left:6px;vertical-align:1px;white-space:nowrap}
-.badge.new{background:transparent;color:var(--new);border:1px solid var(--new)}
-.badge.star{background:var(--star-bg);color:var(--star)}
-.badge.plain{background:transparent;color:var(--muted);
-border:1px solid var(--line);font-weight:500}
-.title a{color:var(--accent);text-decoration:none;font-size:17px}
-.title a:hover{text-decoration:underline}
-.meta{color:var(--muted);font-size:13px;margin-top:4px}
-.comp{font-size:14px;margin-top:4px}
-.scores{font-size:13px;margin-top:6px;padding-top:6px;
-border-top:1px dashed var(--line);color:var(--muted)}
-.scores b{color:var(--text)}
-.sev-green{color:var(--green);font-weight:600}
-.sev-yellow{color:var(--yellow);font-weight:600}
-.sev-red{color:var(--red);font-weight:600}
-.acts{margin-top:8px;font-size:13px}
-.acts button{font:inherit;color:var(--muted);background:none;cursor:pointer;
-border:1px solid var(--line);border-radius:6px;padding:2px 8px;margin-right:6px}
-.acts button:hover{color:var(--text)}
-details{margin-top:8px;font-size:14px}summary{cursor:pointer;color:var(--muted)}
-details pre{white-space:pre-wrap;font:13px/1.5 inherit;color:var(--text);
-max-height:400px;overflow-y:auto;background:none;margin:8px 0 0}
-.analysis{font-size:13.5px;margin-top:8px}
-.analysis p{margin:6px 0}.analysis .lbl{font-weight:600;color:var(--text)}
-section details.fold>summary{font-size:15px;color:var(--text);font-weight:600}
-.gone .title a{color:var(--gone)}.gone .co{color:var(--gone)}
-footer{color:var(--muted);font-size:12px;margin:24px 0}
-.on{color:var(--text)}.off{color:var(--muted);opacity:.65}
-@media(max-width:600px){body{padding:10px}.badge{margin-left:4px}}
-</style></head><body><main>
-<h1>FP&amp;A / Strategic Finance job watch</h1>
-<div class="sub">Updated 2026-08-11 &middot; 10 live roles
- &middot; 3 at fit 75+ &middot; 0 new this run
- &middot; <span id="hidden-note"></span>
- <button id="unhide" style="display:none;font:inherit;background:none;
- border:1px solid var(--line);border-radius:6px;cursor:pointer;
- color:var(--muted);padding:1px 6px">unhide all</button></div>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>FP&amp;A &amp; Strategic Finance job watch</title><style>
+:root{
+  --bg:#f6f6f4; --card:#fff; --text:#16181c; --muted:#6b7280; --faint:#9aa0aa;
+  --line:#e4e4e0; --line-soft:#eeeeea; --accent:#0b4a86; --accent-soft:#eaf2fb;
+  --good:#127c4f; --good-soft:#e6f4ec; --warn:#8a5a00; --warn-soft:#fdf3d9;
+  --bad:#a02c2c; --bad-soft:#fbeaea; --star:#7a5200; --star-soft:#fbf0d2;
+  --shadow:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.06);
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#141416; --card:#1e1f22; --text:#eceef1; --muted:#9ba1ab; --faint:#767c86;
+  --line:#32343a; --line-soft:#2a2c31; --accent:#7fb4ec; --accent-soft:#152a41;
+  --good:#5fc78f; --good-soft:#123024; --warn:#e0b44c; --warn-soft:#332608;
+  --bad:#ef8b8b; --bad-soft:#3a1c1c; --star:#efc76a; --star-soft:#332608;
+  --shadow:none;
+}}
+*{box-sizing:border-box}
+body{margin:0;padding:20px 16px 48px;background:var(--bg);color:var(--text);
+  font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased}
+main{max-width:880px;margin:0 auto}
+a{color:var(--accent)}
 
-<section><h2>Best matches — fit 75+ (3)</h2><div class="card" data-id="aad93b2dc7471445">
-<div class="co">Amazon<span class="badge">Tier A</span><span class="badge plain">Big Tech</span><span class="badge star" title="This role would add the most new corporate FP&amp;A scope of anything on the board">&#11088; HIGH-VALUE FP&amp;A PIVOT</span><span class="badge plain" title="seniority band derived from the title, not stated by the employer">Manager</span><span class="badge new applied-badge" style="display:none"></span></div>
-<div class="title"><a href="https://www.amazon.jobs/en/jobs/10488409/finance-manager-hub-delivery-finance" target="_blank" rel="noopener">Finance Manager, Hub Delivery Finance</a></div>
-<div class="meta">US, NY, New York &middot; Posted: July 30, 2026 &middot; Found: 2026-08-11</div>
-<div class="comp">Comp: <span style="color:var(--muted)">Not listed</span> <span style="color:var(--muted)">&middot; equity/RSUs mentioned</span></div>
-<div class="scores" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
-Fit <b>84</b>/100 &middot; FP&amp;A transition <b>9</b>/10
- &middot; Gaps <span class="sev-red">RED</span>
- &middot; <b>Apply</b></div>
-<details><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> The posting asks for revenue forecasting, variance analysis, executive/CFO reporting, financial modeling, annual budgeting.</p><p><span class="lbl">What this would add:</span> Would add Corporate FP&amp;A, AOP / budget / long-range planning to the resume.</p><p><span class="lbl">Gaps:</span> Advanced SQL / data tooling (RED)</p><p><span class="lbl">Career value:</span> High: broad planning and P&amp;L exposure here is the kind of scope that reads as Director-level FP&amp;A on a future application.</p><p><span class="lbl">FP&amp;A areas in the posting:</span> Corporate FP&amp;A, AOP / budget / long-range planning, Business partnering &amp; decision support, Executive &amp; board reporting, Modeling &amp; scenario planning, KPI &amp; metrics development</p></div></details>
-<details><summary>Job description (verbatim)</summary><pre>We are seeking a Finance Manager to join our Hub Delivery Finance team to drive financial processes and deliver high-impact analytics that support our rapidly growing network (&gt;100% annual growth rate). Hub Delivery partners with small businesses to earn incremental revenue with existing space and labor by providing flexible, low-cost delivery service within their community as a &#x27;side-hustle&#x27; with minimal upfront investment. In this role, you&#x27;ll support WW Hub Delivery and partner with senior leadership to drive crucial business decisions, while directly impacting growth strategies and cost improvement initiatives that benefit both Amazon and small business owners in the community.
+/* ---- header ---- */
+header{margin-bottom:22px}
+h1{font-size:21px;line-height:1.25;letter-spacing:-.01em;margin:0 0 8px;
+  font-weight:650}
+.stats{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;
+  font-size:13px;color:var(--muted)}
+.stats b{color:var(--text);font-weight:600}
+.ghost{font:inherit;background:none;border:1px solid var(--line);
+  border-radius:999px;color:var(--muted);cursor:pointer;padding:2px 10px}
+.ghost:hover{color:var(--text);border-color:var(--muted)}
+.warn-box{margin:14px 0 0;padding:10px 13px;border-radius:8px;font-size:13px;
+  background:var(--warn-soft);color:var(--warn);border:1px solid transparent}
+
+/* ---- sections ---- */
+section{margin-top:30px}
+h2{font-size:13px;font-weight:650;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 4px;padding-bottom:8px;
+  border-bottom:1px solid var(--line)}
+h2 .n{color:var(--faint);font-weight:500}
+.hint{font-size:13px;color:var(--muted);margin:10px 0 14px;max-width:62ch}
+details.fold{margin-top:8px}
+details.fold>summary{font-size:13px;font-weight:650;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--muted);cursor:pointer;padding-bottom:8px;
+  border-bottom:1px solid var(--line);list-style:none}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::before{content:"▸ ";color:var(--faint)}
+details.fold[open]>summary::before{content:"▾ "}
+details.fold>summary:hover{color:var(--text)}
+
+/* ---- card ---- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:16px 18px;margin-top:12px;box-shadow:var(--shadow)}
+.card.applied{opacity:.6}
+.top{display:flex;gap:18px;align-items:flex-start}
+.body{min-width:0;flex:1}
+.title{font-size:16.5px;font-weight:620;line-height:1.3;margin:0 0 4px;
+  letter-spacing:-.005em}
+.title a{text-decoration:none}
+.title a:hover{text-decoration:underline}
+.org{font-size:14px;color:var(--text);margin-bottom:9px}
+.org .co{font-weight:600}
+.org .sep{color:var(--faint);margin:0 6px}
+.org .loc{color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.tag{font-size:11px;font-weight:600;letter-spacing:.02em;border-radius:5px;
+  padding:2px 7px;background:var(--accent-soft);color:var(--accent);
+  white-space:nowrap}
+.tag.q{background:transparent;color:var(--muted);border:1px solid var(--line);
+  font-weight:500}
+.tag.star{background:var(--star-soft);color:var(--star)}
+.tag.new{background:var(--good-soft);color:var(--good)}
+.pay{font-size:14px;margin-bottom:3px}
+.pay b{font-weight:620}
+.pay .none{color:var(--faint);font-weight:400}
+.pay .sub{color:var(--muted);font-size:13px}
+.when{font-size:12.5px;color:var(--faint)}
+
+/* ---- score column ---- */
+.score{flex:0 0 96px;text-align:right;display:flex;flex-direction:column;
+  align-items:flex-end;gap:5px}
+.fit{display:flex;align-items:baseline;gap:4px;line-height:1}
+.fit b{font-size:29px;font-weight:640;letter-spacing:-.02em}
+.fit span{font-size:11px;color:var(--faint);text-transform:uppercase;
+  letter-spacing:.06em}
+.f-hi b{color:var(--good)}.f-mid b{color:var(--accent)}
+.f-low b{color:var(--warn)}.f-min b{color:var(--faint)}
+.pivot{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.pivot b{color:var(--text);font-weight:620}
+.rec{font-size:11px;font-weight:650;border-radius:999px;padding:2px 9px;
+  white-space:nowrap}
+.rec-strong{background:var(--good-soft);color:var(--good)}
+.rec-apply{background:var(--accent-soft);color:var(--accent)}
+.rec-stretch{background:var(--warn-soft);color:var(--warn)}
+.rec-skip{background:var(--line-soft);color:var(--muted)}
+.gap{font-size:11.5px;white-space:nowrap;color:var(--muted)}
+.gap .g-green{color:var(--good)}.gap .g-yellow{color:var(--warn)}
+.gap .g-red{color:var(--bad)}
+
+/* ---- card footer ---- */
+.foot{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;
+  margin-top:13px;padding-top:11px;border-top:1px solid var(--line-soft);
+  font-size:12.5px}
+.foot details{display:inline}
+.foot summary{cursor:pointer;color:var(--muted);list-style:none;
+  display:inline-block}
+.foot summary::-webkit-details-marker{display:none}
+.foot summary:hover{color:var(--text)}
+.foot .spacer{flex:1}
+.act{font:inherit;font-size:12.5px;background:none;border:1px solid var(--line);
+  border-radius:999px;color:var(--muted);cursor:pointer;padding:2px 10px}
+.act:hover{color:var(--text);border-color:var(--muted)}
+.panel{flex-basis:100%;margin:0}
+.analysis{font-size:13.5px;line-height:1.6;margin:10px 0 0;
+  padding:12px 14px;background:var(--bg);border-radius:8px}
+.analysis p{margin:0 0 7px}.analysis p:last-child{margin:0}
+.analysis .lbl{font-weight:650;color:var(--text)}
+.analysis .lbl+span{color:var(--muted)}
+pre.desc{white-space:pre-wrap;font:13px/1.6 inherit;color:var(--muted);
+  max-height:340px;overflow-y:auto;margin:10px 0 0;padding:12px 14px;
+  background:var(--bg);border-radius:8px}
+
+/* ---- gone / roster / about ---- */
+.gone .title a{color:var(--faint)}
+.gone .org .co{color:var(--muted)}
+.roster{font-size:13px;line-height:1.9}
+.roster b{font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted);font-weight:650}
+.on{color:var(--text)}
+.off{color:var(--faint);text-decoration:underline dotted;
+  text-underline-offset:3px;cursor:help}
+.about{font-size:13px;line-height:1.65;color:var(--muted);max-width:70ch}
+.about p{margin:0 0 9px}
+.about b{color:var(--text);font-weight:620}
+footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line)}
+
+@media(max-width:620px){
+  body{padding:16px 12px 40px}
+  .card{padding:14px}
+  .top{flex-direction:column-reverse;gap:10px}
+  .score{flex-direction:row;align-items:center;flex-wrap:wrap;gap:8px;
+    text-align:left;flex-basis:auto;width:100%}
+  .fit b{font-size:24px}
+  h1{font-size:19px}
+}
+</style></head><body><main>
+<header>
+<h1>FP&amp;A &amp; Strategic Finance job watch</h1>
+<div class="stats">
+  <span><b>10</b> live roles</span>
+  <span><b>3</b> at fit 75+</span>
+  <span><b>0</b> new this run</span>
+  <span>updated 2026-08-10</span>
+  <span id="hidden-note"></span>
+  <button id="unhide" class="ghost" style="display:none">unhide all</button>
+</div>
+
+</header>
+<section><h2>Best matches — fit 75 and above <span class="n">(3)</span></h2><article class="card" data-id="aad93b2dc7471445">
+<div class="top">
+  <div class="body">
+    <h3 class="title"><a href="https://www.amazon.jobs/en/jobs/10488409/finance-manager-hub-delivery-finance" target="_blank" rel="noopener">Finance Manager, Hub Delivery Finance</a></h3>
+    <div class="org"><span class="co">Amazon</span><span class="sep">&middot;</span><span class="loc">US, NY, New York</span></div>
+    <div class="tags"><span class="tag star" title="HIGH-VALUE FP&amp;A PIVOT — of everything on the board, this role would add the most new corporate FP&amp;A scope">&#11088; top pivot</span><span class="tag q">Tier A · Big Tech</span><span class="tag q" title="seniority band derived from the title — not stated by the employer">Manager</span><span class="tag new applied-tag" style="display:none"></span></div>
+    <div class="pay"><span class="none">Compensation not listed</span> <span class="sub">&middot; equity/RSUs mentioned</span></div>
+    <div class="when">Posted July 30, 2026 &middot; found 2026-08-11</div>
+  </div>
+  <div class="score" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
+    <div class="fit f-mid"><b>84</b><span>fit</span></div>
+    <div class="pivot">pivot <b>9</b>/10</div>
+    <div class="rec rec-apply">Apply</div>
+    <div class="gap"><span class="g-red">&#9679;</span> RED gaps</div>
+  </div>
+</div>
+<div class="foot">
+  <details class="panel"><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> <span>The posting asks for revenue forecasting, variance analysis, executive/CFO reporting, financial modeling, annual budgeting.</span></p><p><span class="lbl">What it would add:</span> <span>Would add Corporate FP&amp;A, AOP / budget / long-range planning to the resume.</span></p><p><span class="lbl">Gaps:</span> <span>Advanced SQL / data tooling (RED)</span></p><p><span class="lbl">Career value:</span> <span>High: broad planning and P&amp;L exposure here is the kind of scope that reads as Director-level FP&amp;A on a future application.</span></p><p><span class="lbl">FP&amp;A areas named in the posting:</span> <span>Corporate FP&amp;A, AOP / budget / long-range planning, Business partnering &amp; decision support, Executive &amp; board reporting, Modeling &amp; scenario planning, KPI &amp; metrics development</span></p></div></details>
+  <details class="panel"><summary>Job description</summary><pre class="desc">We are seeking a Finance Manager to join our Hub Delivery Finance team to drive financial processes and deliver high-impact analytics that support our rapidly growing network (&gt;100% annual growth rate). Hub Delivery partners with small businesses to earn incremental revenue with existing space and labor by providing flexible, low-cost delivery service within their community as a &#x27;side-hustle&#x27; with minimal upfront investment. In this role, you&#x27;ll support WW Hub Delivery and partner with senior leadership to drive crucial business decisions, while directly impacting growth strategies and cost improvement initiatives that benefit both Amazon and small business owners in the community.
 This position offers a unique chance to work in a dynamic environment where your financial expertise will shape strategic decisions across Amazon Delivery. You&#x27;ll own critical finance mechanisms, collaborate across finance and business teams, and develop innovative solutions that drive operational excellence. If you&#x27;re passionate about finance analytics and want to make a meaningful impact in a fast-paced, evolving organization, this role offers exceptional opportunity for growth and influence.
 Key job responsibilities
 - Partner with individual geo finance teams to manage recurring finance mechanisms including Weekly Business Reviews (WBR), Monthly Business Reviews (MBR), and consolidate worldwide updates for planning cycles while ensuring reporting accuracy and regularly auditing work to maintain the highest standards
@@ -101,20 +209,30 @@ https://amazon.jobs/en/benefits
 .
 USA, NY, New York - 104,900.00 - 179,500.00 USD annually
 USA, TX, Irving - 95,400.00 - 163,200.00 USD annually</pre></details>
-<div class="acts"><button class="btn-applied">mark applied</button>
-<button class="btn-hide">hide</button></div>
+  <span class="spacer"></span>
+  <button class="act btn-applied">mark applied</button>
+  <button class="act btn-hide">hide</button>
 </div>
-<div class="card" data-id="9ce5694c480b768d">
-<div class="co">Airbnb<span class="badge">Tier A</span><span class="badge plain">Big Tech</span><span class="badge star" title="This role would add the most new corporate FP&amp;A scope of anything on the board">&#11088; HIGH-VALUE FP&amp;A PIVOT</span><span class="badge plain" title="the posting states remote eligibility">remote</span><span class="badge plain" title="seniority band derived from the title, not stated by the employer">Manager</span><span class="badge plain">long-posted</span><span class="badge new applied-badge" style="display:none"></span></div>
-<div class="title"><a href="https://careers.airbnb.com/positions/7759059?gh_jid=7759059" target="_blank" rel="noopener">Principal, Strategic Finance, Community Support</a></div>
-<div class="meta">United States <span class="badge plain" title="the posting does not name a specific city — kept because multi-location reqs often include New York">not specific</span> &middot; Posted: 2026-03-26T15:58:01-04:00 &middot; Found: 2026-08-11</div>
-<div class="comp">Comp: $168,000 — $206,000 USD <span style="color:var(--muted)">&middot; equity/RSUs mentioned</span></div>
-<div class="scores" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
-Fit <b>76</b>/100 &middot; FP&amp;A transition <b>9</b>/10
- &middot; Gaps <span class="sev-green">GREEN</span>
- &middot; <b>Apply</b></div>
-<details><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> The posting asks for revenue forecasting, margin and profitability analysis, financial modeling, pricing models.</p><p><span class="lbl">What this would add:</span> Would add AOP / budget / long-range planning, P&amp;L ownership, Strategic finance to the resume.</p><p><span class="lbl">Gaps:</span> Long-range planning (GREEN)</p><p><span class="lbl">Career value:</span> High: broad planning and P&amp;L exposure here is the kind of scope that reads as Director-level FP&amp;A on a future application.</p><p><span class="lbl">FP&amp;A areas in the posting:</span> AOP / budget / long-range planning, P&amp;L ownership, Strategic finance, Business partnering &amp; decision support, Modeling &amp; scenario planning</p></div></details>
-<details><summary>Job description (verbatim)</summary><pre>Airbnb was born in 2007 when two hosts welcomed three guests to their San Francisco home, and has since grown to over 5 million hosts who have welcomed over 2 billion guest arrivals in almost every country across the globe. Every day, hosts offer unique stays and experiences that make it possible for guests to connect with communities in a more authentic way.
+</article>
+<article class="card" data-id="9ce5694c480b768d">
+<div class="top">
+  <div class="body">
+    <h3 class="title"><a href="https://careers.airbnb.com/positions/7759059?gh_jid=7759059" target="_blank" rel="noopener">Principal, Strategic Finance, Community Support</a></h3>
+    <div class="org"><span class="co">Airbnb</span><span class="sep">&middot;</span><span class="loc">United States </span></div>
+    <div class="tags"><span class="tag star" title="HIGH-VALUE FP&amp;A PIVOT — of everything on the board, this role would add the most new corporate FP&amp;A scope">&#11088; top pivot</span><span class="tag q">Tier A · Big Tech</span><span class="tag q" title="the title names no level (e.g. &quot;Principal, Strategic Finance&quot;) — scored as Manager, but the real level may be higher; check the posting">level not stated</span><span class="tag q" title="the posting states remote eligibility">remote</span><span class="tag q" title="the posting names no specific city — kept because multi-location reqs often include New York">city not stated</span><span class="tag q" title="posted more than 90 days ago">long-posted</span><span class="tag new applied-tag" style="display:none"></span></div>
+    <div class="pay"><b>$168,000 — $206,000 USD</b> <span class="sub">&middot; equity/RSUs mentioned</span></div>
+    <div class="when">Posted 2026-03-26 &middot; found 2026-08-11</div>
+  </div>
+  <div class="score" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
+    <div class="fit f-mid"><b>76</b><span>fit</span></div>
+    <div class="pivot">pivot <b>9</b>/10</div>
+    <div class="rec rec-apply">Apply</div>
+    <div class="gap"><span class="g-green">&#9679;</span> GREEN gaps</div>
+  </div>
+</div>
+<div class="foot">
+  <details class="panel"><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> <span>The posting asks for revenue forecasting, margin and profitability analysis, financial modeling, pricing models.</span></p><p><span class="lbl">What it would add:</span> <span>Would add AOP / budget / long-range planning, P&amp;L ownership, Strategic finance to the resume.</span></p><p><span class="lbl">Gaps:</span> <span>Long-range planning (GREEN)</span></p><p><span class="lbl">Career value:</span> <span>High: broad planning and P&amp;L exposure here is the kind of scope that reads as Director-level FP&amp;A on a future application.</span></p><p><span class="lbl">FP&amp;A areas named in the posting:</span> <span>AOP / budget / long-range planning, P&amp;L ownership, Strategic finance, Business partnering &amp; decision support, Modeling &amp; scenario planning</span></p></div></details>
+  <details class="panel"><summary>Job description</summary><pre class="desc">Airbnb was born in 2007 when two hosts welcomed three guests to their San Francisco home, and has since grown to over 5 million hosts who have welcomed over 2 billion guest arrivals in almost every country across the globe. Every day, hosts offer unique stays and experiences that make it possible for guests to connect with communities in a more authentic way.
 The Difference You Will Make:
 
 We&#x27;re looking for a thoughtful, analytically rigorous, and strategically minded finance professional to partner with our Community Support leadership team. This role sits at the intersection of strategy, product, and operations: evaluating the impact of what we build, shaping the Airbnb customer experience, and connecting Community Support initiatives to Airbnb&#x27;s broader company priorities.
@@ -178,20 +296,30 @@ Pay Range
 $168,000
 —
 $206,000 USD</pre></details>
-<div class="acts"><button class="btn-applied">mark applied</button>
-<button class="btn-hide">hide</button></div>
+  <span class="spacer"></span>
+  <button class="act btn-applied">mark applied</button>
+  <button class="act btn-hide">hide</button>
 </div>
-<div class="card" data-id="f8b50359e8cb06c1">
-<div class="co">Stripe<span class="badge">Tier A</span><span class="badge plain">Big Tech</span><span class="badge star" title="This role would add the most new corporate FP&amp;A scope of anything on the board">&#11088; HIGH-VALUE FP&amp;A PIVOT</span><span class="badge plain" title="seniority band derived from the title, not stated by the employer">Manager</span><span class="badge plain">long-posted</span><span class="badge new applied-badge" style="display:none"></span></div>
-<div class="title"><a href="https://stripe.com/jobs/search?gh_jid=7463755" target="_blank" rel="noopener">Finance and Strategy Partner</a></div>
-<div class="meta">Chicago, San Francisco, Seattle, New York City &middot; Posted: 2025-12-15T16:27:39-05:00 &middot; Found: 2026-08-11</div>
-<div class="comp">Comp: <span style="color:var(--muted)">Not listed</span></div>
-<div class="scores" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
-Fit <b>76</b>/100 &middot; FP&amp;A transition <b>10</b>/10
- &middot; Gaps <span class="sev-red">RED</span>
- &middot; <b>Apply</b></div>
-<details><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> The posting asks for revenue forecasting, annual budgeting, staffing and headcount analysis, finance systems (SAP / Hyperion / Dynamics).</p><p><span class="lbl">What this would add:</span> Would add Corporate FP&amp;A, AOP / budget / long-range planning, P&amp;L ownership, OpEx &amp; headcount planning, Strategic finance to the resume.</p><p><span class="lbl">Gaps:</span> Advanced SQL / data tooling (RED); Long-range planning (GREEN)</p><p><span class="lbl">Career value:</span> High: broad planning and P&amp;L exposure here is the kind of scope that reads as Director-level FP&amp;A on a future application.</p><p><span class="lbl">FP&amp;A areas in the posting:</span> Corporate FP&amp;A, AOP / budget / long-range planning, P&amp;L ownership, OpEx &amp; headcount planning, Strategic finance, Business partnering &amp; decision support</p></div></details>
-<details><summary>Job description (verbatim)</summary><pre>Who we are
+</article>
+<article class="card" data-id="f8b50359e8cb06c1">
+<div class="top">
+  <div class="body">
+    <h3 class="title"><a href="https://stripe.com/jobs/search?gh_jid=7463755" target="_blank" rel="noopener">Finance and Strategy Partner</a></h3>
+    <div class="org"><span class="co">Stripe</span><span class="sep">&middot;</span><span class="loc">Chicago, San Francisco, Seattle, New York City</span></div>
+    <div class="tags"><span class="tag star" title="HIGH-VALUE FP&amp;A PIVOT — of everything on the board, this role would add the most new corporate FP&amp;A scope">&#11088; top pivot</span><span class="tag q">Tier A · Big Tech</span><span class="tag q" title="the title names no level (e.g. &quot;Principal, Strategic Finance&quot;) — scored as Manager, but the real level may be higher; check the posting">level not stated</span><span class="tag q" title="posted more than 90 days ago">long-posted</span><span class="tag new applied-tag" style="display:none"></span></div>
+    <div class="pay"><span class="none">Compensation not listed</span></div>
+    <div class="when">Posted 2025-12-15 &middot; found 2026-08-11</div>
+  </div>
+  <div class="score" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
+    <div class="fit f-mid"><b>76</b><span>fit</span></div>
+    <div class="pivot">pivot <b>10</b>/10</div>
+    <div class="rec rec-apply">Apply</div>
+    <div class="gap"><span class="g-red">&#9679;</span> RED gaps</div>
+  </div>
+</div>
+<div class="foot">
+  <details class="panel"><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> <span>The posting asks for revenue forecasting, annual budgeting, staffing and headcount analysis, finance systems (SAP / Hyperion / Dynamics).</span></p><p><span class="lbl">What it would add:</span> <span>Would add Corporate FP&amp;A, AOP / budget / long-range planning, P&amp;L ownership, OpEx &amp; headcount planning, Strategic finance to the resume.</span></p><p><span class="lbl">Gaps:</span> <span>Advanced SQL / data tooling (RED); Long-range planning (GREEN)</span></p><p><span class="lbl">Career value:</span> <span>High: broad planning and P&amp;L exposure here is the kind of scope that reads as Director-level FP&amp;A on a future application.</span></p><p><span class="lbl">FP&amp;A areas named in the posting:</span> <span>Corporate FP&amp;A, AOP / budget / long-range planning, P&amp;L ownership, OpEx &amp; headcount planning, Strategic finance, Business partnering &amp; decision support</span></p></div></details>
+  <details class="panel"><summary>Job description</summary><pre class="desc">Who we are
 
 About Stripe
 
@@ -248,20 +376,30 @@ Oracle, Anaplan, Tableau, or other equivalent application experience
 Experience with Python or a willingness to learn
 
 Experience in data visualization and dashboarding</pre></details>
-<div class="acts"><button class="btn-applied">mark applied</button>
-<button class="btn-hide">hide</button></div>
-</div></section>
-<section><details class="fold"><summary>Stretch roles — credible but not a clean match (7)</summary><div class="meta">Fit 60-74: worth a look where the FP&amp;A transition score is high.</div><div class="card" data-id="6d52fc373c668c35">
-<div class="co">Amazon<span class="badge">Tier A</span><span class="badge plain">Big Tech</span><span class="badge plain" title="seniority band derived from the title, not stated by the employer">Manager</span><span class="badge new applied-badge" style="display:none"></span></div>
-<div class="title"><a href="https://www.amazon.jobs/en/jobs/10490487/finance-manager-sort-center-finance-middle-mile" target="_blank" rel="noopener">Finance Manager, Sort Center Finance - Middle Mile</a></div>
-<div class="meta">US, NY, New York &middot; Posted: August  3, 2026 &middot; Found: 2026-08-11</div>
-<div class="comp">Comp: <span style="color:var(--muted)">Not listed</span> <span style="color:var(--muted)">&middot; equity/RSUs mentioned</span></div>
-<div class="scores" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
-Fit <b>74</b>/100 &middot; FP&amp;A transition <b>5</b>/10
- &middot; Gaps <span class="sev-red">RED</span>
- &middot; <b>Stretch Apply</b></div>
-<details><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> The posting asks for revenue forecasting, variance analysis, financial modeling, annual budgeting, staffing and headcount analysis.</p><p><span class="lbl">What this would add:</span> Would add Corporate FP&amp;A to the resume.</p><p><span class="lbl">Gaps:</span> Advanced SQL / data tooling (RED)</p><p><span class="lbl">Career value:</span> Moderate: adds real FP&amp;A surface area, but not full corporate planning ownership.</p><p><span class="lbl">FP&amp;A areas in the posting:</span> Corporate FP&amp;A, Business partnering &amp; decision support, Modeling &amp; scenario planning</p></div></details>
-<details><summary>Job description (verbatim)</summary><pre>North American Sort centers are part of the Amazon Transportation Services which enables next day free delivery for Prime members and seven days a week delivery for our customers. Sort Centers are part of the middle-mile operation; every day several million packages from multiple fulfillment centers across the US and Canada arrive in one of the ~100 sort centers where they are sorted to specific last mile delivery locations, in effect consolidating volumes going to the same place, which improves truck utilization and reduces transportation costs. Since launching operations in 2013, we have provided billions of dollars of savings to Amazon, improved shipping times for our customers and enabled delivery seven days a week - our growing presence in logistics space led Amazon to be one of the top 5 logistic operators in the US.
+  <span class="spacer"></span>
+  <button class="act btn-applied">mark applied</button>
+  <button class="act btn-hide">hide</button>
+</div>
+</article></section>
+<section><details class="fold"><summary>Stretch roles <span class="n">(7)</span></summary><p class="hint">Fit 60–74. Credible but not a clean match — worth a look where the pivot score is high.</p><article class="card" data-id="6d52fc373c668c35">
+<div class="top">
+  <div class="body">
+    <h3 class="title"><a href="https://www.amazon.jobs/en/jobs/10490487/finance-manager-sort-center-finance-middle-mile" target="_blank" rel="noopener">Finance Manager, Sort Center Finance - Middle Mile</a></h3>
+    <div class="org"><span class="co">Amazon</span><span class="sep">&middot;</span><span class="loc">US, NY, New York</span></div>
+    <div class="tags"><span class="tag q">Tier A · Big Tech</span><span class="tag q" title="seniority band derived from the title — not stated by the employer">Manager</span><span class="tag new applied-tag" style="display:none"></span></div>
+    <div class="pay"><span class="none">Compensation not listed</span> <span class="sub">&middot; equity/RSUs mentioned</span></div>
+    <div class="when">Posted August  3, 2026 &middot; found 2026-08-11</div>
+  </div>
+  <div class="score" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
+    <div class="fit f-low"><b>74</b><span>fit</span></div>
+    <div class="pivot">pivot <b>5</b>/10</div>
+    <div class="rec rec-stretch">Stretch Apply</div>
+    <div class="gap"><span class="g-red">&#9679;</span> RED gaps</div>
+  </div>
+</div>
+<div class="foot">
+  <details class="panel"><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> <span>The posting asks for revenue forecasting, variance analysis, financial modeling, annual budgeting, staffing and headcount analysis.</span></p><p><span class="lbl">What it would add:</span> <span>Would add Corporate FP&amp;A to the resume.</span></p><p><span class="lbl">Gaps:</span> <span>Advanced SQL / data tooling (RED)</span></p><p><span class="lbl">Career value:</span> <span>Moderate: adds real FP&amp;A surface area, but not full corporate planning ownership.</span></p><p><span class="lbl">FP&amp;A areas named in the posting:</span> <span>Corporate FP&amp;A, Business partnering &amp; decision support, Modeling &amp; scenario planning</span></p></div></details>
+  <details class="panel"><summary>Job description</summary><pre class="desc">North American Sort centers are part of the Amazon Transportation Services which enables next day free delivery for Prime members and seven days a week delivery for our customers. Sort Centers are part of the middle-mile operation; every day several million packages from multiple fulfillment centers across the US and Canada arrive in one of the ~100 sort centers where they are sorted to specific last mile delivery locations, in effect consolidating volumes going to the same place, which improves truck utilization and reduces transportation costs. Since launching operations in 2013, we have provided billions of dollars of savings to Amazon, improved shipping times for our customers and enabled delivery seven days a week - our growing presence in logistics space led Amazon to be one of the top 5 logistic operators in the US.
 The North American Sort Center team is responsible for the Financial Planning and Analysis (FP&amp;A), investment strategy and new transportation initiatives for this operation. This is an exciting opportunity to partner cross-functionally to ensure informed decision making, innovation and sustainability in processes for a growing network. Experience on this team opens up varying career opportunities across Amazon such as transitions to other business lines, project management roles, and/or management opportunities locally, regionally, and globally.
 This role will partner directly with multiple senior directors within the Sort Centers network to influence business decisions across operations and finance. A successful candidate effectively manages relationships with business partners, provides sound and thoughtful decision-making, and delineates between competing priorities in a quickly changing environment. The candidate should demonstrate amazing analytical skills, ability to work with ambiguity with strong analytical, verbal, and written communication skills as direct interaction is required with worldwide operations leadership.
 Additionally, this is an exciting opportunity to partner cross-functionally to ensure informed decision making, innovation, scalability, and sustainability is achieved for a growing network. The candidate will work with multiple cross-functional teams from Operations, HR, Capacity Planning, Long Term Planning, FP&amp;A, and Tech teams to focus on creating continuous improvement opportunities across internal and external stakeholders to define, design, and maintain performance measurements, reporting and reviews. A typical day in this role provides an opportunity to lead root-cause analysis and uncover core issues to drive cost reductions with stakeholders, manage, evaluate and create meaningful business reporting, and build and maintain complex financial models and analytical tools to measure overall financial performance. Experience on this team opens up varying career opportunities across Amazon such as transitions to other business lines, project management roles, and/or management opportunities locally, regionally, and globally.
@@ -309,20 +447,30 @@ USA, NY, New York - 104,900.00 - 179,500.00 USD annually
 USA, TN, Nashville - 85,900.00 - 146,900.00 USD annually
 USA, TX, Irving - 95,400.00 - 163,200.00 USD annually
 USA, WA, Bellevue - 95,400.00 - 163,200.00 USD annually</pre></details>
-<div class="acts"><button class="btn-applied">mark applied</button>
-<button class="btn-hide">hide</button></div>
+  <span class="spacer"></span>
+  <button class="act btn-applied">mark applied</button>
+  <button class="act btn-hide">hide</button>
 </div>
-<div class="card" data-id="035f2ab24cc3dc96">
-<div class="co">Amazon<span class="badge">Tier A</span><span class="badge plain">Big Tech</span><span class="badge plain" title="seniority band derived from the title, not stated by the employer">Manager</span><span class="badge new applied-badge" style="display:none"></span></div>
-<div class="title"><a href="https://www.amazon.jobs/en/jobs/10443099/finance-manager-ww-ops-finance-cf-support" target="_blank" rel="noopener">Finance Manager, WW Ops Finance - CF Support</a></div>
-<div class="meta">US, NY, New York City &middot; Posted: June  9, 2026 &middot; Found: 2026-08-11</div>
-<div class="comp">Comp: <span style="color:var(--muted)">Not listed</span> <span style="color:var(--muted)">&middot; equity/RSUs mentioned</span></div>
-<div class="scores" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
-Fit <b>74</b>/100 &middot; FP&amp;A transition <b>5</b>/10
- &middot; Gaps <span class="sev-red">RED</span>
- &middot; <b>Stretch Apply</b></div>
-<details><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> The posting asks for revenue forecasting, variance analysis, executive/CFO reporting, financial modeling, annual budgeting.</p><p><span class="lbl">What this would add:</span> Would add Corporate FP&amp;A to the resume.</p><p><span class="lbl">Gaps:</span> Advanced SQL / data tooling (RED)</p><p><span class="lbl">Career value:</span> Moderate: adds real FP&amp;A surface area, but not full corporate planning ownership.</p><p><span class="lbl">FP&amp;A areas in the posting:</span> Corporate FP&amp;A, Business partnering &amp; decision support, Modeling &amp; scenario planning</p></div></details>
-<details><summary>Job description (verbatim)</summary><pre>Join our team as a Finance Manager where you will challenge stakeholders, drive business decisions, and lead automation of planning modules across customer fulfillment networks. Your project management skills will be essential as you work with stakeholders (finance and non-finance) to consolidate Customer Fulfillment costs and influence key business decisions. You will evaluate financial planning inputs, ensure sensible modeling, and analyze data quickly to understand business repercussions. 
+</article>
+<article class="card" data-id="035f2ab24cc3dc96">
+<div class="top">
+  <div class="body">
+    <h3 class="title"><a href="https://www.amazon.jobs/en/jobs/10443099/finance-manager-ww-ops-finance-cf-support" target="_blank" rel="noopener">Finance Manager, WW Ops Finance - CF Support</a></h3>
+    <div class="org"><span class="co">Amazon</span><span class="sep">&middot;</span><span class="loc">US, NY, New York City</span></div>
+    <div class="tags"><span class="tag q">Tier A · Big Tech</span><span class="tag q" title="seniority band derived from the title — not stated by the employer">Manager</span><span class="tag new applied-tag" style="display:none"></span></div>
+    <div class="pay"><span class="none">Compensation not listed</span> <span class="sub">&middot; equity/RSUs mentioned</span></div>
+    <div class="when">Posted June  9, 2026 &middot; found 2026-08-11</div>
+  </div>
+  <div class="score" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
+    <div class="fit f-low"><b>74</b><span>fit</span></div>
+    <div class="pivot">pivot <b>5</b>/10</div>
+    <div class="rec rec-stretch">Stretch Apply</div>
+    <div class="gap"><span class="g-red">&#9679;</span> RED gaps</div>
+  </div>
+</div>
+<div class="foot">
+  <details class="panel"><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> <span>The posting asks for revenue forecasting, variance analysis, executive/CFO reporting, financial modeling, annual budgeting.</span></p><p><span class="lbl">What it would add:</span> <span>Would add Corporate FP&amp;A to the resume.</span></p><p><span class="lbl">Gaps:</span> <span>Advanced SQL / data tooling (RED)</span></p><p><span class="lbl">Career value:</span> <span>Moderate: adds real FP&amp;A surface area, but not full corporate planning ownership.</span></p><p><span class="lbl">FP&amp;A areas named in the posting:</span> <span>Corporate FP&amp;A, Business partnering &amp; decision support, Modeling &amp; scenario planning</span></p></div></details>
+  <details class="panel"><summary>Job description</summary><pre class="desc">Join our team as a Finance Manager where you will challenge stakeholders, drive business decisions, and lead automation of planning modules across customer fulfillment networks. Your project management skills will be essential as you work with stakeholders (finance and non-finance) to consolidate Customer Fulfillment costs and influence key business decisions. You will evaluate financial planning inputs, ensure sensible modeling, and analyze data quickly to understand business repercussions. 
 This role requires someone who can prioritize effectively, think strategically, and communicate complex financial concepts with clarity. You will have the opportunity to make a significant impact by bringing financial acumen to cross-functional discussions and improving the status quo through innovative approaches to financial planning and analysis.
 Key job responsibilities
 - Partner with finance stakeholders across the USCF network to evaluate financial planning inputs, build analytical models, and ensure outputs generate sensible financial impacts that support strategic business decisions.
@@ -354,20 +502,30 @@ https://amazon.jobs/en/benefits
 .
 USA, NY, New York City - 104,900.00 - 179,500.00 USD annually
 USA, NY, New york city - 104,900.00 - 179,500.00 USD annually</pre></details>
-<div class="acts"><button class="btn-applied">mark applied</button>
-<button class="btn-hide">hide</button></div>
+  <span class="spacer"></span>
+  <button class="act btn-applied">mark applied</button>
+  <button class="act btn-hide">hide</button>
 </div>
-<div class="card" data-id="abf95b80ff46582c">
-<div class="co">Stripe<span class="badge">Tier A</span><span class="badge plain">Big Tech</span><span class="badge plain" title="the posting states remote eligibility">remote</span><span class="badge plain" title="seniority band derived from the title, not stated by the employer">Manager</span><span class="badge new applied-badge" style="display:none"></span></div>
-<div class="title"><a href="https://stripe.com/jobs/search?gh_jid=7979885" target="_blank" rel="noopener">Finance &amp; Strategy Partner, Central Engineering</a></div>
-<div class="meta">Remote US, SF, SEA, NYC, CHI &middot; Posted: 2026-06-03T18:13:18-04:00 &middot; Found: 2026-08-11</div>
-<div class="comp">Comp: <span style="color:var(--muted)">Not listed</span> <span style="color:var(--muted)">&middot; equity/RSUs mentioned</span></div>
-<div class="scores" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
-Fit <b>74</b>/100 &middot; FP&amp;A transition <b>9</b>/10
- &middot; Gaps <span class="sev-yellow">YELLOW</span>
- &middot; <b>Stretch Apply</b></div>
-<details><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> The posting asks for revenue forecasting, annual budgeting, staffing and headcount analysis, finance systems (SAP / Hyperion / Dynamics).</p><p><span class="lbl">What this would add:</span> Would add Corporate FP&amp;A, AOP / budget / long-range planning, OpEx &amp; headcount planning, Strategic finance to the resume.</p><p><span class="lbl">Gaps:</span> CapEx planning (YELLOW); Long-range planning (GREEN)</p><p><span class="lbl">Career value:</span> High: broad planning and P&amp;L exposure here is the kind of scope that reads as Director-level FP&amp;A on a future application.</p><p><span class="lbl">FP&amp;A areas in the posting:</span> Corporate FP&amp;A, AOP / budget / long-range planning, OpEx &amp; headcount planning, Strategic finance, Business partnering &amp; decision support</p></div></details>
-<details><summary>Job description (verbatim)</summary><pre>Who we are
+</article>
+<article class="card" data-id="abf95b80ff46582c">
+<div class="top">
+  <div class="body">
+    <h3 class="title"><a href="https://stripe.com/jobs/search?gh_jid=7979885" target="_blank" rel="noopener">Finance &amp; Strategy Partner, Central Engineering</a></h3>
+    <div class="org"><span class="co">Stripe</span><span class="sep">&middot;</span><span class="loc">Remote US, SF, SEA, NYC, CHI</span></div>
+    <div class="tags"><span class="tag q">Tier A · Big Tech</span><span class="tag q" title="the title names no level (e.g. &quot;Principal, Strategic Finance&quot;) — scored as Manager, but the real level may be higher; check the posting">level not stated</span><span class="tag q" title="the posting states remote eligibility">remote</span><span class="tag new applied-tag" style="display:none"></span></div>
+    <div class="pay"><span class="none">Compensation not listed</span> <span class="sub">&middot; equity/RSUs mentioned</span></div>
+    <div class="when">Posted 2026-06-03 &middot; found 2026-08-11</div>
+  </div>
+  <div class="score" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
+    <div class="fit f-low"><b>74</b><span>fit</span></div>
+    <div class="pivot">pivot <b>9</b>/10</div>
+    <div class="rec rec-stretch">Stretch Apply</div>
+    <div class="gap"><span class="g-yellow">&#9679;</span> YELLOW gaps</div>
+  </div>
+</div>
+<div class="foot">
+  <details class="panel"><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> <span>The posting asks for revenue forecasting, annual budgeting, staffing and headcount analysis, finance systems (SAP / Hyperion / Dynamics).</span></p><p><span class="lbl">What it would add:</span> <span>Would add Corporate FP&amp;A, AOP / budget / long-range planning, OpEx &amp; headcount planning, Strategic finance to the resume.</span></p><p><span class="lbl">Gaps:</span> <span>CapEx planning (YELLOW); Long-range planning (GREEN)</span></p><p><span class="lbl">Career value:</span> <span>High: broad planning and P&amp;L exposure here is the kind of scope that reads as Director-level FP&amp;A on a future application.</span></p><p><span class="lbl">FP&amp;A areas named in the posting:</span> <span>Corporate FP&amp;A, AOP / budget / long-range planning, OpEx &amp; headcount planning, Strategic finance, Business partnering &amp; decision support</span></p></div></details>
+  <details class="panel"><summary>Job description</summary><pre class="desc">Who we are
 
 About Stripe
 
@@ -430,20 +588,30 @@ Preferred qualifications
 • Background in investment banking, private equity, corporate development, or consulting
 
 • Strong knowledge of G Suite tools and extracting, analyzing, and evaluating information from large data sets using SQL and large language models</pre></details>
-<div class="acts"><button class="btn-applied">mark applied</button>
-<button class="btn-hide">hide</button></div>
+  <span class="spacer"></span>
+  <button class="act btn-applied">mark applied</button>
+  <button class="act btn-hide">hide</button>
 </div>
-<div class="card" data-id="757c966ae4d63bf0">
-<div class="co">Amazon<span class="badge">Tier A</span><span class="badge plain">Big Tech</span><span class="badge plain" title="seniority band derived from the title, not stated by the employer">Manager</span><span class="badge new applied-badge" style="display:none"></span></div>
-<div class="title"><a href="https://www.amazon.jobs/en/jobs/10387650/finance-manager-nacf-ars" target="_blank" rel="noopener">Finance Manager, NACF, ARS</a></div>
-<div class="meta">US, NY, New York &middot; Posted: April  9, 2026 &middot; Found: 2026-08-11</div>
-<div class="comp">Comp: <span style="color:var(--muted)">Not listed</span> <span style="color:var(--muted)">&middot; equity/RSUs mentioned</span></div>
-<div class="scores" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
-Fit <b>69</b>/100 &middot; FP&amp;A transition <b>3</b>/10
- &middot; Gaps <span class="sev-red">RED</span>
- &middot; <b>Stretch Apply</b></div>
-<details><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> The posting asks for revenue forecasting, variance analysis, executive/CFO reporting, financial modeling, annual budgeting.</p><p><span class="lbl">What this would add:</span> No new core FP&amp;A area detected — this looks adjacent to existing experience rather than an expansion. Note: the posting also mentions accounts receivable, which overlaps existing client-finance work.</p><p><span class="lbl">Gaps:</span> Advanced SQL / data tooling (RED)</p><p><span class="lbl">Career value:</span> Low: mostly repeats existing commercial/client finance scope — would not materially change the resume.</p><p><span class="lbl">FP&amp;A areas in the posting:</span> Business partnering &amp; decision support, Modeling &amp; scenario planning</p></div></details>
-<details><summary>Job description (verbatim)</summary><pre>Amazon’s North American Customer Fulfillment (NACF) Finance is looking for a Finance Manager to be the trusted finance partner in the ARS (Amazon Robotics Sortable) Network. Amazon operates the most complex retail networks in the world, delivering billions of packages to hundreds of millions of homes and businesses annually. Come be part of this tremendous growth and join a dedicated team committed to operational and financial excellence where you will focus on the inputs, think like an owner and where every day is Day One. Our ARS Finance team closely partners across Operations and Program teams to support a rapidly expanding business while building a connected network of fulfillment centers, delivery stations, sort centers, vans, box trucks, and technology to deliver customers&#x27; packages on time - often next day, sometimes faster. Come make history with us.
+</article>
+<article class="card" data-id="757c966ae4d63bf0">
+<div class="top">
+  <div class="body">
+    <h3 class="title"><a href="https://www.amazon.jobs/en/jobs/10387650/finance-manager-nacf-ars" target="_blank" rel="noopener">Finance Manager, NACF, ARS</a></h3>
+    <div class="org"><span class="co">Amazon</span><span class="sep">&middot;</span><span class="loc">US, NY, New York</span></div>
+    <div class="tags"><span class="tag q">Tier A · Big Tech</span><span class="tag q" title="seniority band derived from the title — not stated by the employer">Manager</span><span class="tag new applied-tag" style="display:none"></span></div>
+    <div class="pay"><span class="none">Compensation not listed</span> <span class="sub">&middot; equity/RSUs mentioned</span></div>
+    <div class="when">Posted April  9, 2026 &middot; found 2026-08-11</div>
+  </div>
+  <div class="score" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
+    <div class="fit f-low"><b>69</b><span>fit</span></div>
+    <div class="pivot">pivot <b>3</b>/10</div>
+    <div class="rec rec-stretch">Stretch Apply</div>
+    <div class="gap"><span class="g-red">&#9679;</span> RED gaps</div>
+  </div>
+</div>
+<div class="foot">
+  <details class="panel"><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> <span>The posting asks for revenue forecasting, variance analysis, executive/CFO reporting, financial modeling, annual budgeting.</span></p><p><span class="lbl">What it would add:</span> <span>No new core FP&amp;A area detected — this looks adjacent to existing experience rather than an expansion. Note: the posting also mentions accounts receivable, which overlaps existing client-finance work.</span></p><p><span class="lbl">Gaps:</span> <span>Advanced SQL / data tooling (RED)</span></p><p><span class="lbl">Career value:</span> <span>Low: mostly repeats existing commercial/client finance scope — would not materially change the resume.</span></p><p><span class="lbl">FP&amp;A areas named in the posting:</span> <span>Business partnering &amp; decision support, Modeling &amp; scenario planning</span></p></div></details>
+  <details class="panel"><summary>Job description</summary><pre class="desc">Amazon’s North American Customer Fulfillment (NACF) Finance is looking for a Finance Manager to be the trusted finance partner in the ARS (Amazon Robotics Sortable) Network. Amazon operates the most complex retail networks in the world, delivering billions of packages to hundreds of millions of homes and businesses annually. Come be part of this tremendous growth and join a dedicated team committed to operational and financial excellence where you will focus on the inputs, think like an owner and where every day is Day One. Our ARS Finance team closely partners across Operations and Program teams to support a rapidly expanding business while building a connected network of fulfillment centers, delivery stations, sort centers, vans, box trucks, and technology to deliver customers&#x27; packages on time - often next day, sometimes faster. Come make history with us.
 Key job responsibilities
 The ARS Finance team seeks a Finance leader to partner with the Operations, Supply Chain, Retail, and Strategy Teams, and to drive an agenda of optimization, efficiency, and insights across the US ARS Network. This is a unique opportunity be a leader and key business partner to oversee a vast network of fulfillment centers, coordinate initiatives that span across multiple organizations and stakeholders with high visibility to senior leadership. Experience in this team opens up several career opportunities across Amazon and access to making an impact to the broader end-to-end operational vertical.
 The successful candidate will demonstrate the following:
@@ -482,20 +650,30 @@ USA, NY, New York - 104,900.00 - 179,500.00 USD annually
 USA, TX, Irving - 95,400.00 - 163,200.00 USD annually
 USA, VA, Arlington - 95,400.00 - 163,200.00 USD annually
 USA, WA, Bellevue - 95,400.00 - 163,200.00 USD annually</pre></details>
-<div class="acts"><button class="btn-applied">mark applied</button>
-<button class="btn-hide">hide</button></div>
+  <span class="spacer"></span>
+  <button class="act btn-applied">mark applied</button>
+  <button class="act btn-hide">hide</button>
 </div>
-<div class="card" data-id="6c14a4ea125b12c8">
-<div class="co">Accenture<span class="badge">Tier B</span><span class="badge plain">Advertising</span><span class="badge plain" title="seniority band derived from the title, not stated by the employer">Senior Manager</span><span class="badge new applied-badge" style="display:none"></span></div>
-<div class="title"><a href="https://accenture.wd103.myworkdayjobs.com/en-US/AccentureCareers/job/New-York-One-Manhattan-West-Corp/Customer-Growth-Strategy-Senior-Manager---Financial-Services_R00337307-1" target="_blank" rel="noopener">Customer Growth Strategy Senior Manager | Financial Services</a></div>
-<div class="meta">New York, One Manhattan West, Corp &middot; Posted: Posted 12 Days Ago &middot; Found: 2026-08-11</div>
-<div class="comp">Comp: $122,700 to $317,200</div>
-<div class="scores" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
-Fit <b>69</b>/100 &middot; FP&amp;A transition <b>5</b>/10
- &middot; Gaps <span class="sev-green">GREEN</span>
- &middot; <b>Stretch Apply</b></div>
-<details><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> The posting asks for margin and profitability analysis, financial modeling, leading a finance team.</p><p><span class="lbl">What this would add:</span> Would add Strategic finance to the resume.</p><p><span class="lbl">Gaps:</span> No stated requirement outside the profile.</p><p><span class="lbl">Career value:</span> Moderate: adds real FP&amp;A surface area, but not full corporate planning ownership.</p><p><span class="lbl">FP&amp;A areas in the posting:</span> Strategic finance, Business partnering &amp; decision support, Modeling &amp; scenario planning</p></div></details>
-<details><summary>Job description (verbatim)</summary><pre>We Are
+</article>
+<article class="card" data-id="6c14a4ea125b12c8">
+<div class="top">
+  <div class="body">
+    <h3 class="title"><a href="https://accenture.wd103.myworkdayjobs.com/en-US/AccentureCareers/job/New-York-One-Manhattan-West-Corp/Customer-Growth-Strategy-Senior-Manager---Financial-Services_R00337307-1" target="_blank" rel="noopener">Customer Growth Strategy Senior Manager | Financial Services</a></h3>
+    <div class="org"><span class="co">Accenture</span><span class="sep">&middot;</span><span class="loc">New York, One Manhattan West, Corp</span></div>
+    <div class="tags"><span class="tag q">Tier B · Advertising</span><span class="tag q" title="seniority band derived from the title — not stated by the employer">Senior Manager</span><span class="tag new applied-tag" style="display:none"></span></div>
+    <div class="pay"><b>$122,700 to $317,200</b></div>
+    <div class="when">Posted Posted 12 Days Ago &middot; found 2026-08-11</div>
+  </div>
+  <div class="score" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
+    <div class="fit f-low"><b>69</b><span>fit</span></div>
+    <div class="pivot">pivot <b>5</b>/10</div>
+    <div class="rec rec-stretch">Stretch Apply</div>
+    <div class="gap"><span class="g-green">&#9679;</span> GREEN gaps</div>
+  </div>
+</div>
+<div class="foot">
+  <details class="panel"><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> <span>The posting asks for margin and profitability analysis, financial modeling, leading a finance team.</span></p><p><span class="lbl">What it would add:</span> <span>Would add Strategic finance to the resume.</span></p><p><span class="lbl">Gaps:</span> <span>No stated requirement outside the profile.</span></p><p><span class="lbl">Career value:</span> <span>Moderate: adds real FP&amp;A surface area, but not full corporate planning ownership.</span></p><p><span class="lbl">FP&amp;A areas named in the posting:</span> <span>Strategic finance, Business partnering &amp; decision support, Modeling &amp; scenario planning</span></p></div></details>
+  <details class="panel"><summary>Job description</summary><pre class="desc">We Are
 Accenture Song accelerates growth and value for our clients through sustained customer relevance. We bring together strategy, creativity, and technology to help organizations imagine and deliver growth across brand, business, product, marketing, commerce, and service. With deep industry expertise and strong client partnerships, we help financial services leaders design and execute growth strategies that solve real customer needs and deliver measurable outcomes.
 You Are
  
@@ -608,20 +786,30 @@ click here
 Please read Accenture’s 
 Recruiting and Hiring Statement
  for more information on how we process your data during the Recruiting and Hiring process.</pre></details>
-<div class="acts"><button class="btn-applied">mark applied</button>
-<button class="btn-hide">hide</button></div>
+  <span class="spacer"></span>
+  <button class="act btn-applied">mark applied</button>
+  <button class="act btn-hide">hide</button>
 </div>
-<div class="card" data-id="94baf7d2d9e1da1d">
-<div class="co">Oracle<span class="badge">Tier B</span><span class="badge plain">Tech</span><span class="badge plain" title="seniority band derived from the title, not stated by the employer">Senior Manager</span><span class="badge plain">long-posted</span><span class="badge new applied-badge" style="display:none"></span></div>
-<div class="title"><a href="https://careers.oracle.com/jobs/#en/sites/jobsearch/job/330453" target="_blank" rel="noopener">Sr. Central FP&amp;A Manager, Sales &amp; Marketing (M3, Player/Coach)</a></div>
-<div class="meta">United States<span class="badge plain" title="the posting does not name a specific city — kept because multi-location reqs often include New York">not specific</span> &middot; Posted: 2026-04-16 &middot; Found: 2026-08-11</div>
-<div class="comp">Comp: <span style="color:var(--muted)">Not listed</span></div>
-<div class="scores" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
-Fit <b>69</b>/100 &middot; FP&amp;A transition <b>9</b>/10
- &middot; Gaps <span class="sev-green">GREEN</span>
- &middot; <b>Stretch Apply</b></div>
-<details><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> The posting asks for revenue forecasting, variance analysis, scenario modeling, staffing and headcount analysis.</p><p><span class="lbl">What this would add:</span> Would add Corporate FP&amp;A, AOP / budget / long-range planning, OpEx &amp; headcount planning to the resume.</p><p><span class="lbl">Gaps:</span> No stated requirement outside the profile.</p><p><span class="lbl">Career value:</span> High: broad planning and P&amp;L exposure here is the kind of scope that reads as Director-level FP&amp;A on a future application.</p><p><span class="lbl">FP&amp;A areas in the posting:</span> Corporate FP&amp;A, AOP / budget / long-range planning, OpEx &amp; headcount planning, Business partnering &amp; decision support, Modeling &amp; scenario planning</p></div></details>
-<details><summary>Job description (verbatim)</summary><pre>FP&amp;A Manager, Sales &amp; Marketing (M3, Player/Coach)
+</article>
+<article class="card" data-id="94baf7d2d9e1da1d">
+<div class="top">
+  <div class="body">
+    <h3 class="title"><a href="https://careers.oracle.com/jobs/#en/sites/jobsearch/job/330453" target="_blank" rel="noopener">Sr. Central FP&amp;A Manager, Sales &amp; Marketing (M3, Player/Coach)</a></h3>
+    <div class="org"><span class="co">Oracle</span><span class="sep">&middot;</span><span class="loc">United States</span></div>
+    <div class="tags"><span class="tag q">Tier B · Tech</span><span class="tag q" title="seniority band derived from the title — not stated by the employer">Senior Manager</span><span class="tag q" title="the posting names no specific city — kept because multi-location reqs often include New York">city not stated</span><span class="tag q" title="posted more than 90 days ago">long-posted</span><span class="tag new applied-tag" style="display:none"></span></div>
+    <div class="pay"><span class="none">Compensation not listed</span></div>
+    <div class="when">Posted 2026-04-16 &middot; found 2026-08-11</div>
+  </div>
+  <div class="score" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
+    <div class="fit f-low"><b>69</b><span>fit</span></div>
+    <div class="pivot">pivot <b>9</b>/10</div>
+    <div class="rec rec-stretch">Stretch Apply</div>
+    <div class="gap"><span class="g-green">&#9679;</span> GREEN gaps</div>
+  </div>
+</div>
+<div class="foot">
+  <details class="panel"><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> <span>The posting asks for revenue forecasting, variance analysis, scenario modeling, staffing and headcount analysis.</span></p><p><span class="lbl">What it would add:</span> <span>Would add Corporate FP&amp;A, AOP / budget / long-range planning, OpEx &amp; headcount planning to the resume.</span></p><p><span class="lbl">Gaps:</span> <span>No stated requirement outside the profile.</span></p><p><span class="lbl">Career value:</span> <span>High: broad planning and P&amp;L exposure here is the kind of scope that reads as Director-level FP&amp;A on a future application.</span></p><p><span class="lbl">FP&amp;A areas named in the posting:</span> <span>Corporate FP&amp;A, AOP / budget / long-range planning, OpEx &amp; headcount planning, Business partnering &amp; decision support, Modeling &amp; scenario planning</span></p></div></details>
+  <details class="panel"><summary>Job description</summary><pre class="desc">FP&amp;A Manager, Sales &amp; Marketing (M3, Player/Coach)
 Role summary 
 
 Lead a small FP&amp;A team as a player/coach supporting a 10,000-person Sales &amp; Marketing organization in North America.
@@ -675,20 +863,30 @@ Leverage enterprise systems and BI tools to automate reporting and accelerate in
  
 
 #LI-MS1</pre></details>
-<div class="acts"><button class="btn-applied">mark applied</button>
-<button class="btn-hide">hide</button></div>
+  <span class="spacer"></span>
+  <button class="act btn-applied">mark applied</button>
+  <button class="act btn-hide">hide</button>
 </div>
-<div class="card" data-id="d24af102c1e93507">
-<div class="co">Oracle<span class="badge">Tier B</span><span class="badge plain">Tech</span><span class="badge plain" title="seniority band derived from the title, not stated by the employer">Senior Manager</span><span class="badge new applied-badge" style="display:none"></span></div>
-<div class="title"><a href="https://careers.oracle.com/jobs/#en/sites/jobsearch/job/338866" target="_blank" rel="noopener">Lead Consultant - NSPB FP&amp;A Solutions - NetSuite Services</a></div>
-<div class="meta">United States<span class="badge plain" title="the posting does not name a specific city — kept because multi-location reqs often include New York">not specific</span> &middot; Posted: 2026-07-02 &middot; Found: 2026-08-11</div>
-<div class="comp">Comp: <span style="color:var(--muted)">Not listed</span></div>
-<div class="scores" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
-Fit <b>64</b>/100 &middot; FP&amp;A transition <b>5</b>/10
- &middot; Gaps <span class="sev-yellow">YELLOW</span>
- &middot; <b>Stretch Apply</b></div>
-<details><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> The posting asks for revenue forecasting, financial reporting, annual budgeting, finance systems (SAP / Hyperion / Dynamics), leading a finance team.</p><p><span class="lbl">What this would add:</span> Would add Corporate FP&amp;A, OpEx &amp; headcount planning to the resume.</p><p><span class="lbl">Gaps:</span> CapEx planning (YELLOW); Public-company reporting cycle (GREEN)</p><p><span class="lbl">Career value:</span> Moderate: adds real FP&amp;A surface area, but not full corporate planning ownership.</p><p><span class="lbl">FP&amp;A areas in the posting:</span> Corporate FP&amp;A, OpEx &amp; headcount planning</p></div></details>
-<details><summary>Job description (verbatim)</summary><pre>Why Oracle NetSuite?
+</article>
+<article class="card" data-id="d24af102c1e93507">
+<div class="top">
+  <div class="body">
+    <h3 class="title"><a href="https://careers.oracle.com/jobs/#en/sites/jobsearch/job/338866" target="_blank" rel="noopener">Lead Consultant - NSPB FP&amp;A Solutions - NetSuite Services</a></h3>
+    <div class="org"><span class="co">Oracle</span><span class="sep">&middot;</span><span class="loc">United States</span></div>
+    <div class="tags"><span class="tag q">Tier B · Tech</span><span class="tag q" title="seniority band derived from the title — not stated by the employer">Senior Manager</span><span class="tag q" title="the posting names no specific city — kept because multi-location reqs often include New York">city not stated</span><span class="tag new applied-tag" style="display:none"></span></div>
+    <div class="pay"><span class="none">Compensation not listed</span></div>
+    <div class="when">Posted 2026-07-02 &middot; found 2026-08-11</div>
+  </div>
+  <div class="score" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
+    <div class="fit f-low"><b>64</b><span>fit</span></div>
+    <div class="pivot">pivot <b>5</b>/10</div>
+    <div class="rec rec-stretch">Stretch Apply</div>
+    <div class="gap"><span class="g-yellow">&#9679;</span> YELLOW gaps</div>
+  </div>
+</div>
+<div class="foot">
+  <details class="panel"><summary>Analysis</summary><div class="analysis"><p><span class="lbl">Why this matches:</span> <span>The posting asks for revenue forecasting, financial reporting, annual budgeting, finance systems (SAP / Hyperion / Dynamics), leading a finance team.</span></p><p><span class="lbl">What it would add:</span> <span>Would add Corporate FP&amp;A, OpEx &amp; headcount planning to the resume.</span></p><p><span class="lbl">Gaps:</span> <span>CapEx planning (YELLOW); Public-company reporting cycle (GREEN)</span></p><p><span class="lbl">Career value:</span> <span>Moderate: adds real FP&amp;A surface area, but not full corporate planning ownership.</span></p><p><span class="lbl">FP&amp;A areas named in the posting:</span> <span>Corporate FP&amp;A, OpEx &amp; headcount planning</span></p></div></details>
+  <details class="panel"><summary>Job description</summary><pre class="desc">Why Oracle NetSuite?
 
   One word — transformation.
 
@@ -874,26 +1072,39 @@ This person combines hands-on NSPB expertise with strong FP&amp;A knowledge, con
   Travel
 
   Modest to moderate travel may be required, as appropriate</pre></details>
-<div class="acts"><button class="btn-applied">mark applied</button>
-<button class="btn-hide">hide</button></div>
-</div></details></section>
+  <span class="spacer"></span>
+  <button class="act btn-applied">mark applied</button>
+  <button class="act btn-hide">hide</button>
+</div>
+</article></details></section>
 
 
 
 
-<section><details class="fold"><summary>Monitored companies (13 live of 27)</summary><div class="card"><div class="meta" style="margin-top:6px"><b>Tier A:</b> <span class="on">Amazon</span> &middot; <span class="on">Meta</span> &middot; <span class="off" title="unifier-jobs monitored Google via a generic_page keyword check, which is useless here (every careers page contains the word &quot;finance&quot;). Probe round 1 (2026-08-10) ruled out both v3 search shapes: careers.google.com /api/v3/search returned 404 JSON and the www.google.com/about/careers /applications/api/v3/search path returned a 404 HTML page. Needs a fresh capture of what the live careers UI actually calls (browser XHR sniff, the technique that cracked Meta in unifier-jobs).">Google</span> &middot; <span class="on">NVIDIA</span> &middot; <span class="on">Adobe</span> &middot; <span class="on">Salesforce</span> &middot; <span class="off" title="probe round 1 (2026-08-10) got 401 for both intuitcareers and IntuitExternalCareerSite on wd1 — authenticated tenant, not a wrong site name. Find the real host/site from a jobs link on intuit.com/careers before guessing again.">Intuit</span> &middot; <span class="on">PayPal</span> &middot; <span class="on">Airbnb</span> &middot; <span class="on">Pinterest</span> &middot; <span class="on">Stripe</span> &middot; <span class="on">Datadog</span> &middot; <span class="off" title="probe round 1 (2026-08-10) got 404 for the &quot;doordash&quot; board token — they have moved off the public Greenhouse board API. Find the current ATS from a job link on careersatdoordash.com before re-enabling.">DoorDash</span> &middot; <span class="off" title="needs a custom adapter — jobs.apple.com posts to its own search-reference API (csrf token required). Not a Workday/Greenhouse shape.">Apple</span> &middot; <span class="off" title="needs a custom adapter — gcsservices.careers.microsoft.com JSON API.">Microsoft</span> &middot; <span class="off" title="needs a custom adapter — Eightfold ATS (explore.jobs.netflix.net /api/apply/v2/jobs). Eightfold is also used by several other targets, so this adapter would pay for itself.">Netflix</span> &middot; <span class="off" title="needs a custom adapter — uber.com/api/loadSearchJobsResults (POST).">Uber</span> &middot; <span class="off" title="needs a custom adapter — lifeatspotify.com/api/jobs. Probe round 1 also ruled out a &quot;spotify&quot; Greenhouse board (404).">Spotify</span> &middot; <span class="off" title="careers.linkedin.com only. NOT to be scraped via linkedin.com job search — see CLAUDE.md rule 3 (account-ban risk). Leave disabled unless a non-LinkedIn-domain endpoint is found.">LinkedIn</span> &middot; <span class="on">Block</span></div><div class="meta" style="margin-top:6px"><b>Tier B:</b> <span class="on">Oracle</span> &middot; <span class="on">Accenture</span></div><div class="meta" style="margin-top:6px"><b>Tier C:</b> <span class="off" title="probe round 1 (2026-08-10): the postings API answers 200 with totalFound=0 for PublicisGroupe, Publicis, Havas and dentsu alike, so a 200 here does not mean the token is right — an unknown company returns an empty result, not a 404. Read the real token off a live SmartRecruiters apply URL before enabling. The adapter itself is proven (built for Turner &amp; Townsend in unifier-jobs).">Publicis Groupe</span> &middot; <span class="off" title="holdco careers page is a brochure. WPP hires through its operating companies (GroupM, Ogilvy, VML, Hogarth, Burson), each with its own ATS — so this is 5+ endpoints, not one. Deferred; expand only if the board is thin.">WPP</span> &middot; <span class="off" title="same fragmentation as WPP (BBDO, DDB, OMD, Annalect each separate).">Omnicom</span> &middot; <span class="off" title="ATS unidentified — sweep for ATS markers first.">Dentsu</span> &middot; <span class="off" title="ATS unidentified — sweep for ATS markers first.">Havas</span></div><div class="meta" style="margin-top:10px">Greyed = endpoint not yet verified (hover for why). Nothing is hidden: a company with no live endpoint contributes no jobs, and says so here.</div></div></details></section>
-<footer>
-Company, title, location, posted date, compensation and description are shown
-<b>verbatim</b> from the employer's posting; anything the posting doesn't state
-says "Not listed" &mdash; nothing is estimated or paraphrased.
-Fit score, FP&amp;A transition score, seniority band, gap flags and the
-recommendation are <b>derived</b> from the term lists in
-<code>config/roles.yaml</code> and are not claims made by the employer.
-Sorted by fit, then company tier, then stated comp, then distance from NYC.
-&ldquo;Mark applied&rdquo; and &ldquo;hide&rdquo; are stored in this browser only
-&mdash; they are not committed to the repo, not shared, and do not follow you to
-another device.
-</footer>
+<section><details class="fold"><summary>Monitored companies <span class="n">(13 live of 27)</span></summary><div class="card"><div class="roster"><div><b>Tier A</b> &nbsp;<span class="on">Amazon</span> &middot; <span class="on">Meta</span> &middot; <span class="off" title="unifier-jobs monitored Google via a generic_page keyword check, which is useless here (every careers page contains the word &quot;finance&quot;). Probe round 1 (2026-08-10) ruled out both v3 search shapes: careers.google.com /api/v3/search returned 404 JSON and the www.google.com/about/careers /applications/api/v3/search path returned a 404 HTML page. Needs a fresh capture of what the live careers UI actually calls (browser XHR sniff, the technique that cracked Meta in unifier-jobs).">Google</span> &middot; <span class="on">NVIDIA</span> &middot; <span class="on">Adobe</span> &middot; <span class="on">Salesforce</span> &middot; <span class="off" title="probe round 1 (2026-08-10) got 401 for both intuitcareers and IntuitExternalCareerSite on wd1 — authenticated tenant, not a wrong site name. Find the real host/site from a jobs link on intuit.com/careers before guessing again.">Intuit</span> &middot; <span class="on">PayPal</span> &middot; <span class="on">Airbnb</span> &middot; <span class="on">Pinterest</span> &middot; <span class="on">Stripe</span> &middot; <span class="on">Datadog</span> &middot; <span class="off" title="probe round 1 (2026-08-10) got 404 for the &quot;doordash&quot; board token — they have moved off the public Greenhouse board API. Find the current ATS from a job link on careersatdoordash.com before re-enabling.">DoorDash</span> &middot; <span class="off" title="needs a custom adapter — jobs.apple.com posts to its own search-reference API (csrf token required). Not a Workday/Greenhouse shape.">Apple</span> &middot; <span class="off" title="needs a custom adapter — gcsservices.careers.microsoft.com JSON API.">Microsoft</span> &middot; <span class="off" title="needs a custom adapter — Eightfold ATS (explore.jobs.netflix.net /api/apply/v2/jobs). Eightfold is also used by several other targets, so this adapter would pay for itself.">Netflix</span> &middot; <span class="off" title="needs a custom adapter — uber.com/api/loadSearchJobsResults (POST).">Uber</span> &middot; <span class="off" title="needs a custom adapter — lifeatspotify.com/api/jobs. Probe round 1 also ruled out a &quot;spotify&quot; Greenhouse board (404).">Spotify</span> &middot; <span class="off" title="careers.linkedin.com only. NOT to be scraped via linkedin.com job search — see CLAUDE.md rule 3 (account-ban risk). Leave disabled unless a non-LinkedIn-domain endpoint is found.">LinkedIn</span> &middot; <span class="on">Block</span></div><div><b>Tier B</b> &nbsp;<span class="on">Oracle</span> &middot; <span class="on">Accenture</span></div><div><b>Tier C</b> &nbsp;<span class="off" title="probe round 1 (2026-08-10): the postings API answers 200 with totalFound=0 for PublicisGroupe, Publicis, Havas and dentsu alike, so a 200 here does not mean the token is right — an unknown company returns an empty result, not a 404. Read the real token off a live SmartRecruiters apply URL before enabling. The adapter itself is proven (built for Turner &amp; Townsend in unifier-jobs).">Publicis Groupe</span> &middot; <span class="off" title="holdco careers page is a brochure. WPP hires through its operating companies (GroupM, Ogilvy, VML, Hogarth, Burson), each with its own ATS — so this is 5+ endpoints, not one. Deferred; expand only if the board is thin.">WPP</span> &middot; <span class="off" title="same fragmentation as WPP (BBDO, DDB, OMD, Annalect each separate).">Omnicom</span> &middot; <span class="off" title="ATS unidentified — sweep for ATS markers first.">Dentsu</span> &middot; <span class="off" title="ATS unidentified — sweep for ATS markers first.">Havas</span></div></div><p class="hint" style="margin-bottom:0">Dotted = endpoint not verified yet; hover for why. Nothing is hidden — a company with no live endpoint contributes no jobs and says so here.</p></div></details></section>
+<footer><details class="fold"><summary>About this board</summary>
+<div class="about">
+<p><b>Verbatim or nothing.</b> Company, title, location, posted date,
+compensation text and job description are quoted from the employer's posting.
+Anything the posting doesn't state says "not listed" — no estimates, no
+paraphrasing, and no guessed total compensation.</p>
+<p><b>The two scores are derived.</b> Fit (0–100) weighs transferable
+experience 30%, FP&amp;A learning opportunity 25%, compensation 20%,
+seniority 15%, location 10%. Pivot (1–10) is how much the role would expand
+the resume: 10 is broad corporate planning and P&amp;L ownership, 1 is
+effectively another client-finance seat. Both come from term lists in
+<code>config/roles.yaml</code> — they are not claims made by the employer.
+Cards are sorted by fit, then company tier, then stated compensation, then
+distance from New York.</p>
+<p><b>What's excluded.</b> Accounting, controller, tax, treasury, AR/AP,
+billing and revenue accounting roles; anything below Manager; and client or
+commercial finance, which is the lane this board exists to leave. A big-tech
+"Finance Manager" is <i>not</i> filtered out — company leveling matters more
+than title wording.</p>
+<p><b>Applied and hidden</b> are saved in this browser only. They are never
+committed to the repository, never shared, and do not follow you to another
+device.</p>
+</div></details></footer>
 </main><script>
 (function(){
   var AK='fpna-applied-v1', HK='fpna-hidden-v1';
@@ -908,9 +1119,9 @@ another device.
       c.style.display='';
       var on=!!applied[id];
       c.classList.toggle('applied',on);
-      var b=c.querySelector('.applied-badge');
-      if(b) b.textContent = on ? ('applied '+applied[id]) : '';
-      if(b) b.style.display = on ? '' : 'none';
+      var b=c.querySelector('.applied-tag');
+      if(b){b.textContent = on ? ('applied '+applied[id]) : '';
+            b.style.display = on ? '' : 'none';}
       var btn=c.querySelector('.btn-applied');
       if(btn) btn.textContent = on ? 'undo applied' : 'mark applied';
     });
@@ -920,15 +1131,14 @@ another device.
     if(r) r.style.display = nh ? '' : 'none';
   }
   document.addEventListener('click',function(e){
-    var t=e.target;
-    if(t.classList.contains('btn-applied')){
-      var id=t.closest('.card').getAttribute('data-id');
+    var t=e.target, card=t.closest ? t.closest('.card') : null;
+    if(t.classList.contains('btn-applied') && card){
+      var id=card.getAttribute('data-id');
       if(applied[id]) delete applied[id];
       else applied[id]=new Date().toISOString().slice(0,10);
       save(AK,applied); paint();
-    } else if(t.classList.contains('btn-hide')){
-      var id2=t.closest('.card').getAttribute('data-id');
-      hidden[id2]=1; save(HK,hidden); paint();
+    } else if(t.classList.contains('btn-hide') && card){
+      hidden[card.getAttribute('data-id')]=1; save(HK,hidden); paint();
     } else if(t.id==='unhide'){
       hidden={}; save(HK,hidden); paint();
     }

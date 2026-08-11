@@ -1,12 +1,20 @@
 """Static dashboard generator -> docs/index.html (served by GitHub Pages).
 
 Card layout, not a spreadsheet: the source spec asked for eighteen columns,
-which is unreadable on a phone and this board is shared by link. Every factual
-value is the source's verbatim text and absent fields say "Not listed"; the
-scores, level, gap flags and recommendation are DERIVED and marked as such
-(title attribute on the score row plus the footer note).
+which is unreadable on a phone and this board is shared by link.
+
+Layout priorities, in order: (1) the job title is what you scan for, so it is
+the loudest thing on the card — not the company; (2) fit and pivot are why this
+board exists, so they sit in a fixed score column at a size you can read at a
+glance rather than buried in a footnote; (3) everything else is support and is
+sized accordingly.
+
+Every factual value is the source's verbatim text and absent fields say
+"Not listed". The scores, level, gap flags and recommendation are DERIVED and
+say so on hover and in the About panel.
 """
 import html
+import re
 from pathlib import Path
 
 from .filters import city_rank, comp_sort_value
@@ -16,63 +24,161 @@ DOCS = Path(__file__).resolve().parent.parent / "docs"
 TIER_ORDER = {"A": 0, "B": 1, "C": 2}
 CAT_LABEL = {"bigtech": "Big Tech", "tech": "Tech", "advertising": "Advertising"}
 SEV_LABEL = {"green": "GREEN", "yellow": "YELLOW", "red": "RED"}
+REC_CLASS = {"Strong Apply": "rec-strong", "Apply": "rec-apply",
+             "Stretch Apply": "rec-stretch", "Skip": "rec-skip"}
 
 CSS = """
-:root{--bg:#f7f7f5;--card:#fff;--text:#1a1a1a;--muted:#666;--line:#e2e2de;
---accent:#0c447c;--badge:#e6f1fb;--warn-bg:#faeeda;--warn-text:#633806;
---new:#1d9e75;--gone:#999;--star:#8a5a00;--star-bg:#fdf3d7;
---green:#1d7a4f;--yellow:#8a6100;--red:#a52a2a}
-@media(prefers-color-scheme:dark){:root{--bg:#171715;--card:#22221f;--text:#eee;
---muted:#9a9a94;--line:#3a3a36;--accent:#85b7eb;--badge:#0c2c4c;
---warn-bg:#3a2c10;--warn-text:#fac775;--star:#f0c869;--star-bg:#3a2c10;
---green:#5ec48f;--yellow:#e0b44c;--red:#e88}
-*{box-sizing:border-box}body{margin:0;padding:16px;background:var(--bg);
-color:var(--text);font:16px/1.5 system-ui,-apple-system,sans-serif}
-main{max-width:860px;margin:0 auto}h1{font-size:22px;margin:0 0 4px}
-.sub{color:var(--muted);font-size:13px;margin-bottom:16px}
-.warn{background:var(--warn-bg);color:var(--warn-text);border-radius:8px;
-padding:10px 14px;font-size:14px;margin-bottom:16px}
-h2{font-size:17px;margin:24px 0 10px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;
-padding:14px 16px;margin-bottom:10px}
-.card.applied{opacity:.72}
-.co{font-weight:600}.badge{display:inline-block;font-size:11px;font-weight:600;
-background:var(--badge);color:var(--accent);border-radius:4px;padding:1px 6px;
-margin-left:6px;vertical-align:1px;white-space:nowrap}
-.badge.new{background:transparent;color:var(--new);border:1px solid var(--new)}
-.badge.star{background:var(--star-bg);color:var(--star)}
-.badge.plain{background:transparent;color:var(--muted);
-border:1px solid var(--line);font-weight:500}
-.title a{color:var(--accent);text-decoration:none;font-size:17px}
+:root{
+  --bg:#f6f6f4; --card:#fff; --text:#16181c; --muted:#6b7280; --faint:#9aa0aa;
+  --line:#e4e4e0; --line-soft:#eeeeea; --accent:#0b4a86; --accent-soft:#eaf2fb;
+  --good:#127c4f; --good-soft:#e6f4ec; --warn:#8a5a00; --warn-soft:#fdf3d9;
+  --bad:#a02c2c; --bad-soft:#fbeaea; --star:#7a5200; --star-soft:#fbf0d2;
+  --shadow:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.06);
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#141416; --card:#1e1f22; --text:#eceef1; --muted:#9ba1ab; --faint:#767c86;
+  --line:#32343a; --line-soft:#2a2c31; --accent:#7fb4ec; --accent-soft:#152a41;
+  --good:#5fc78f; --good-soft:#123024; --warn:#e0b44c; --warn-soft:#332608;
+  --bad:#ef8b8b; --bad-soft:#3a1c1c; --star:#efc76a; --star-soft:#332608;
+  --shadow:none;
+}}
+*{box-sizing:border-box}
+body{margin:0;padding:20px 16px 48px;background:var(--bg);color:var(--text);
+  font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased}
+main{max-width:880px;margin:0 auto}
+a{color:var(--accent)}
+
+/* ---- header ---- */
+header{margin-bottom:22px}
+h1{font-size:21px;line-height:1.25;letter-spacing:-.01em;margin:0 0 8px;
+  font-weight:650}
+.stats{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;
+  font-size:13px;color:var(--muted)}
+.stats b{color:var(--text);font-weight:600}
+.ghost{font:inherit;background:none;border:1px solid var(--line);
+  border-radius:999px;color:var(--muted);cursor:pointer;padding:2px 10px}
+.ghost:hover{color:var(--text);border-color:var(--muted)}
+.warn-box{margin:14px 0 0;padding:10px 13px;border-radius:8px;font-size:13px;
+  background:var(--warn-soft);color:var(--warn);border:1px solid transparent}
+
+/* ---- sections ---- */
+section{margin-top:30px}
+h2{font-size:13px;font-weight:650;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 4px;padding-bottom:8px;
+  border-bottom:1px solid var(--line)}
+h2 .n{color:var(--faint);font-weight:500}
+.hint{font-size:13px;color:var(--muted);margin:10px 0 14px;max-width:62ch}
+details.fold{margin-top:8px}
+details.fold>summary{font-size:13px;font-weight:650;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--muted);cursor:pointer;padding-bottom:8px;
+  border-bottom:1px solid var(--line);list-style:none}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::before{content:"▸ ";color:var(--faint)}
+details.fold[open]>summary::before{content:"▾ "}
+details.fold>summary:hover{color:var(--text)}
+
+/* ---- card ---- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:16px 18px;margin-top:12px;box-shadow:var(--shadow)}
+.card.applied{opacity:.6}
+.top{display:flex;gap:18px;align-items:flex-start}
+.body{min-width:0;flex:1}
+.title{font-size:16.5px;font-weight:620;line-height:1.3;margin:0 0 4px;
+  letter-spacing:-.005em}
+.title a{text-decoration:none}
 .title a:hover{text-decoration:underline}
-.meta{color:var(--muted);font-size:13px;margin-top:4px}
-.comp{font-size:14px;margin-top:4px}
-.scores{font-size:13px;margin-top:6px;padding-top:6px;
-border-top:1px dashed var(--line);color:var(--muted)}
-.scores b{color:var(--text)}
-.sev-green{color:var(--green);font-weight:600}
-.sev-yellow{color:var(--yellow);font-weight:600}
-.sev-red{color:var(--red);font-weight:600}
-.acts{margin-top:8px;font-size:13px}
-.acts button{font:inherit;color:var(--muted);background:none;cursor:pointer;
-border:1px solid var(--line);border-radius:6px;padding:2px 8px;margin-right:6px}
-.acts button:hover{color:var(--text)}
-details{margin-top:8px;font-size:14px}summary{cursor:pointer;color:var(--muted)}
-details pre{white-space:pre-wrap;font:13px/1.5 inherit;color:var(--text);
-max-height:400px;overflow-y:auto;background:none;margin:8px 0 0}
-.analysis{font-size:13.5px;margin-top:8px}
-.analysis p{margin:6px 0}.analysis .lbl{font-weight:600;color:var(--text)}
-section details.fold>summary{font-size:15px;color:var(--text);font-weight:600}
-.gone .title a{color:var(--gone)}.gone .co{color:var(--gone)}
-footer{color:var(--muted);font-size:12px;margin:24px 0}
-.on{color:var(--text)}.off{color:var(--muted);opacity:.65}
-@media(max-width:600px){body{padding:10px}.badge{margin-left:4px}}
+.org{font-size:14px;color:var(--text);margin-bottom:9px}
+.org .co{font-weight:600}
+.org .sep{color:var(--faint);margin:0 6px}
+.org .loc{color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.tag{font-size:11px;font-weight:600;letter-spacing:.02em;border-radius:5px;
+  padding:2px 7px;background:var(--accent-soft);color:var(--accent);
+  white-space:nowrap}
+.tag.q{background:transparent;color:var(--muted);border:1px solid var(--line);
+  font-weight:500}
+.tag.star{background:var(--star-soft);color:var(--star)}
+.tag.new{background:var(--good-soft);color:var(--good)}
+.pay{font-size:14px;margin-bottom:3px}
+.pay b{font-weight:620}
+.pay .none{color:var(--faint);font-weight:400}
+.pay .sub{color:var(--muted);font-size:13px}
+.when{font-size:12.5px;color:var(--faint)}
+
+/* ---- score column ---- */
+.score{flex:0 0 96px;text-align:right;display:flex;flex-direction:column;
+  align-items:flex-end;gap:5px}
+.fit{display:flex;align-items:baseline;gap:4px;line-height:1}
+.fit b{font-size:29px;font-weight:640;letter-spacing:-.02em}
+.fit span{font-size:11px;color:var(--faint);text-transform:uppercase;
+  letter-spacing:.06em}
+.f-hi b{color:var(--good)}.f-mid b{color:var(--accent)}
+.f-low b{color:var(--warn)}.f-min b{color:var(--faint)}
+.pivot{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.pivot b{color:var(--text);font-weight:620}
+.rec{font-size:11px;font-weight:650;border-radius:999px;padding:2px 9px;
+  white-space:nowrap}
+.rec-strong{background:var(--good-soft);color:var(--good)}
+.rec-apply{background:var(--accent-soft);color:var(--accent)}
+.rec-stretch{background:var(--warn-soft);color:var(--warn)}
+.rec-skip{background:var(--line-soft);color:var(--muted)}
+.gap{font-size:11.5px;white-space:nowrap;color:var(--muted)}
+.gap .g-green{color:var(--good)}.gap .g-yellow{color:var(--warn)}
+.gap .g-red{color:var(--bad)}
+
+/* ---- card footer ---- */
+.foot{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;
+  margin-top:13px;padding-top:11px;border-top:1px solid var(--line-soft);
+  font-size:12.5px}
+.foot details{display:inline}
+.foot summary{cursor:pointer;color:var(--muted);list-style:none;
+  display:inline-block}
+.foot summary::-webkit-details-marker{display:none}
+.foot summary:hover{color:var(--text)}
+.foot .spacer{flex:1}
+.act{font:inherit;font-size:12.5px;background:none;border:1px solid var(--line);
+  border-radius:999px;color:var(--muted);cursor:pointer;padding:2px 10px}
+.act:hover{color:var(--text);border-color:var(--muted)}
+.panel{flex-basis:100%;margin:0}
+.analysis{font-size:13.5px;line-height:1.6;margin:10px 0 0;
+  padding:12px 14px;background:var(--bg);border-radius:8px}
+.analysis p{margin:0 0 7px}.analysis p:last-child{margin:0}
+.analysis .lbl{font-weight:650;color:var(--text)}
+.analysis .lbl+span{color:var(--muted)}
+pre.desc{white-space:pre-wrap;font:13px/1.6 inherit;color:var(--muted);
+  max-height:340px;overflow-y:auto;margin:10px 0 0;padding:12px 14px;
+  background:var(--bg);border-radius:8px}
+
+/* ---- gone / roster / about ---- */
+.gone .title a{color:var(--faint)}
+.gone .org .co{color:var(--muted)}
+.roster{font-size:13px;line-height:1.9}
+.roster b{font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted);font-weight:650}
+.on{color:var(--text)}
+.off{color:var(--faint);text-decoration:underline dotted;
+  text-underline-offset:3px;cursor:help}
+.about{font-size:13px;line-height:1.65;color:var(--muted);max-width:70ch}
+.about p{margin:0 0 9px}
+.about b{color:var(--text);font-weight:620}
+footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line)}
+
+@media(max-width:620px){
+  body{padding:16px 12px 40px}
+  .card{padding:14px}
+  .top{flex-direction:column-reverse;gap:10px}
+  .score{flex-direction:row;align-items:center;flex-wrap:wrap;gap:8px;
+    text-align:left;flex-basis:auto;width:100%}
+  .fit b{font-size:24px}
+  h1{font-size:19px}
+}
 """
 
 # Applied / hidden ticks live only in the viewer's browser: this is a public
 # repo shared by link, so one person's tracking must never be committed or
-# visible to anyone else. Per-device by design — stated in the footer so a tick
-# that doesn't follow you to your phone isn't a surprise. Job ids hash
+# visible to anyone else. Per-device by design — stated in the About panel so a
+# tick that doesn't follow you to your phone isn't a surprise. Job ids hash
 # company|title|location, so a tick survives the daily re-fetch.
 JS = """
 (function(){
@@ -88,9 +194,9 @@ JS = """
       c.style.display='';
       var on=!!applied[id];
       c.classList.toggle('applied',on);
-      var b=c.querySelector('.applied-badge');
-      if(b) b.textContent = on ? ('applied '+applied[id]) : '';
-      if(b) b.style.display = on ? '' : 'none';
+      var b=c.querySelector('.applied-tag');
+      if(b){b.textContent = on ? ('applied '+applied[id]) : '';
+            b.style.display = on ? '' : 'none';}
       var btn=c.querySelector('.btn-applied');
       if(btn) btn.textContent = on ? 'undo applied' : 'mark applied';
     });
@@ -100,15 +206,14 @@ JS = """
     if(r) r.style.display = nh ? '' : 'none';
   }
   document.addEventListener('click',function(e){
-    var t=e.target;
-    if(t.classList.contains('btn-applied')){
-      var id=t.closest('.card').getAttribute('data-id');
+    var t=e.target, card=t.closest ? t.closest('.card') : null;
+    if(t.classList.contains('btn-applied') && card){
+      var id=card.getAttribute('data-id');
       if(applied[id]) delete applied[id];
       else applied[id]=new Date().toISOString().slice(0,10);
       save(AK,applied); paint();
-    } else if(t.classList.contains('btn-hide')){
-      var id2=t.closest('.card').getAttribute('data-id');
-      hidden[id2]=1; save(HK,hidden); paint();
+    } else if(t.classList.contains('btn-hide') && card){
+      hidden[card.getAttribute('data-id')]=1; save(HK,hidden); paint();
     } else if(t.id==='unhide'){
       hidden={}; save(HK,hidden); paint();
     }
@@ -122,92 +227,128 @@ def esc(s):
     return html.escape(str(s)) if s else ""
 
 
-def _badges(j, prestige, roles):
+def _posted(value):
+    """Trim a machine timestamp to its date. Greenhouse returns
+    "2026-03-26T15:58:01-04:00", which is the same fact as "2026-03-26" but
+    reads like debug output next to Amazon's "July 30, 2026". Formatting only —
+    human date strings are left exactly as the employer wrote them.
+    """
+    s = str(value or "")
+    m = re.match(r"(\d{4}-\d{2}-\d{2})T", s)
+    return m.group(1) if m else (s or None)
+
+
+def _tags(j, prestige, roles):
+    """Badges, ordered by how much they change a decision. Kept few and short:
+    a five-badge pile on the company line was the worst part of the first
+    layout, so tier and category are merged and the pivot badge is abbreviated
+    with the full phrase on hover."""
     out = []
-    if prestige:
-        out.append(f'<span class="badge">Tier {esc(prestige)}</span>')
-    cat = CAT_LABEL.get(j.get("category"))
-    if cat:
-        out.append(f'<span class="badge plain">{esc(cat)}</span>')
     if "new" in j["flags"]:
-        out.append('<span class="badge new">new</span>')
-    star = (j.get("pivot", 0) >= roles["bands"]["pivot_star"]
-            and j.get("fit", 0) >= roles["bands"]["best"])
-    if star:
-        out.append('<span class="badge star" title="This role would add the most '
-                   'new corporate FP&amp;A scope of anything on the board">'
-                   '&#11088; HIGH-VALUE FP&amp;A PIVOT</span>')
-    if j.get("remote"):
-        out.append('<span class="badge plain" title="the posting states remote '
-                   'eligibility">remote</span>')
+        out.append('<span class="tag new">new</span>')
+    if (j.get("pivot", 0) >= roles["bands"]["pivot_star"]
+            and j.get("fit", 0) >= roles["bands"]["best"]):
+        out.append('<span class="tag star" title="HIGH-VALUE FP&amp;A PIVOT — of '
+                   'everything on the board, this role would add the most new '
+                   'corporate FP&amp;A scope">&#11088; top pivot</span>')
+    brand = " · ".join(x for x in (f"Tier {prestige}" if prestige else None,
+                                   CAT_LABEL.get(j.get("category"))) if x)
+    if brand:
+        out.append(f'<span class="tag q">{esc(brand)}</span>')
     if j.get("level_label"):
-        out.append(f'<span class="badge plain" title="seniority band derived from '
-                   f'the title, not stated by the employer">'
+        out.append(f'<span class="tag q" title="seniority band derived from the '
+                   f'title — not stated by the employer">'
                    f'{esc(j["level_label"])}</span>')
+    elif j.get("level_stated") is False:
+        out.append('<span class="tag q" title="the title names no level (e.g. '
+                   '&quot;Principal, Strategic Finance&quot;) — scored as Manager, '
+                   'but the real level may be higher; check the posting">'
+                   'level not stated</span>')
+    if j.get("remote"):
+        out.append('<span class="tag q" title="the posting states remote '
+                   'eligibility">remote</span>')
+    if j.get("scope") == "unknown":
+        out.append('<span class="tag q" title="the posting names no specific '
+                   'city — kept because multi-location reqs often include New '
+                   'York">city not stated</span>')
     if "long-posted" in j["flags"]:
-        out.append('<span class="badge plain">long-posted</span>')
+        out.append('<span class="tag q" title="posted more than 90 days ago">'
+                   'long-posted</span>')
     if "manual" in j["flags"]:
-        out.append('<span class="badge plain" title="added by hand from a direct '
-                   'link — this employer blocks automated access">manual</span>')
+        out.append('<span class="tag q" title="added by hand from a direct link '
+                   '— this employer blocks automated access">manual</span>')
     if j["kind"] == "board":
-        out.append('<span class="badge plain" title="found on an aggregator; the '
-                   'employer\'s own posting has not been resolved yet">'
-                   'board find</span>')
-    out.append('<span class="badge new applied-badge" style="display:none"></span>')
-    return "".join(out)
+        out.append('<span class="tag q" title="found on an aggregator; the '
+                   'employer\'s own posting is not resolved yet">board</span>')
+    out.append('<span class="tag new applied-tag" style="display:none"></span>')
+    return f'<div class="tags">{"".join(out)}</div>'
 
 
 def _card(j, prestige, roles, narrate):
-    comp = esc(j.get("comp")) or '<span style="color:var(--muted)">Not listed</span>'
-    extras = j.get("extras") or {}
-    extra_bits = []
-    if extras.get("bonus"):
-        extra_bits.append("bonus mentioned")
-    if extras.get("equity"):
-        extra_bits.append("equity/RSUs mentioned")
-    if j.get("comp_multi"):
-        extra_bits.append("posting states several location ranges — "
-                          "this may not be the New York one")
-    extra_txt = (f' <span style="color:var(--muted)">&middot; '
-                 f'{esc(", ".join(extra_bits))}</span>' if extra_bits else "")
-    posted = esc(j.get("posted_date")) or "Not listed"
-    loc = esc(j.get("location")) or "Not listed"
-    if j.get("scope") == "unknown":
-        loc += ('<span class="badge plain" title="the posting does not name a '
-                'specific city — kept because multi-location reqs often include '
-                'New York">not specific</span>')
+    fit = j.get("fit") or 0
+    fit_cls = ("f-hi" if fit >= 85 else "f-mid" if fit >= 75
+               else "f-low" if fit >= 60 else "f-min")
     sev = j.get("gap_severity", "green")
+    rec = j.get("recommendation") or ""
+
+    comp = j.get("comp")
+    pay = (f"<b>{esc(comp)}</b>" if comp
+           else '<span class="none">Compensation not listed</span>')
+    extras = j.get("extras") or {}
+    bits = []
+    if extras.get("bonus"):
+        bits.append("bonus mentioned")
+    if extras.get("equity"):
+        bits.append("equity/RSUs mentioned")
+    if j.get("comp_multi"):
+        bits.append("several location ranges stated — may not be the NY one")
+    if bits:
+        pay += f' <span class="sub">&middot; {esc(", ".join(bits))}</span>'
+
+    when = f'Posted {esc(_posted(j.get("posted_date"))) or "date not listed"}'
+    when += f' &middot; found {esc(j["first_seen"])}'
+    if j["status"] == "gone":
+        when += f' &middot; no longer listed as of {esc(j["gone_date"])}'
+
     n = narrate(j)
     analysis = (
-        f'<div class="analysis">'
-        f'<p><span class="lbl">Why this matches:</span> {esc(n["why"])}</p>'
-        f'<p><span class="lbl">What this would add:</span> {esc(n["learn"])}</p>'
-        f'<p><span class="lbl">Gaps:</span> {esc(n["gaps"])}</p>'
-        f'<p><span class="lbl">Career value:</span> {esc(n["value"])}</p>'
-        + (f'<p><span class="lbl">FP&amp;A areas in the posting:</span> '
-           f'{esc(", ".join(n["areas"]))}</p>' if n["areas"] else "")
+        '<div class="analysis">'
+        f'<p><span class="lbl">Why this matches:</span> <span>{esc(n["why"])}</span></p>'
+        f'<p><span class="lbl">What it would add:</span> <span>{esc(n["learn"])}</span></p>'
+        f'<p><span class="lbl">Gaps:</span> <span>{esc(n["gaps"])}</span></p>'
+        f'<p><span class="lbl">Career value:</span> <span>{esc(n["value"])}</span></p>'
+        + (f'<p><span class="lbl">FP&amp;A areas named in the posting:</span> '
+           f'<span>{esc(", ".join(n["areas"]))}</span></p>' if n["areas"] else "")
         + '</div>')
     desc = ""
     if j.get("description"):
-        desc = (f"<details><summary>Job description (verbatim)</summary>"
-                f"<pre>{esc(j['description'])}</pre></details>")
-    gone = ""
-    if j["status"] == "gone":
-        gone = f' &mdash; no longer listed as of {esc(j["gone_date"])}'
-    return f"""<div class="card{' gone' if j['status'] == 'gone' else ''}" data-id="{esc(j['id'])}">
-<div class="co">{esc(j['company'])}{_badges(j, prestige, roles)}</div>
-<div class="title"><a href="{esc(j['url'])}" target="_blank" rel="noopener">{esc(j['title'])}</a></div>
-<div class="meta">{loc} &middot; Posted: {posted} &middot; Found: {esc(j['first_seen'])}{gone}</div>
-<div class="comp">Comp: {comp}{extra_txt}</div>
-<div class="scores" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
-Fit <b>{j.get('fit', 0)}</b>/100 &middot; FP&amp;A transition <b>{j.get('pivot', 0)}</b>/10
- &middot; Gaps <span class="sev-{sev}">{SEV_LABEL.get(sev, sev)}</span>
- &middot; <b>{esc(j.get('recommendation'))}</b></div>
-<details><summary>Analysis</summary>{analysis}</details>
-{desc}
-<div class="acts"><button class="btn-applied">mark applied</button>
-<button class="btn-hide">hide</button></div>
-</div>"""
+        desc = ('<details class="panel"><summary>Job description</summary>'
+                f'<pre class="desc">{esc(j["description"])}</pre></details>')
+
+    return f"""<article class="card{' gone' if j['status'] == 'gone' else ''}" data-id="{esc(j['id'])}">
+<div class="top">
+  <div class="body">
+    <h3 class="title"><a href="{esc(j['url'])}" target="_blank" rel="noopener">{esc(j['title'])}</a></h3>
+    <div class="org"><span class="co">{esc(j['company'])}</span><span class="sep">&middot;</span><span class="loc">{esc(j.get('location')) or 'Location not listed'}</span></div>
+    {_tags(j, prestige, roles)}
+    <div class="pay">{pay}</div>
+    <div class="when">{when}</div>
+  </div>
+  <div class="score" title="Derived from the term lists in config/roles.yaml — not stated by the employer">
+    <div class="fit {fit_cls}"><b>{fit}</b><span>fit</span></div>
+    <div class="pivot">pivot <b>{j.get('pivot', 0)}</b>/10</div>
+    <div class="rec {REC_CLASS.get(rec, 'rec-skip')}">{esc(rec)}</div>
+    <div class="gap"><span class="g-{sev}">&#9679;</span> {SEV_LABEL.get(sev, sev)} gaps</div>
+  </div>
+</div>
+<div class="foot">
+  <details class="panel"><summary>Analysis</summary>{analysis}</details>
+  {desc}
+  <span class="spacer"></span>
+  <button class="act btn-applied">mark applied</button>
+  <button class="act btn-hide">hide</button>
+</div>
+</article>"""
 
 
 def _triage_section(triage):
@@ -226,19 +367,23 @@ def _triage_section(triage):
     cards = []
     for t in rows:
         cards.append(
-            f'<div class="card"><div class="co">{esc(t["company"])}'
-            f'<span class="badge plain" title="{esc(t.get("note"))}">'
-            f'not scored</span></div>'
-            f'<div class="title"><a href="{esc(t["url"])}" target="_blank" '
-            f'rel="noopener">{esc(t["title"])}</a></div>'
-            f'<div class="meta">Location: Not listed &middot; Comp: Not listed '
-            f'&middot; Found: {esc(t.get("first_seen"))}</div></div>')
-    return (f'<section><details class="fold"><summary>Worth a look — not '
-            f'scoreable ({len(rows)})</summary>'
-            f'<div class="meta">These matched the employer\'s own finance search, '
-            f'but their posting text isn\'t machine-readable, so there is no fit '
-            f'score and no location or comp to show. Open the link to judge them. '
-            f'Mostly Meta, whose job search returns titles only.</div>'
+            '<article class="card"><div class="top"><div class="body">'
+            f'<h3 class="title"><a href="{esc(t["url"])}" target="_blank" '
+            f'rel="noopener">{esc(t["title"])}</a></h3>'
+            f'<div class="org"><span class="co">{esc(t["company"])}</span>'
+            f'<span class="sep">&middot;</span>'
+            f'<span class="loc">Location not listed</span></div>'
+            f'<div class="tags"><span class="tag q" '
+            f'title="{esc(t.get("note"))}">not scoreable</span></div>'
+            '<div class="pay"><span class="none">Compensation not listed</span></div>'
+            f'<div class="when">Found {esc(t.get("first_seen"))}</div>'
+            '</div></div></article>')
+    return (f'<section><details class="fold"><summary>Worth a look &mdash; not '
+            f'scoreable <span class="n">({len(rows)})</span></summary>'
+            f'<p class="hint">These matched the employer\'s own finance search, '
+            f'but the posting text isn\'t machine-readable, so there is no fit '
+            f'score and no location or compensation to show. Open the link to '
+            f'judge them. Mostly Meta, whose job search returns titles only.</p>'
             f'{"".join(cards)}</details></section>')
 
 
@@ -279,17 +424,19 @@ def generate(store, companies, cities, roles, warnings, today, triage=None):
     warn_html = ""
     if warnings:
         items = "<br>".join(esc(w) for w in warnings)
-        warn_html = f'<div class="warn">&#9888; Source health: {items}</div>'
+        warn_html = f'<div class="warn-box">&#9888; Source health: {items}</div>'
 
-    def section(title, jobs, fold=False, note=None):
+    def section(title, jobs, fold=False, hint=None):
         if not jobs:
             return ""
         cards = "\n".join(_card(j, p_of(j), roles, narrate) for j in jobs)
-        sub = f'<div class="meta">{esc(note)}</div>' if note else ""
+        h = f'<p class="hint">{esc(hint)}</p>' if hint else ""
         if fold:
             return (f'<section><details class="fold"><summary>{esc(title)} '
-                    f'({len(jobs)})</summary>{sub}{cards}</details></section>')
-        return (f'<section><h2>{esc(title)} ({len(jobs)})</h2>{sub}{cards}</section>')
+                    f'<span class="n">({len(jobs)})</span></summary>{h}{cards}'
+                    f'</details></section>')
+        return (f'<section><h2>{esc(title)} <span class="n">({len(jobs)})</span>'
+                f'</h2>{h}{cards}</section>')
 
     def roster_section():
         tiers = {}
@@ -300,65 +447,80 @@ def generate(store, companies, cities, roles, warnings, today, triage=None):
         for t in ("A", "B", "C"):
             rows = []
             for c in tiers.get(t, []):
-                if c.get("enabled"):
-                    rows.append(f'<span class="on">{esc(c["name"])}</span>')
-                else:
-                    rows.append(f'<span class="off" title="'
-                                f'{esc(c.get("note") or "pending fingerprint")}">'
-                                f'{esc(c["name"])}</span>')
+                cls = "on" if c.get("enabled") else "off"
+                title = "" if c.get("enabled") else (
+                    f' title="{esc(c.get("note") or "endpoint not yet verified")}"')
+                rows.append(f'<span class="{cls}"{title}>{esc(c["name"])}</span>')
             if rows:
-                parts.append(f'<div class="meta" style="margin-top:6px">'
-                             f'<b>Tier {t}:</b> ' + " &middot; ".join(rows) + "</div>")
+                parts.append(f'<div><b>Tier {t}</b> &nbsp;'
+                             + " &middot; ".join(rows) + "</div>")
         return (f'<section><details class="fold"><summary>Monitored companies '
-                f'({n_on} live of {len(companies)})</summary><div class="card">'
+                f'<span class="n">({n_on} live of {len(companies)})</span>'
+                f'</summary><div class="card"><div class="roster">'
                 + "".join(parts)
-                + '<div class="meta" style="margin-top:10px">Greyed = endpoint not '
-                  'yet verified (hover for why). Nothing is hidden: a company with '
-                  'no live endpoint contributes no jobs, and says so here.</div>'
-                  '</div></details></section>')
+                + '</div><p class="hint" style="margin-bottom:0">Dotted = endpoint '
+                  'not verified yet; hover for why. Nothing is hidden — a company '
+                  'with no live endpoint contributes no jobs and says so here.'
+                  '</p></div></details></section>')
 
     new_count = sum(1 for j in active if "new" in j["flags"])
     body = f"""<main>
-<h1>FP&amp;A / Strategic Finance job watch</h1>
-<div class="sub">Updated {esc(today)} &middot; {len(active)} live roles
- &middot; {len(best)} at fit {bands['best']}+ &middot; {new_count} new this run
- &middot; <span id="hidden-note"></span>
- <button id="unhide" style="display:none;font:inherit;background:none;
- border:1px solid var(--line);border-radius:6px;cursor:pointer;
- color:var(--muted);padding:1px 6px">unhide all</button></div>
+<header>
+<h1>FP&amp;A &amp; Strategic Finance job watch</h1>
+<div class="stats">
+  <span><b>{len(active)}</b> live roles</span>
+  <span><b>{len(best)}</b> at fit {bands['best']}+</span>
+  <span><b>{new_count}</b> new this run</span>
+  <span>updated {esc(today)}</span>
+  <span id="hidden-note"></span>
+  <button id="unhide" class="ghost" style="display:none">unhide all</button>
+</div>
 {warn_html}
-{section(f"Best matches — fit {bands['best']}+", best)}
-{section("Stretch roles — credible but not a clean match", stretch, fold=True,
-         note="Fit " + str(bands["stretch"]) + "-" + str(bands["best"] - 1)
-              + ": worth a look where the FP&A transition score is high.")}
+</header>
+{section(f"Best matches — fit {bands['best']} and above", best)}
+{section("Stretch roles", stretch, fold=True,
+         hint="Fit " + str(bands["stretch"]) + "–" + str(bands["best"] - 1)
+              + ". Credible but not a clean match — worth a look where the "
+                "pivot score is high.")}
 {section("Lower fit", low, fold=True,
-         note="Passed the function, seniority and location gates but scores low "
-              "— kept visible rather than deleted so the filter can be judged.")}
-{section("Below comp target", below, fold=True,
-         note="Stated comp tops out under the target. Kept because a posted "
+         hint="Cleared the function, seniority and location gates but score low. "
+              "Kept visible rather than deleted, so the filter can be judged.")}
+{section("Below compensation target", below, fold=True,
+         hint="Stated range tops out under target. Kept because a posted base "
               "range is not the whole package.")}
 {_triage_section(triage)}
 {section("No longer listed", gone, fold=True)}
 {roster_section()}
-<footer>
-Company, title, location, posted date, compensation and description are shown
-<b>verbatim</b> from the employer's posting; anything the posting doesn't state
-says "Not listed" &mdash; nothing is estimated or paraphrased.
-Fit score, FP&amp;A transition score, seniority band, gap flags and the
-recommendation are <b>derived</b> from the term lists in
-<code>config/roles.yaml</code> and are not claims made by the employer.
-Sorted by fit, then company tier, then stated comp, then distance from NYC.
-&ldquo;Mark applied&rdquo; and &ldquo;hide&rdquo; are stored in this browser only
-&mdash; they are not committed to the repo, not shared, and do not follow you to
-another device.
-</footer>
+<footer><details class="fold"><summary>About this board</summary>
+<div class="about">
+<p><b>Verbatim or nothing.</b> Company, title, location, posted date,
+compensation text and job description are quoted from the employer's posting.
+Anything the posting doesn't state says "not listed" — no estimates, no
+paraphrasing, and no guessed total compensation.</p>
+<p><b>The two scores are derived.</b> Fit (0–100) weighs transferable
+experience 30%, FP&amp;A learning opportunity 25%, compensation 20%,
+seniority 15%, location 10%. Pivot (1–10) is how much the role would expand
+the resume: 10 is broad corporate planning and P&amp;L ownership, 1 is
+effectively another client-finance seat. Both come from term lists in
+<code>config/roles.yaml</code> — they are not claims made by the employer.
+Cards are sorted by fit, then company tier, then stated compensation, then
+distance from New York.</p>
+<p><b>What's excluded.</b> Accounting, controller, tax, treasury, AR/AP,
+billing and revenue accounting roles; anything below Manager; and client or
+commercial finance, which is the lane this board exists to leave. A big-tech
+"Finance Manager" is <i>not</i> filtered out — company leveling matters more
+than title wording.</p>
+<p><b>Applied and hidden</b> are saved in this browser only. They are never
+committed to the repository, never shared, and do not follow you to another
+device.</p>
+</div></details></footer>
 </main>"""
 
     DOCS.mkdir(exist_ok=True)
     page = ("<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
             "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
             "<meta name=\"robots\" content=\"noindex\">"
-            "<title>FP&amp;A / Strategic Finance job watch</title>"
+            "<title>FP&amp;A &amp; Strategic Finance job watch</title>"
             f"<style>{CSS}</style></head>"
             f"<body>{body}<script>{JS}</script></body></html>")
     (DOCS / "index.html").write_text(page, encoding="utf-8")

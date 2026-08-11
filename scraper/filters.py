@@ -300,6 +300,25 @@ def seniority_level(title, kw):
     return cfg.get("unknown_as", "manager")
 
 
+def level_is_stated(title, kw):
+    """Did the TITLE actually name a level, or did we fall back to the default?
+
+    Matters for display, not for scoring: Airbnb's "Principal, Strategic
+    Finance" and Stripe's "Finance and Strategy Partner" name no level, so the
+    fallback scores them as manager — but rendering a "Manager" badge on them
+    states something the employer didn't, and understates both roles. The card
+    shows "level not stated" instead.
+    """
+    cfg = kw["seniority"]
+    t = _words(title)
+    if not t:
+        return False
+    if SENIOR_DIR_RE.search(t) or SENIOR_MGR_RE.search(t):
+        return True
+    return any(_hit(term, t)
+               for terms in cfg["levels"].values() for term in terms)
+
+
 def excluded(title, kw):
     """Reason this title is out of scope, or None. Title-only by design: the
     body of a good FP&A role often mentions accounting or revenue recognition
@@ -508,7 +527,9 @@ def score_job(job, kw, roles, cities, tier=None):
     job["gaps"] = gaps
     job["gap_severity"] = severity
     job["level"] = level
-    job["level_label"] = LEVEL_LABEL.get(level, level)
+    job["level_stated"] = level_is_stated(title, kw)
+    job["level_label"] = (LEVEL_LABEL.get(level, level) if job["level_stated"]
+                          else None)
     job["pivot"] = pivot
     job["fit"] = fit
     job["recommendation"] = recommendation(fit, pivot, severity, roles)

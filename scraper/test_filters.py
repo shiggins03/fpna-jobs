@@ -13,7 +13,8 @@ import yaml
 from .filters import (comp_is_multi_range, comp_sort_value, demote_hits,
                       excluded, extract_stated_comp, fit_score, function_areas,
                       function_hits, gap_flags, is_non_us, is_remote,
-                      location_scope, pivot_score, qualifies, score_job,
+                      level_is_stated, location_scope, pivot_score, qualifies,
+                      score_job,
                       seniority_level, title_finance_hits, transferable_hits)
 
 CONFIG = Path(__file__).resolve().parent.parent / "config"
@@ -85,6 +86,15 @@ check("financial analyst", seniority_level("Senior Financial Analyst", KW), None
 check("associate", seniority_level("Finance Associate", KW), None)
 # no level word at all -> manager, never dropped (leveling often lives in body)
 check("no level word", seniority_level("Business Finance, Ads", KW), "manager")
+# ...but the card must not then BADGE it "Manager": Airbnb's "Principal,
+# Strategic Finance" and Stripe's "Finance and Strategy Partner" name no level,
+# and claiming Manager both invents a fact and understates the role.
+check("stated level", level_is_stated("Finance Manager, Ads", KW), True)
+check("stated senior mgr", level_is_stated("Senior Finance Manager", KW), True)
+check("principal not stated",
+      level_is_stated("Principal, Strategic Finance, Community Support", KW), False)
+check("partner not stated",
+      level_is_stated("Finance and Strategy Partner", KW), False)
 
 # ---- location scope -------------------------------------------------------
 check("nyc", location_scope("New York, NY", CITIES), "nyc")
