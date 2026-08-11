@@ -137,6 +137,19 @@ def run():
     seen_this_run = {}  # source name -> set of job ids seen
     sources_ok = set()
 
+    # Adapters that pay a per-posting detail request screen titles first. This
+    # mirrors the pipeline's own title gate exactly (a finance word in the
+    # title, a level at or above the floor, no excluded term), so it can only
+    # skip postings qualifies() would have rejected anyway.
+    def title_prefilter(title):
+        if not title:
+            return True          # no title to judge — let the full gate decide
+        return bool(title_finance_hits(title, kw)
+                    and seniority_level(title, kw)
+                    and not excluded(title, kw))
+
+    sources.TITLE_PREFILTER = title_prefilter
+
     # ---- direct monitors ----
     for co in companies:
         if not co.get("enabled"):

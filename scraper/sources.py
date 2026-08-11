@@ -26,16 +26,40 @@ def _clean_html(fragment):
     return re.sub(r"\n{3,}", "\n\n", text).strip() or None
 
 
+# Set by main.run() to filters-based title screening. Adapters that pay a
+# per-posting detail request consult it BEFORE spending that request: Workday's
+# searchText is fuzzy, so most of what comes back for a finance query is not a
+# finance job, and fetching 20 descriptions to throw 15 away is what made a
+# 50-company run take twenty minutes. The screen is deliberately identical to
+# the pipeline's own title gate, so nothing is lost that qualifies() would have
+# kept — it just declines to pay for text it would then discard.
+TITLE_PREFILTER = None
+
+
+def _title_worth_fetching(title):
+    return TITLE_PREFILTER is None or bool(TITLE_PREFILTER(title))
+
+
 def fetch_workday(co, query):
     host, tenant, site = co["workday_host"], co["workday_tenant"], co["workday_site"]
     url = f"https://{host}/wday/cxs/{tenant}/{site}/jobs"
+    # cxs caps a page at 20, so more coverage means paging. With the title
+    # prefilter above, extra pages are cheap: only survivors cost a detail call.
+    pages = co.get("workday_pages", 5)
+    postings = []
     try:
-        r = requests.post(url, json={"appliedFacets": {}, "limit": 20, "offset": 0,
-                                     "searchText": query}, headers=UA, timeout=TIMEOUT)
-        r.raise_for_status()
-        postings = r.json().get("jobPostings", [])
+        for page in range(pages):
+            r = requests.post(url, json={"appliedFacets": {}, "limit": 20,
+                                         "offset": page * 20, "searchText": query},
+                              headers=UA, timeout=TIMEOUT)
+            r.raise_for_status()
+            batch = r.json().get("jobPostings", [])
+            postings += batch
+            if len(batch) < 20:
+                break
     except Exception:
-        return [], False, None
+        if not postings:
+            return [], False, None
     inventory = None
     try:
         inv = requests.post(url, json={"appliedFacets": {}, "limit": 1, "offset": 0,
@@ -48,6 +72,8 @@ def fetch_workday(co, query):
     for p in postings:
         path = p.get("externalPath")
         if not path:
+            continue
+        if not _title_worth_fetching(p.get("title")):
             continue
         detail, posted, desc = None, p.get("postedOn"), None
         try:
@@ -278,6 +304,8 @@ def fetch_eightfold(co, query):
         pid = p.get("id")
         if not pid:
             continue
+        if not _title_worth_fetching(p.get("name")):
+            continue   # same reasoning as fetch_workday: skip the detail request
         desc = _clean_html(p.get("job_description"))
         if not desc:
             try:

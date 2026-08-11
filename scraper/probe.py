@@ -347,7 +347,66 @@ def wd_from_page(name, url):
         print(f"  {name:<16} EXC {type(e).__name__}", flush=True)
 
 
+def wd_matrix(slug, hosts=("wd1", "wd3", "wd5"), sites=None):
+    """Brute-force a Workday host/tenant/site triple.
+
+    Used only for employers whose careers page exposes no handoff link (round 9:
+    Visa, BlackRock, Moody's, S&P, MSCI, IBM, Disney, Paramount, NBCU, Etsy all
+    hid theirs). 200 with a total = right; 404/422/400 = wrong pair. Cheap: no
+    detail fetches, one small POST each.
+    """
+    sites = sites or ("External", "Careers", "ExternalCareerSite",
+                      f"{slug.capitalize()}Careers", "External_Career_Site")
+    for wd in hosts:
+        for site in sites:
+            try:
+                r = requests.post(
+                    f"https://{slug}.{wd}.myworkdayjobs.com/wday/cxs/{slug}/{site}/jobs",
+                    json={"appliedFacets": {}, "limit": 1, "offset": 0,
+                          "searchText": ""}, headers=ADAPTER_UA, timeout=15)
+                if r.ok and "json" in (r.headers.get("content-type") or ""):
+                    print(f"  HIT {slug}.{wd}/{site} total={r.json().get('total')}",
+                          flush=True)
+            except Exception:
+                pass
+
+
 def main():
+    """Round 10 — second expansion pass, aiming at the owner's 40+ target.
+
+    Round 9 took the board to 39 roles / 20 at fit 75+. Reaching 40+ at 75+
+    needs roughly double the supply of good roles, so: another batch of
+    NYC-dense boards, and a brute-force hunt for the Workday tenants of the big
+    financial-services and media employers, which are the densest source of
+    senior corporate FP&A seats in this city and are all currently missing.
+    """
+    section("board sweep 2 — more NYC tech, fintech, media, health")
+    board_sweep([
+        # fintech / markets
+        "circle", "fireblocks", "paxos", "chainalysis", "flexport", "stash",
+        "policygenius", "lemonade", "trumid", "clearcover", "kin", "bilt",
+        "mercury", "modern-treasury", "unit", "increase",
+        # NYC enterprise / data / devtools
+        "starburst", "cockroachlabs", "clickhouse", "temporal", "hasura",
+        "vercel", "linear", "retool", "sourcegraph", "1password", "grammarly",
+        "duolingo", "spring-health", "openai", "anthropic", "scaleai",
+        # commerce / media / consumer with NYC finance orgs
+        "shopify", "wayfair", "chewy", "seatgeek", "vimeo", "sirius-xm",
+        "audacy", "outbrain", "taboola", "integralads", "teads", "mediaocean",
+        # health / insurance
+        "devoted-health", "included-health", "alma", "headway", "octave",
+    ])
+
+    section("Workday tenant hunt — big financial services & media")
+    for slug in ("visa", "blackrock", "moodys", "spglobal", "msci", "ibm",
+                 "etsy", "nbcuniversal", "paramount", "wbd", "disney",
+                 "goldmansachs", "morganstanley", "citi", "fiserv", "ice",
+                 "amex", "aexp", "guardianlife", "metlife", "prudential",
+                 "newyorklife", "tiaa", "voya", "equitable"):
+        wd_matrix(slug)
+
+
+def round9():
     """Round 9 — roster expansion. The owner wants more volume: NYC is a huge
     market, remote is acceptable, and senior FP&A is a common role.
 
