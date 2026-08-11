@@ -107,7 +107,51 @@ def smartrecruiters(company):
         print(f"  smartrecruiters {company} -> EXC {type(e).__name__}: {e}")
 
 
+def amazon_pay(job_id):
+    """Where does amazon.jobs keep the pay paragraph?
+
+    The owner pointed at a live posting showing a salary at the bottom of the
+    page while our card said "Not listed" — so search.json's description +
+    qualifications fields do not carry it. Dump every field of both the search
+    record and the detail endpoint, and flag which ones contain a dollar
+    figure.
+    """
+    money = re.compile(r"\$[\d,]{4,}")
+    for label, url in (("detail", f"https://www.amazon.jobs/en/jobs/{job_id}.json"),
+                       ("search", "https://www.amazon.jobs/en/search.json")):
+        try:
+            params = ({"base_query": "Hub Delivery Finance", "result_limit": 5,
+                       "country": "USA"} if label == "search" else None)
+            r = requests.get(url, params=params, headers=ADAPTER_UA, timeout=T)
+            print(f"  {label} {url} -> {r.status_code}")
+            if not r.ok:
+                continue
+            data = r.json()
+            rec = data
+            if label == "search":
+                jobs = data.get("jobs", [])
+                rec = next((x for x in jobs if str(job_id) in str(x.get("id_icims", ""))
+                            or str(job_id) in (x.get("job_path") or "")), jobs[0] if jobs else {})
+            if "job" in rec and isinstance(rec["job"], dict):
+                rec = rec["job"]
+            for k, v in sorted(rec.items()):
+                s = "" if v is None else str(v)
+                hit = "  <-- $" if money.search(s) else ""
+                print(f"    {label}.{k}: len={len(s)}{hit}")
+                if hit:
+                    m = money.search(s)
+                    print(f"      ...{s[max(0, m.start()-140):m.start()+90]}...")
+        except Exception as e:
+            print(f"  {label}: EXC {type(e).__name__}: {str(e)[:160]}")
+
+
 def main():
+    """Round 2 — find Amazon's pay field. See amazon_pay()."""
+    section("round 2 — amazon pay location")
+    amazon_pay(10488409)
+
+
+def round1():
     """Round 1 — fingerprint the guessed endpoints in one dispatch.
 
     Everything here is a guess-then-verify config candidate: Workday tenants,
