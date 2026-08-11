@@ -10,7 +10,8 @@ from pathlib import Path
 
 import yaml
 
-from .filters import (comp_is_multi_range, comp_sort_value, demote_hits,
+from .filters import (comp_is_multi_range, comp_sort_value, comp_stated_offsite,
+                      demote_hits,
                       excluded, extract_stated_comp, fit_score, function_areas,
                       function_hits, gap_flags, is_non_us, is_remote,
                       level_is_stated, location_scope, pivot_score, qualifies,
@@ -213,6 +214,28 @@ check("single sql mention ignored",
 check("range top", comp_sort_value("$190,000 - $240,000"), 240000.0)
 check("k suffix", comp_sort_value("$200K-$250K"), 250000.0)
 check("no comp", comp_sort_value(None), -1.0)
+
+# ---- "range published, but not machine-readable" ---------------------------
+# Amazon's real wording (2026-08-11). The figures are rendered client-side and
+# appear in neither its job API nor the page HTML, so the card must say the
+# range exists rather than "Compensation not listed".
+check("amazon offsite range", comp_stated_offsite(
+    "The base salary range for this position is listed below. Your Amazon "
+    "package will include sign-on payments and restricted stock units (RSUs)."),
+    True)
+check("amazon geo blurb", comp_stated_offsite(
+    "Our compensation reflects the cost of labor across several US geographic "
+    "markets."), True)
+check("ordinary body is not a claim", comp_stated_offsite(FPNA_BODY), False)
+amz = dict(strong, comp=None, id="a1",
+           description=FPNA_BODY + "\nThe base salary range for this position "
+                                   "is listed below.")
+score_job(amz, KW, ROLES, CITIES, tier="A")
+check("offsite flag set", amz["comp_offsite"], True)
+# A posting that states a real range must NOT get the offsite label.
+priced = dict(strong, id="a2")
+score_job(priced, KW, ROLES, CITIES, tier="A")
+check("priced role not offsite", priced["comp_offsite"], False)
 
 # REGRESSION 2026-08-10: Airbnb states its range as "Pay Range\n$168,000\n—\n
 # $206,000 USD". The em-dash wasn't in the dash class and the newlines broke the

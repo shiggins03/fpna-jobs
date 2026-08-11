@@ -265,6 +265,26 @@ def comp_sort_value(comp):
     return v
 
 
+# Postings that SAY they state a range without the number being machine-readable.
+# Amazon is the case that forced this (2026-08-11): the pay block is rendered
+# client-side by a component behind an auth-token call, so the number is absent
+# from the search API, from the page HTML, and from every candidate JSON
+# endpoint — verified from two networks. The description still carries the
+# sentence, so we can tell the reader "the employer posted a range, go look"
+# instead of "Compensation not listed", which would be actively misleading.
+# This never invents a figure; rule 1 is intact.
+COMP_OFFSITE_RE = re.compile(
+    r"((base\s+)?(salary|pay|compensation)\s+range[^.\n]{0,60}"
+    r"(is\s+)?(listed|shown|provided|posted)\s+below"
+    r"|range\s+for\s+this\s+(position|role)[^.\n]{0,40}below"
+    r"|compensation\s+reflects\s+the\s+cost\s+of\s+labor)", re.I)
+
+
+def comp_stated_offsite(description):
+    """True when the posting says a range is published but we can't read it."""
+    return bool(description and COMP_OFFSITE_RE.search(description))
+
+
 def comp_extras(description):
     """Whether the posting MENTIONS bonus / equity. Presence only — no amount
     is read or estimated, so the card can show them as separate stated facts."""
@@ -536,6 +556,7 @@ def score_job(job, kw, roles, cities, tier=None):
     job["scope"] = location_scope(job.get("location"), cities)
     job["remote"] = is_remote(job.get("location"), body, cities)
     job["extras"] = comp_extras(body)
+    job["comp_offsite"] = (not job.get("comp")) and comp_stated_offsite(body)
     job["comp_multi"] = comp_is_multi_range(body)
     job["below_comp"] = 0 <= comp_sort_value(job.get("comp")) < (
         kw.get("comp") or {}).get("hard_floor", 150000)

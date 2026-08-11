@@ -125,6 +125,30 @@ design: `queries_for()` sends it a single empty query because its adapter
 downloads the whole board and filters client-side, so one request covers
 everything. Prefer narrowing `queries` over adding more.
 
+## Amazon's salary is unreadable — do not re-investigate (settled 2026-08-11)
+
+The owner pointed at a live posting showing a base range at the bottom of the
+page while the card said "Compensation not listed". It is not a parsing bug:
+
+- `search.json` carries 32 fields per job and **none** contains a dollar figure
+  (probe round 2 dumped every one of them).
+- The rendered job page is 43,948 bytes with **zero** dollar figures, under both
+  the adapter UA and a browser UA (probe round 3) — and an in-browser `fetch`
+  of the same URL with the owner's own cookies, from their own network, returned
+  the byte-identical document, still with none.
+- `/api/v1/jobs/{id}`, `…/compensation`, `…/pay-range`, `/api/jobs/{id}` all
+  404; `/en/jobs/{id}.json` 406s with an HTML error page.
+- The page's own `POST /auth/token` returns 401 outside a real session, which is
+  most likely what gates the pay component. The description text ends with the
+  sentence "The base salary range for this position is listed below" — the words
+  ship, the numbers are appended client-side.
+
+Reading it would need a real browser session per posting, which a daily cron
+can't do. So `COMP_OFFSITE_RE` detects that sentence and the card says
+**"Range stated on the posting — open the link"** instead of "Compensation not
+listed", which was actively misleading. No figure is ever invented; rule 1 is
+intact. Don't add browser automation for this without the owner asking.
+
 ## Diagnosing endpoints (the probe workflow)
 
 Claude-session sandboxes usually can't reach career sites (proxy policy), but

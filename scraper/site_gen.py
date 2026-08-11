@@ -103,6 +103,8 @@ details.fold>summary:hover{color:var(--text)}
 .pay{font-size:14px;margin-bottom:3px}
 .pay b{font-weight:620}
 .pay .none{color:var(--faint);font-weight:400}
+.pay .offsite{color:var(--accent);font-weight:500;cursor:help;
+  text-decoration:underline dotted;text-underline-offset:3px}
 .pay .sub{color:var(--muted);font-size:13px}
 .when{font-size:12.5px;color:var(--faint)}
 
@@ -292,8 +294,20 @@ def _card(j, prestige, roles, narrate):
     rec = j.get("recommendation") or ""
 
     comp = j.get("comp")
-    pay = (f"<b>{esc(comp)}</b>" if comp
-           else '<span class="none">Compensation not listed</span>')
+    if comp:
+        pay = f"<b>{esc(comp)}</b>"
+    elif j.get("comp_offsite"):
+        # "Compensation not listed" would be wrong here — the employer DOES
+        # publish a range, it just isn't in anything a script can read (see
+        # COMP_OFFSITE_RE). Say so and point at the link rather than implying
+        # the role is unpriced.
+        pay = ('<span class="offsite" title="The posting states a base salary '
+               'range, but Amazon renders the figures client-side — they are '
+               'absent from its job API and from the page HTML, so no number '
+               'can be quoted here. Open the posting to see it.">'
+               '&#9432; Range stated on the posting &mdash; open the link</span>')
+    else:
+        pay = '<span class="none">Compensation not listed</span>'
     extras = j.get("extras") or {}
     bits = []
     if extras.get("bonus"):
