@@ -326,3 +326,274 @@ companies:
     url: https://havas.com/careers/
     enabled: false
     note: ATS unidentified — sweep for ATS markers first.
+
+  # ---------------- Roster expansion, probe round 9 (2026-08-11) ----
+  # Added on the owner's ask for more volume: NYC is a huge market and
+  # remote is acceptable, so breadth across employers we can already fetch
+  # is the cheapest yield. Every token below was verified by a live board
+  # call in round 9 — the job count in each note is what it returned.
+  # Greenhouse/Lever/Ashby each serve a WHOLE board in one request, so a
+  # company here costs one HTTP call per run regardless of query count.
+  # Deliberately NOT added: small consumer brands that verified fine (Bombas,
+  # Glossier, Capsule, Current, Alloy, Unqork) — real boards, but unlikely
+  # to carry a $200K+ senior FP&A seat, so they would be noise.
+  - name: Databricks
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: databricks
+    enabled: true
+    note: verified by probe round 9 (814 jobs).
+  - name: Figma
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: figma
+    enabled: true
+    note: verified by probe round 9 (164 jobs).
+  - name: Notion
+    tier: A
+    category: tech
+    ats: ashby
+    ashby_org: notion
+    enabled: true
+    note: verified by probe round 9 (128 jobs (none priced — Ashby comp is optional per employer)).
+  - name: Ramp
+    tier: A
+    category: tech
+    ats: ashby
+    ashby_org: ramp
+    enabled: true
+    note: verified by probe round 9 (133 jobs, 128 with a stated pay tier — NYC HQ).
+  - name: Plaid
+    tier: A
+    category: tech
+    ats: ashby
+    ashby_org: plaid
+    enabled: true
+    note: verified by probe round 9 (102 jobs, 96 priced).
+  - name: Coinbase
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: coinbase
+    enabled: true
+    note: verified by probe round 9 (166 jobs).
+  - name: Robinhood
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: robinhood
+    enabled: true
+    note: verified by probe round 9 (138 jobs).
+  - name: Reddit
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: reddit
+    enabled: true
+    note: verified by probe round 9 (164 jobs).
+  - name: Roblox
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: roblox
+    enabled: true
+    note: verified by probe round 9 (221 jobs).
+  - name: Instacart
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: instacart
+    enabled: true
+    note: verified by probe round 9 (115 jobs).
+  - name: MongoDB
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: mongodb
+    enabled: true
+    note: verified by probe round 9 (410 jobs — NYC HQ).
+  - name: Affirm
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: affirm
+    enabled: true
+    note: verified by probe round 9 (197 jobs).
+  - name: Brex
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: brex
+    enabled: true
+    note: verified by probe round 9 (289 jobs).
+  - name: Chime
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: chime
+    enabled: true
+    note: verified by probe round 9 (57 jobs).
+  - name: SoFi
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: sofi
+    enabled: true
+    note: verified by probe round 9 (59 jobs).
+  - name: Betterment
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: betterment
+    enabled: true
+    note: verified by probe round 9 (32 jobs — NYC HQ).
+  - name: Gemini
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: gemini
+    enabled: true
+    note: verified by probe round 9 (42 jobs — NYC HQ).
+  - name: Marqeta
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: marqeta
+    enabled: true
+    note: verified by probe round 9 (42 jobs).
+  - name: Squarespace
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: squarespace
+    enabled: true
+    note: verified by probe round 9 (20 jobs — NYC HQ).
+  - name: Peloton
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: peloton
+    enabled: true
+    note: verified by probe round 9 (58 jobs — NYC HQ).
+  - name: Discord
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: discord
+    enabled: true
+    note: verified by probe round 9 (49 jobs).
+  - name: Braze
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: braze
+    enabled: true
+    note: verified by probe round 9 (251 jobs — NYC HQ).
+  - name: Asana
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: asana
+    enabled: true
+    note: verified by probe round 9 (140 jobs).
+  - name: Airtable
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: airtable
+    enabled: true
+    note: verified by probe round 9 (17 jobs).
+  - name: Amplitude
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: amplitude
+    enabled: true
+    note: verified by probe round 9 (31 jobs (also on Ashby; Greenhouse chosen — same board, one source)).
+  - name: Klaviyo
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: klaviyo
+    enabled: true
+    note: verified by probe round 9 (148 jobs).
+  - name: Justworks
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: justworks
+    enabled: true
+    note: verified by probe round 9 (99 jobs — NYC HQ).
+  - name: Zocdoc
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: zocdoc
+    enabled: true
+    note: verified by probe round 9 (52 jobs — NYC HQ).
+  - name: Attentive
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: attentive
+    enabled: true
+    note: verified by probe round 9 (40 jobs — NYC HQ).
+  - name: Dataiku
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: dataiku
+    enabled: true
+    note: verified by probe round 9 (21 jobs — NYC HQ).
+  - name: Ro
+    tier: B
+    category: tech
+    ats: lever
+    lever_company: ro
+    enabled: true
+    note: verified by probe round 9 (50 jobs — NYC HQ).
+  - name: American Express
+    tier: A
+    category: tech
+    ats: eightfold
+    eightfold_host: aexp.eightfold.ai
+    eightfold_domain: aexp.com
+    job_url_template: https://aexp.eightfold.ai/careers/job/{id}
+    enabled: false
+    note: >-
+      careers page points at aexp.eightfold.ai (probe round 9). That is a
+      DEDICATED tenant host like Netflix's, not the multi-tenant
+      app.eightfold.ai that 403s us for Microsoft, so it may well work —
+      but the domain value is a guess and nothing here gets enabled on a
+      guess. Verify end-to-end first.
+  - name: Mastercard
+    tier: A
+    category: tech
+    ats: workday
+    workday_host: mastercard.wd1.myworkdayjobs.com
+    workday_tenant: mastercard
+    workday_site: CorporateCareers
+    enabled: true
+    note: host/tenant/site read off careers.mastercard.com in probe round 9
+      (they also run Phenom for the marketing layer; Workday is the real ATS).
+  - name: Nasdaq
+    tier: A
+    category: tech
+    ats: workday
+    workday_host: nasdaq.wd1.myworkdayjobs.com
+    workday_tenant: nasdaq
+    workday_site: Global_External_Site
+    enabled: true
+    note: host/tenant/site read off nasdaq.com/about/careers in round 9.
+  - name: Bristol Myers Squibb
+    tier: A
+    category: tech
+    ats: workday
+    workday_host: bristolmyerssquibb.wd5.myworkdayjobs.com
+    workday_tenant: bristolmyerssquibb
+    workday_site: BMS
+    enabled: true
+    note: host/tenant/site read off careers.bms.com in round 9. NYC HQ with
+      a large corporate finance org.
