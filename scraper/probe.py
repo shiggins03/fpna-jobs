@@ -278,6 +278,144 @@ def ats_markers(label, url):
 
 
 def main():
+    """Round 5 — resolve what round 4 left open.
+
+    Round 4 settled two: Netflix is Eightfold (count=16 for a finance query)
+    and DoorDash's Greenhouse board is `doordashusa`, not `doordash` (467
+    jobs). This round chases the rest: the exact shape of the Eightfold
+    payload (does the list carry descriptions, or is a detail call needed?),
+    dentsu's Workday site name, Microsoft's SSL failure, and the real careers
+    URLs for the holdcos whose pages 404'd.
+    """
+    section("Netflix Eightfold — full payload shape")
+
+    def nf():
+        r = requests.get("https://explore.jobs.netflix.net/api/apply/v2/jobs",
+                         params={"domain": "netflix.com", "query": "finance",
+                                 "location": "New York", "start": 0, "num": 3},
+                         headers=BROWSER_UA, timeout=T)
+        pos = (r.json().get("positions") or [])
+        print(f"  list -> {r.status_code} positions={len(pos)}")
+        if pos:
+            p = pos[0]
+            print(f"  ALL KEYS: {sorted(p.keys())}")
+            for k in ("job_description", "description", "name", "location",
+                      "canonical_positon_url", "canonical_position_url",
+                      "t_create", "salary_range", "pay_range"):
+                if k in p:
+                    print(f"    {k}: {str(p[k])[:180]!r}")
+            pid = p.get("id")
+            try_get("  detail",
+                    f"https://explore.jobs.netflix.net/api/apply/v2/jobs/{pid}"
+                    f"?domain=netflix.com",
+                    probe_keys=("job_description", "name"))
+    show("netflix", nf)
+
+    section("dentsu — full Workday URL from the careers page")
+
+    def dentsu():
+        r = requests.get("https://www.dentsu.com/careers", headers=BROWSER_UA,
+                         timeout=T)
+        urls = set(re.findall(r"[a-z0-9-]+\.wd\d+\.myworkdayjobs\.com[^\"'\s<>\\]*",
+                              r.text, re.I))
+        for u in sorted(urls)[:8]:
+            print(f"    {u}")
+    show("dentsu", dentsu)
+    for site in ("DACareers", "dentsu", "Careers", "External", "dentsucareers",
+                 "dentsu_Careers", "DentsuCareers"):
+        try_get(f"  wd dentsuaegis/{site}",
+                f"https://dentsuaegis.wd3.myworkdayjobs.com/wday/cxs/dentsuaegis/"
+                f"{site}/jobs", probe_keys=("total",))
+
+    section("Microsoft — retry after SSLError, alternate hosts")
+    for label, url in (
+            ("gcs plain", "https://gcsservices.careers.microsoft.com/search/api/v1/"
+                          "search?q=finance&l=en_us&pg=1&pgSz=3&o=Relevance&flt=true"),
+            ("gcs no-verify-note", "https://gcsservices.careers.microsoft.com/"
+                                   "search/api/v1/search?q=finance&l=en_us&pg=1&pgSz=3"),
+            ("jobs host api", "https://jobs.careers.microsoft.com/search/api/v1/"
+                              "search?q=finance&l=en_us&pg=1&pgSz=3")):
+        try_get(label, url, probe_keys=("operationResult.result.totalJobs",))
+
+    section("Google — is the job JSON embedded in the results HTML?")
+
+    def goog():
+        r = requests.get("https://www.google.com/about/careers/applications/jobs/"
+                         "results/", params={"q": "financial planning analysis",
+                                             "location": "New York"},
+                         headers=BROWSER_UA, timeout=T)
+        h = r.text
+        print(f"  results html -> {r.status_code} len={len(h)}")
+        for pat, label in ((r"AF_initDataCallback", "AF_initDataCallback"),
+                           (r"<script[^>]+application/ld\+json", "ld+json"),
+                           (r"jobs/results/(\d+)", "job-id links")):
+            print(f"    {label}: {len(re.findall(pat, h))}")
+        ids = re.findall(r"jobs/results/(\d+)[-a-z0-9]*", h)[:5]
+        print(f"    sample ids: {ids}")
+        for m in re.finditer(r'<script type="application/ld\+json">(.{0,400})', h,
+                             re.S):
+            print(f"    ld+json head: {m.group(1)[:220]!r}")
+            break
+    show("google", goog)
+
+    section("Apple — csrf token + correct search path")
+
+    def apple():
+        s = requests.Session()
+        r = s.get("https://jobs.apple.com/en-us/search", headers=BROWSER_UA,
+                  timeout=T)
+        tok = None
+        for pat in (r'"csrfToken"\s*:\s*"([^"]+)"', r'name="csrf_token"[^>]*content="([^"]+)"',
+                    r'csrfToken=([A-Za-z0-9+/=_-]+)'):
+            m = re.search(pat, r.text)
+            if m:
+                tok = m.group(1)
+                print(f"    csrf via {pat[:24]}: {tok[:28]}...")
+                break
+        if not tok:
+            print("    no csrf token found in the search page")
+        hdr = {**BROWSER_UA, "Content-Type": "application/json",
+               "X-Apple-CSRF-Token": tok or "", "Referer":
+               "https://jobs.apple.com/en-us/search"}
+        for path in ("/api/role/search", "/api/v1/jobmodel/search",
+                     "/api/search/results"):
+            try:
+                rr = s.post("https://jobs.apple.com" + path, headers=hdr, timeout=T,
+                            json={"query": "finance", "page": 1,
+                                  "locale": "en-us", "sort": "relevance"})
+                print(f"    POST {path} -> {rr.status_code} len={len(rr.text)}")
+            except Exception as e:
+                print(f"    POST {path} EXC {type(e).__name__}")
+    show("apple", apple)
+
+    section("Uber / Spotify — find the endpoint from the careers page")
+    for label, url in (("uber", "https://www.uber.com/us/en/careers/list/"),
+                       ("spotify", "https://www.lifeatspotify.com/jobs")):
+        def f(label=label, url=url):
+            r = requests.get(url, headers=BROWSER_UA, timeout=T)
+            print(f"  {label} -> {r.status_code} len={len(r.text)}")
+            apis = set(re.findall(r"[\"'](/[a-z0-9/_-]*api[a-z0-9/_-]*)[\"']",
+                                  r.text, re.I))
+            print(f"    internal api paths: {sorted(apis)[:10]}")
+            ext = set(re.findall(r"https://[a-z0-9.-]*(?:api|jobs)[a-z0-9.-]*\.[a-z]{2,}/[a-z0-9/_-]{0,40}",
+                                 r.text, re.I))
+            print(f"    external api hosts: {sorted(ext)[:8]}")
+        show(label, f)
+    ats_markers("spotify markers", "https://www.lifeatspotify.com/jobs")
+
+    section("Holdcos — correct careers URLs")
+    for label, url in (
+            ("publicis alt", "https://www.publicisgroupe.com/en/careers/join-us"),
+            ("publicis root", "https://www.publicisgroupe.com/en"),
+            ("havas alt", "https://www.havasgroup.com/careers/"),
+            ("omnicom alt", "https://www.omnicomgroup.com/"),
+            ("wpp jobs", "https://www.wpp.com/en/careers/jobs"),
+            ("groupm", "https://www.groupm.com/careers/"),
+            ("ogilvy", "https://www.ogilvy.com/careers")):
+        ats_markers(label, url)
+
+
+def round4():
     """Round 4 — one dispatch for every company still dark on the roster.
 
     Browser-based capture was tried first and is walled off (the in-app pane is
