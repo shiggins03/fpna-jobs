@@ -7,9 +7,9 @@ from pathlib import Path
 import yaml
 
 from . import models, sources, site_gen
-from .filters import (blocklisted, city_rank, excluded, extract_stated_comp,
-                      is_non_us, location_scope, qualifies, score_job,
-                      seniority_level, title_finance_hits)
+from .filters import (blocklisted, city_rank, comp_is_multi_range, excluded,
+                      extract_stated_comp, is_non_us, location_scope, qualifies,
+                      score_job, seniority_level, title_finance_hits)
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = ROOT / "config"
@@ -110,6 +110,7 @@ def run():
     health = models.load_json(models.HEALTH, {})
     roster_norms = {models.norm(c["name"]): c for c in companies}
     skipped = {}  # reason -> count, printed at the end of the run
+    enriched = []  # comp recovered from the employer's page, printed at the end
 
     def note_skip(reason):
         key = re.sub(r":.*", "", reason)
@@ -185,11 +186,28 @@ def run():
                                src, title=r.get("title"))
                 continue
             comp = r.get("comp") or extract_stated_comp(r.get("description"))
+            comp_src, multi_page = None, False
+            if not comp:
+                # The ATS payload didn't price it — read the employer's own
+                # posting page before giving up. Stripe is the case that forced
+                # this: its Greenhouse content has no pay section while
+                # stripe.com's listing states the range in plain HTML. Only
+                # runs for a job that already qualified, so it is a handful of
+                # requests per run.
+                page = sources.fetch_posting_text(r["url"])
+                if page:
+                    comp = extract_stated_comp(page)
+                    if comp:
+                        comp_src = "posting page"
+                        multi_page = comp_is_multi_range(page)
+                        enriched.append(f"{r['company']}: {comp}")
             job = models.make_job(
                 source=src, kind="direct", company=r["company"], title=r["title"],
                 location=r.get("location"), url=r["url"],
                 posted_date=r.get("posted_date"), comp=comp,
                 description=r.get("description"), tier=1, today=today)
+            job["comp_source"] = comp_src
+            job["comp_multi_page"] = multi_page
             _merge(store, job, today, baseline)
             seen_this_run.setdefault(src, set()).add(job["id"])
             listings += 1
@@ -374,6 +392,10 @@ def run():
     if skipped:
         top = sorted(skipped.items(), key=lambda kv: -kv[1])[:6]
         print("  filtered out: " + ", ".join(f"{k} ({n})" for k, n in top))
+    if enriched:
+        print(f"  comp read from the employer's posting page ({len(enriched)}):")
+        for line in enriched:
+            print(f"    {line}")
 
 
 def _merge(store, job, today, baseline):
@@ -389,7 +411,8 @@ def _merge(store, job, today, baseline):
             store[job["id"]] = job
             job["first_seen"] = keep_first_seen
             return
-        for f in ("posted_date", "comp", "description", "url", "location"):
+        for f in ("posted_date", "comp", "description", "url", "location",
+                  "comp_source", "comp_multi_page"):
             if job.get(f):
                 old[f] = job[f]
     else:

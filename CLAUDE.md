@@ -125,7 +125,43 @@ design: `queries_for()` sends it a single empty query because its adapter
 downloads the whole board and filters client-side, so one request covers
 everything. Prefer narrowing `queries` over adding more.
 
-## Amazon's salary is unreadable — do not re-investigate (settled 2026-08-11)
+## Finding compensation: never assume a "$" (corrected 2026-08-11)
+
+**Two real bugs, both found by the owner spotting a range on a posting whose
+card said "not listed". Both were ours, not the employer's.**
+
+1. **Amazon writes pay with no dollar sign**, one line per metro, at the end of
+   `preferred_qualifications` — a field the adapter already fetches and stores:
+
+       USA, NY, New York - 104,900.00 - 179,500.00 USD annually
+       USA, TX, Irving - 95,400.00 - 163,200.00 USD annually
+
+   Every comp pattern was `\$`-anchored, so all of them missed it — and so did
+   three rounds of my own investigation, which searched the API and the page
+   HTML for `\$[\d,]{4,}` and concluded from zero hits that Amazon "doesn't
+   serve the numbers". The data was there the whole time. `PLAIN_USD_RANGE_RE`
+   now matches per LINE, so the quote keeps the employer's metro label, and the
+   New York line wins when several are listed.
+
+2. **Stripe's Greenhouse payload has no pay section at all** — verified against
+   `boards-api.greenhouse.io/v1/boards/stripe/jobs/7463755`. The range lives
+   only on stripe.com's own listing, in server-rendered HTML ("The annual US
+   base salary range for this role is $133,800 - $200,800"). So `main.run()`
+   now calls `sources.fetch_posting_text(url)` for any job that qualified and
+   still has no comp, and parses that. One request per unpriced role.
+
+**The lesson worth keeping:** when a source appears to omit a field, test for
+the field's *content*, not for one formatting convention. A negative result
+from a single regex is not evidence of absence. Before concluding "the employer
+doesn't publish X", grep the payload for the surrounding words the human reader
+sees ("USD", "salary range", "annually"), not for the punctuation you expect.
+
+`COMP_OFFSITE_RE` and the "range stated on the posting" label remain for the
+genuine case where a posting says a range is published and neither the payload
+nor the page carries it. That path should now be rare — if it shows up on a
+whole employer at once, suspect a parsing gap first.
+
+## Superseded: "Amazon's salary is unreadable" (wrong — see above)
 
 The owner pointed at a live posting showing a base range at the bottom of the
 page while the card said "Compensation not listed". It is not a parsing bug:

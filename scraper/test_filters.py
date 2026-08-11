@@ -215,6 +215,47 @@ check("range top", comp_sort_value("$190,000 - $240,000"), 240000.0)
 check("k suffix", comp_sort_value("$200K-$250K"), 250000.0)
 check("no comp", comp_sort_value(None), -1.0)
 
+# ---- no-dollar-sign ranges (Amazon) ---------------------------------------
+# Amazon states pay with no "$" and one line per metro. Every $-anchored
+# pattern was blind to it, so these cards read "Not listed" while the posting
+# showed a range (owner caught it 2026-08-11, real text below).
+AMAZON_PAY = (
+    "The base salary range for this position is listed below. Your Amazon "
+    "package will include sign-on payments and restricted stock units (RSUs).\n"
+    "\nUSA, NY, New York - 104,900.00 - 179,500.00 USD annually\n"
+    "USA, TX, Irving - 95,400.00 - 163,200.00 USD annually\n")
+check("amazon ny line quoted", extract_stated_comp(AMAZON_PAY),
+      "USA, NY, New York - 104,900.00 - 179,500.00 USD annually")
+check("amazon top of ny range",
+      comp_sort_value(extract_stated_comp(AMAZON_PAY)), 179500.0)
+# The NY line was chosen, so the multi-range warning would be noise.
+check("amazon ny choice suppresses warning", comp_is_multi_range(AMAZON_PAY), False)
+# Reversed order must still pick New York, not merely the first line.
+check("ny preferred over first line", extract_stated_comp(
+    "USA, TX, Irving - 95,400.00 - 163,200.00 USD annually\n"
+    "USA, NY, New York - 104,900.00 - 179,500.00 USD annually"),
+    "USA, NY, New York - 104,900.00 - 179,500.00 USD annually")
+# A range buried in prose must not drag the whole sentence into the comp field.
+long_prose = ("Compensation for this role is competitive and our range of "
+              "120,000.00 - 190,000.00 USD annually reflects several levels of "
+              "experience across the organisation and may be adjusted.")
+got = extract_stated_comp(long_prose)
+check_true("prose range trimmed to the figures", got and len(got) <= 60)
+
+# ---- range only on the employer's page (Stripe) ---------------------------
+# Stripe's Greenhouse content has no pay section; stripe.com's own listing
+# states it in server-rendered HTML, which is why main.run() falls back to
+# fetching the posting page. This asserts the parse of that page text.
+STRIPE_PAGE = ("Pay and benefits\nThe annual US base salary range for this role "
+               "is $133,800 - $200,800. For sales roles, the range provided is "
+               "the role's On Target Earnings.")
+got = extract_stated_comp(STRIPE_PAGE)
+# Quoted, not reformatted: whatever we show must appear verbatim in the source
+# and must carry both figures.
+check_true("stripe range found", got and "$133,800 - $200,800" in got)
+check_true("stripe quote is verbatim", got and got in STRIPE_PAGE)
+check("stripe top of range", comp_sort_value(got), 200800.0)
+
 # ---- "range published, but not machine-readable" ---------------------------
 # Amazon's real wording (2026-08-11). The figures are rendered client-side and
 # appear in neither its job API nor the page HTML, so the card must say the

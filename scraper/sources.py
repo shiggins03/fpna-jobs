@@ -167,6 +167,26 @@ def fetch_greenhouse(co, query):
     return out, True, len(jobs)
 
 
+def fetch_posting_text(url):
+    """Visible text of the employer's own posting page, or None.
+
+    Some ATS payloads omit the pay section the employer's page displays:
+    Stripe's Greenhouse `content` has no "Pay and benefits" block at all, while
+    stripe.com's own listing states "The annual US base salary range for this
+    role is $133,800 - $200,800" in its server-rendered HTML (verified
+    2026-08-11). main.run() calls this only for a job that already qualified and
+    still has no compensation, so it costs one request per unpriced role, not
+    one per posting.
+    """
+    try:
+        r = requests.get(url, headers=UA, timeout=TIMEOUT)
+        if not r.ok:
+            return None
+        return BeautifulSoup(r.text, "html.parser").get_text("\n")
+    except Exception:
+        return None
+
+
 def fetch_generic_page(co, query):
     """Keyword presence check only. Hits become triage entries — the agent
     extracts the real posting; the script never guesses page structure.

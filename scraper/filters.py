@@ -85,6 +85,18 @@ DOLLAR_RANGE_RE = re.compile(
     r"\$[\d,]{4,}(?:\.\d+)?\s*(?:[-–—−]|to)\s*\$?[\d,]{4,}(?:\.\d+)?"
     r"(?:\s*(?:/|per\s*)?(?:year|yr|hour|hr|annum|annually|hourly))?"
     r"(?:\s*usd)?", re.I)
+# Amazon states pay with NO dollar sign, one line per metro, at the end of
+# preferred_qualifications:
+#     USA, NY, New York - 104,900.00 - 179,500.00 USD annually
+#     USA, TX, Irving - 95,400.00 - 163,200.00 USD annually
+# Every $-anchored pattern above is blind to that, which is why those cards read
+# "Not listed" while the posting plainly showed a range (owner caught it
+# 2026-08-11). Matched per LINE so the quote keeps the employer's own metro
+# label, and the New York line is preferred when several are listed — choosing
+# between stated lines, never composing a figure.
+PLAIN_USD_RANGE_RE = re.compile(
+    r"[\d,]{5,}(?:\.\d{2})?\s*(?:[-–—−]|to)\s*[\d,]{5,}(?:\.\d{2})?\s*USD", re.I)
+NY_LINE_RE = re.compile(r"(new york|,\s*ny\b|\bny\s*[-,])", re.I)
 SALARY_NUM_RE = re.compile(r"\$?([\d,]+(?:\.\d+)?)\s*([kK])?")
 
 # Bonus/equity are shown separately from base per the owner's spec, so we look
@@ -220,7 +232,26 @@ def extract_stated_comp(description):
         m = pattern.search(description)
         if m:
             return re.sub(r"\s+", " ", m.group(0)).strip()
-    return None
+    return _plain_usd_line(description)
+
+
+def _plain_usd_line(description):
+    """Quote a no-dollar-sign "… - 104,900.00 - 179,500.00 USD annually" line.
+
+    Whole lines are returned so the metro label travels with the numbers, and
+    the New York line wins when a posting lists several. A line long enough to
+    be prose rather than a pay row falls back to just the matched range, so a
+    stray sentence can never be presented as the comp field.
+    """
+    lines = [re.sub(r"\s+", " ", ln).strip()
+             for ln in description.splitlines()
+             if PLAIN_USD_RANGE_RE.search(ln)]
+    if not lines:
+        return None
+    chosen = next((ln for ln in lines if NY_LINE_RE.search(ln)), lines[0])
+    if len(chosen) > 110:
+        return PLAIN_USD_RANGE_RE.search(chosen).group(0).strip()
+    return chosen
 
 
 def comp_is_multi_range(description):
@@ -236,7 +267,15 @@ def comp_is_multi_range(description):
         return False
     found = {re.sub(r"\s+", " ", m.group(0)).strip()
              for m in DOLLAR_RANGE_RE.finditer(description)}
-    return len(found) > 1
+    found |= {re.sub(r"\s+", " ", m.group(0)).strip()
+              for m in PLAIN_USD_RANGE_RE.finditer(description)}
+    if len(found) <= 1:
+        return False
+    # Several ranges, but if the one we quoted names New York the reader is not
+    # being misled and the warning would just be noise. Amazon's two-line format
+    # is exactly this case.
+    chosen = extract_stated_comp(description)
+    return not (chosen and NY_LINE_RE.search(chosen))
 
 
 def comp_sort_value(comp):
@@ -557,7 +596,10 @@ def score_job(job, kw, roles, cities, tier=None):
     job["remote"] = is_remote(job.get("location"), body, cities)
     job["extras"] = comp_extras(body)
     job["comp_offsite"] = (not job.get("comp")) and comp_stated_offsite(body)
-    job["comp_multi"] = comp_is_multi_range(body)
+    # The page-derived flag has to survive here: when comp came from the
+    # employer's posting page, `body` (the ATS description) has no range in it
+    # at all, so recomputing from body alone would silently clear the warning.
+    job["comp_multi"] = comp_is_multi_range(body) or bool(job.get("comp_multi_page"))
     job["below_comp"] = 0 <= comp_sort_value(job.get("comp")) < (
         kw.get("comp") or {}).get("hard_floor", 150000)
     return job
