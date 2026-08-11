@@ -168,6 +168,78 @@ def fetch_greenhouse(co, query):
     return out, True, len(jobs)
 
 
+def fetch_lever(co, query):
+    """Lever public postings API. Whole board in one request, like Greenhouse,
+    so main.queries_for() sends a single empty query and our own gates filter."""
+    token = co["lever_company"]
+    try:
+        r = requests.get(f"https://api.lever.co/v0/postings/{token}",
+                         params={"mode": "json"}, headers=UA, timeout=TIMEOUT)
+        r.raise_for_status()
+        postings = r.json()
+        if not isinstance(postings, list):
+            return [], False, None
+    except Exception:
+        return [], False, None
+    out = []
+    for p in postings:
+        desc = "\n\n".join(x for x in (p.get("descriptionPlain"),
+                                      p.get("additionalPlain")) if x) or None
+        blob = f"{p.get('text', '')}\n{desc or ''}".casefold()
+        if query and query.casefold() not in blob:
+            continue
+        cats = p.get("categories") or {}
+        posted = p.get("createdAt")
+        if isinstance(posted, (int, float)):   # epoch milliseconds
+            posted = _dt.datetime.utcfromtimestamp(posted / 1000).date().isoformat()
+        out.append({
+            "company": co["name"], "title": p.get("text"),
+            "location": cats.get("location"),
+            "url": p.get("hostedUrl"),
+            "posted_date": posted, "description": desc,
+        })
+    return out, True, len(postings)
+
+
+def fetch_ashby(co, query):
+    """Ashby job-board API. Whole board in one request.
+
+    Worth preferring where a company offers it: `compensationTierSummary` is a
+    ready-made verbatim pay string ("$150K – $200K • Offers Equity"), so these
+    postings arrive already priced instead of needing a page fetch.
+    """
+    org = co["ashby_org"]
+    try:
+        r = requests.get(f"https://api.ashbyhq.com/posting-api/job-board/{org}",
+                         params={"includeCompensation": "true"}, headers=UA,
+                         timeout=TIMEOUT)
+        r.raise_for_status()
+        jobs = r.json().get("jobs") or []
+    except Exception:
+        return [], False, None
+    out = []
+    for j in jobs:
+        if j.get("isListed") is False:
+            continue
+        desc = j.get("descriptionPlain") or _clean_html(j.get("descriptionHtml"))
+        blob = f"{j.get('title', '')}\n{desc or ''}".casefold()
+        if query and query.casefold() not in blob:
+            continue
+        comp = ((j.get("compensation") or {}).get("compensationTierSummary")
+                or (j.get("compensation") or {}).get("summaryComponents") and None)
+        locs = [j.get("location")] + [
+            (s or {}).get("location") if isinstance(s, dict) else s
+            for s in (j.get("secondaryLocations") or [])]
+        loc = "; ".join(sorted({x for x in locs if x})) or None
+        posted = (j.get("publishedAt") or "")[:10] or None
+        out.append({
+            "company": co["name"], "title": j.get("title"),
+            "location": loc, "url": j.get("jobUrl") or j.get("applyUrl"),
+            "posted_date": posted, "description": desc, "comp": comp,
+        })
+    return out, True, len(jobs)
+
+
 def fetch_eightfold(co, query):
     """Eightfold ATS (explore.jobs.<host>/api/apply/v2/jobs).
 
@@ -708,4 +780,9 @@ DIRECT_ADAPTERS = {
     "avature_feed": fetch_avature_feed,
     "phenom": fetch_phenom,
     "eightfold": fetch_eightfold,
+    "lever": fetch_lever,
+    "ashby": fetch_ashby,
 }
+# Adapters that download an entire board and filter client-side: one request
+# covers every query, so main.queries_for() sends them a single empty query.
+FULL_BOARD_ATS = {"greenhouse", "lever", "ashby"}

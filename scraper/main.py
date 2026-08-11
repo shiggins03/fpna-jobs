@@ -59,7 +59,7 @@ def queries_for(co, kw):
         return co["search_queries"]
     if co.get("search_query"):
         return [co["search_query"]]
-    if co["ats"] == "greenhouse":
+    if co["ats"] in sources.FULL_BOARD_ATS:
         return [""]
     return kw["queries"]
 

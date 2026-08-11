@@ -277,12 +277,126 @@ def ats_markers(label, url):
         print(f"  {label}: EXC {type(e).__name__}: {str(e)[:120]}")
 
 
-def main():
-    """Empty between investigations — see the rounds below for worked examples.
+def board_sweep(slugs):
+    """Try each slug against Greenhouse, Lever and Ashby. Print only hits.
 
-    Convention: write the next round here, push, dispatch `probe`, read the log,
-    record findings in companies.yaml notes, then clear this again.
+    Cheaper than reasoning about which vendor a company uses: three small
+    requests settle it. Greenhouse is queried WITHOUT content=true here — the
+    full board is ~1MB and we only need to know the token resolves.
     """
+    for slug in slugs:
+        hits = []
+        try:
+            r = requests.get(f"https://boards-api.greenhouse.io/v1/boards/{slug}/jobs",
+                             headers=BROWSER_UA, timeout=T)
+            if r.ok:
+                n = len(r.json().get("jobs") or [])
+                if n:
+                    hits.append(f"greenhouse={n}")
+        except Exception:
+            pass
+        try:
+            r = requests.get(f"https://api.lever.co/v0/postings/{slug}",
+                             params={"mode": "json"}, headers=BROWSER_UA, timeout=T)
+            if r.ok and isinstance(r.json(), list) and r.json():
+                hits.append(f"lever={len(r.json())}")
+        except Exception:
+            pass
+        try:
+            r = requests.get(f"https://api.ashbyhq.com/posting-api/job-board/{slug}",
+                             params={"includeCompensation": "true"},
+                             headers=BROWSER_UA, timeout=T)
+            if r.ok:
+                jobs = r.json().get("jobs") or []
+                if jobs:
+                    comp = sum(1 for j in jobs
+                               if (j.get("compensation") or {}).get("compensationTierSummary"))
+                    hits.append(f"ashby={len(jobs)}(priced={comp})")
+        except Exception:
+            pass
+        print(f"  {slug:<22} {' '.join(hits) if hits else '-'}", flush=True)
+
+
+def wd_from_page(name, url):
+    """Read the real Workday host/tenant/site off a careers page.
+
+    Guessing site names cost seven wasted probes on dentsu; the page states it.
+    """
+    try:
+        r = requests.get(url, headers=BROWSER_UA, timeout=T)
+        found = set()
+        for m in re.finditer(r"([a-z0-9-]+)\.(wd\d+)\.myworkdayjobs\.com"
+                             r"(?:/[a-z]{2}-[A-Z]{2})?/([A-Za-z0-9_-]+)",
+                             r.text, re.I):
+            found.add((m.group(1), m.group(2), m.group(3)))
+        other = set()
+        for pat in (r"(?:boards|job-boards)\.greenhouse\.io/([a-z0-9-]+)",
+                    r"jobs\.lever\.co/([a-z0-9-]+)",
+                    r"jobs\.ashbyhq\.com/([a-z0-9-]+)",
+                    r"api\.smartrecruiters\.com/v1/companies/([A-Za-z0-9_-]+)",
+                    r"([a-z0-9-]+)\.eightfold\.ai",
+                    r"([a-z0-9-]+)\.phenompeople\.com"):
+            other |= {m.group(0) for m in re.finditer(pat, r.text, re.I)}
+        line = f"  {name:<16} {r.status_code}"
+        if found:
+            line += "  WD: " + "; ".join(f"{t}.{w}/{s}" for t, w, s in sorted(found))
+        if other:
+            line += "  OTHER: " + ", ".join(sorted(other)[:3])
+        print(line, flush=True)
+    except Exception as e:
+        print(f"  {name:<16} EXC {type(e).__name__}", flush=True)
+
+
+def main():
+    """Round 9 — roster expansion. The owner wants more volume: NYC is a huge
+    market, remote is acceptable, and senior FP&A is a common role.
+
+    Strategy is breadth-first over the adapters we already have, because those
+    cost one request per employer. Greenhouse/Lever/Ashby all return a whole
+    board, so each added company there is nearly free at runtime. Workday needs
+    an exact host/tenant/site, so those are read off careers pages rather than
+    guessed.
+    """
+    section("board sweep — NYC-heavy tech, fintech and consumer")
+    board_sweep([
+        # fintech / crypto — NYC-dense, pays in band
+        "ramp", "brex", "plaid", "chime", "affirm", "robinhood", "coinbase",
+        "betterment", "gemini", "sofi", "marqeta", "current", "petal", "alloy",
+        # NYC consumer / commerce / media tech
+        "squarespace", "peloton", "warbyparker", "etsy", "instacart", "roblox",
+        "reddit", "discord", "figma", "notion", "databricks", "mongodb",
+        "braze", "datadoghq", "digitalocean", "bombas", "glossier", "casper",
+        # health / insurance tech (big NYC finance orgs)
+        "oscarhealth", "cedar", "ro", "zocdoc", "capsule", "flatiron",
+        "hingehealth", "cityblock",
+        # enterprise SaaS with NYC finance teams
+        "asana", "airtable", "amplitude", "sprinklr", "yext", "justworks",
+        "unqork", "dataiku", "attentive", "klaviyo",
+    ])
+
+    section("Workday / other ATS — read off the careers page")
+    for name, url in (
+            ("Amex", "https://www.americanexpress.com/en-us/careers/"),
+            ("Mastercard", "https://careers.mastercard.com/us/en"),
+            ("Visa", "https://usa.visa.com/careers.html"),
+            ("BlackRock", "https://careers.blackrock.com/"),
+            ("Moody's", "https://careers.moodys.com/"),
+            ("S&P Global", "https://www.spglobal.com/en/careers"),
+            ("MSCI", "https://www.msci.com/careers"),
+            ("Nasdaq", "https://www.nasdaq.com/about/careers"),
+            ("BMS", "https://careers.bms.com/"),
+            ("Regeneron", "https://careers.regeneron.com/"),
+            ("IBM", "https://www.ibm.com/careers/search"),
+            ("NBCUniversal", "https://www.nbcunicareers.com/"),
+            ("Paramount", "https://www.paramount.com/careers"),
+            ("WBD", "https://careers.wbd.com/"),
+            ("Disney", "https://jobs.disneycareers.com/"),
+            ("Etsy", "https://careers.etsy.com/"),
+            ("MongoDB", "https://www.mongodb.com/company/careers"),
+            ("Squarespace", "https://www.squarespace.com/careers"),
+            ("Peloton", "https://www.onepeloton.com/careers"),
+            ("Spotify", "https://www.lifeatspotify.com/jobs")):
+        wd_from_page(name, url)
 
 
 def round8():
