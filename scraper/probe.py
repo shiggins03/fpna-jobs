@@ -190,10 +190,171 @@ def amazon_pay_page(job_id):
             print(f"  page {ua_name}: EXC {type(e).__name__}: {str(e)[:140]}")
 
 
+FIN_HINT = re.compile(r"(fp&a|financial plan|finance manager|strategic finance|"
+                      r"finance director|business finance)", re.I)
+
+
+def _report(label, r, want_json=True, probe_keys=()):
+    """One line per candidate: status, size, whether it looks like job data."""
+    body = r.text if r is not None else ""
+    ok = r is not None and r.ok
+    fin = len(FIN_HINT.findall(body))
+    print(f"  {label} -> {r.status_code if r is not None else 'ERR'} "
+          f"len={len(body)} finance-hits={fin}")
+    if ok and want_json:
+        try:
+            j = r.json()
+            top = list(j.keys())[:8] if isinstance(j, dict) else f"list[{len(j)}]"
+            print(f"      json keys: {top}")
+            for path in probe_keys:
+                cur = j
+                for part in path.split("."):
+                    cur = (cur or {}).get(part) if isinstance(cur, dict) else None
+                if isinstance(cur, list):
+                    print(f"      {path}: list[{len(cur)}]"
+                          + (f" first-keys={list(cur[0].keys())[:12]}"
+                             if cur and isinstance(cur[0], dict) else ""))
+                elif cur is not None:
+                    print(f"      {path}: {str(cur)[:100]}")
+        except Exception as e:
+            print(f"      not json: {type(e).__name__} head={body[:120]!r}")
+    elif ok:
+        m = FIN_HINT.search(body)
+        if m:
+            print(f"      ...{body[max(0, m.start()-90):m.start()+110]!r}")
+
+
+def try_get(label, url, ua=BROWSER_UA, probe_keys=(), want_json=True, **kw):
+    try:
+        r = requests.get(url, headers=ua, timeout=T, **kw)
+        _report(label, r, want_json, probe_keys)
+        return r
+    except Exception as e:
+        print(f"  {label} -> EXC {type(e).__name__}: {str(e)[:120]}")
+        return None
+
+
+def try_post(label, url, ua=BROWSER_UA, probe_keys=(), **kw):
+    try:
+        r = requests.post(url, headers=ua, timeout=T, **kw)
+        _report(label, r, True, probe_keys)
+        return r
+    except Exception as e:
+        print(f"  {label} -> EXC {type(e).__name__}: {str(e)[:120]}")
+        return None
+
+
+def ats_markers(label, url):
+    """Which ATS does this careers page actually hand off to?
+
+    The unifier-jobs lesson: a holdco careers page is marketing copy while the
+    real portal is a Workday/Greenhouse tenant. Grep for the handoff links
+    BEFORE guessing tenant names.
+    """
+    pats = {
+        "workday": r"([a-z0-9-]+)\.(wd\d+)\.myworkdayjobs\.com/([A-Za-z0-9_-]+)",
+        "greenhouse": r"(?:boards|job-boards)\.greenhouse\.io/([a-z0-9-]+)",
+        "greenhouse-api": r"boards-api\.greenhouse\.io/v1/boards/([a-z0-9-]+)",
+        "lever": r"jobs\.lever\.co/([a-z0-9-]+)",
+        "smartrecruiters": r"(?:careers|jobs)\.smartrecruiters\.com/([A-Za-z0-9_-]+)",
+        "smartrecruiters-api": r"api\.smartrecruiters\.com/v1/companies/([A-Za-z0-9_-]+)",
+        "ashby": r"jobs\.ashbyhq\.com/([a-z0-9-]+)",
+        "icims": r"([a-z0-9-]+)\.icims\.com",
+        "eightfold": r"([a-z0-9.-]+)\.eightfold\.ai|explore\.jobs\.([a-z.]+)/api",
+        "avature": r"([a-z0-9-]+)\.avature\.net",
+        "phenom": r"([a-z0-9-]+)\.phenompeople\.com",
+        "successfactors": r"([a-z0-9-]+)\.successfactors\.com",
+        "oracle-orc": r"([a-z0-9-]+)\.oraclecloud\.com",
+    }
+    try:
+        r = requests.get(url, headers=BROWSER_UA, timeout=T)
+        print(f"  {label} {url} -> {r.status_code} len={len(r.text)}")
+        for name, pat in pats.items():
+            hits = {m.group(0) for m in re.finditer(pat, r.text, re.I)}
+            if hits:
+                print(f"      {name}: {sorted(hits)[:4]}")
+    except Exception as e:
+        print(f"  {label}: EXC {type(e).__name__}: {str(e)[:120]}")
+
+
 def main():
-    """Round 3 — can we read Amazon's pay paragraph at all?"""
-    section("round 3 — amazon pay, detail endpoint + rendered page")
-    amazon_pay_page(10488409)
+    """Round 4 — one dispatch for every company still dark on the roster.
+
+    Browser-based capture was tried first and is walled off (the in-app pane is
+    denied navigation to the API hosts), so this goes back to the Actions
+    runner. Candidates come from each vendor's known SPA endpoint shape; the
+    finance-hits count tells us whether a 200 actually contains job data rather
+    than a shell page.
+    """
+    section("Microsoft — gcsservices search API")
+    ms = ("https://gcsservices.careers.microsoft.com/search/api/v1/search"
+          "?q=finance&l=en_us&pg=1&pgSz=5&o=Relevance&flt=true")
+    try_get("ms plain", ms,
+            probe_keys=("operationResult.result.totalJobs",
+                        "operationResult.result.jobs"))
+    try_get("ms +NY", ms + "&lc=New%20York%2C%20New%20York%2C%20United%20States",
+            probe_keys=("operationResult.result.totalJobs",
+                        "operationResult.result.jobs"))
+
+    section("Netflix — Eightfold")
+    try_get("netflix eightfold",
+            "https://explore.jobs.netflix.net/api/apply/v2/jobs?domain=netflix.com"
+            "&query=finance&location=New%20York&start=0&num=5",
+            probe_keys=("count", "positions"))
+
+    section("Uber")
+    try_post("uber loadSearchJobsResults",
+             "https://www.uber.com/api/loadSearchJobsResults?localeCode=en",
+             ua={**BROWSER_UA, "Content-Type": "application/json",
+                 "x-csrf-token": "x"},
+             json={"params": {"location": [{"country": "USA", "region": "NY"}]},
+                   "page": 0, "limit": 5, "query": "finance"},
+             probe_keys=("data.results", "data.totalResults"))
+
+    section("Spotify")
+    try_get("spotify appspot api",
+            "https://api-dot-new-spotifyjobs-com.appspot.com/wp-json/animus/v1/job/"
+            "?c=finance&l=new-york", probe_keys=("result",))
+    try_get("lifeatspotify api", "https://www.lifeatspotify.com/api/jobs")
+
+    section("Apple")
+    try_get("apple search page", "https://jobs.apple.com/en-us/search?location=new-york-state-NY",
+            want_json=False)
+    try_post("apple role search", "https://jobs.apple.com/api/role/search",
+             ua={**BROWSER_UA, "Content-Type": "application/json"},
+             json={"query": "finance", "filters": {"postingpostLocation":
+                   ["postLocation-USANY"]}, "page": 1},
+             probe_keys=("res.totalRecords", "res.searchResults"))
+
+    section("Google")
+    try_get("google results html",
+            "https://www.google.com/about/careers/applications/jobs/results/"
+            "?q=finance&location=New%20York", want_json=False)
+    try_get("google api v3 jobs",
+            "https://www.google.com/about/careers/applications/api/v3/search/"
+            "?q=finance&location=New+York")
+
+    section("DoorDash / Intuit — find the real ATS")
+    for tok in ("doordash", "doordashusa", "doordashcareers", "doordashinc"):
+        try_get(f"gh {tok}",
+                f"https://boards-api.greenhouse.io/v1/boards/{tok}/jobs",
+                probe_keys=("jobs",))
+    ats_markers("doordash careers", "https://careersatdoordash.com/")
+    ats_markers("intuit careers", "https://www.intuit.com/careers/")
+
+    section("Advertising holdcos — SmartRecruiters tokens + ATS markers")
+    for tok in ("PublicisGroupe", "PublicisGroupeGlobal", "Publicis", "PublicisSapient",
+                "HavasGroup", "Havas", "dentsu", "dentsuinternational",
+                "DentsuAegisNetwork", "Omnicom", "WPP"):
+        try_get(f"sr {tok}",
+                f"https://api.smartrecruiters.com/v1/companies/{tok}/postings?limit=3",
+                probe_keys=("totalFound",))
+    for label, url in (("publicis", "https://www.publicisgroupe.com/en/careers"),
+                       ("havas", "https://havas.com/careers/"),
+                       ("dentsu", "https://www.dentsu.com/careers"),
+                       ("omnicom", "https://www.omnicomgroup.com/careers/"),
+                       ("wpp", "https://www.wpp.com/careers")):
+        ats_markers(label, url)
 
 
 def round1():
