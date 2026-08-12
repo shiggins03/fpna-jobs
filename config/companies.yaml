@@ -841,3 +841,322 @@ companies:
     workday_site: WMGUS
     enabled: true
     note: read off wmg.com/careers (round 11). WMGUS is the US site; WMGGLOBAL also exists and would pull non-US roles the scope filter then drops. NYC HQ.
+
+  # ---------------- Roster expansion 4, probe round 12 (2026-08-12) ----
+  # Wide sweep purely for volume. The decision to keep adding employers
+  # rather than loosen the score came from measurement: every score
+  # component was already earning 69-90% of its weight on average, and only
+  # FIVE roles sat at 70-74, so recalibrating would not have moved the count
+  # — the gap to 40+ was supply, at an observed rate of about one role at
+  # fit 75+ per three employers.
+  # Boards are cheap at runtime (one request each, whole board) but they are
+  # NOT free: several here are large (Gopuff 812, Lyra 517, HelloFresh 347,
+  # Okta 337), which is why daily.yml's timeout went from 30 to 50 minutes.
+  - name: Cloudflare
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: cloudflare
+    enabled: true
+    note: verified by probe round 12 (303 jobs on the board).
+  - name: Okta
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: okta
+    enabled: true
+    note: verified by probe round 12 (337 jobs on the board).
+  - name: Twilio
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: twilio
+    enabled: true
+    note: verified by probe round 12 (163 jobs on the board).
+  - name: GitLab
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: gitlab
+    enabled: true
+    note: verified by probe round 12 (195 jobs on the board).
+  - name: Elastic
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: elastic
+    enabled: true
+    note: verified by probe round 12 (259 jobs on the board).
+  - name: Confluent
+    tier: A
+    category: tech
+    ats: ashby
+    ashby_org: confluent
+    enabled: true
+    note: verified by probe round 12 (29 jobs on the board).
+  - name: Toast
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: toast
+    enabled: true
+    note: verified by probe round 12 (325 jobs on the board).
+  - name: Lyft
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: lyft
+    enabled: true
+    note: verified by probe round 12 (175 jobs on the board).
+  - name: Samsara
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: samsara
+    enabled: true
+    note: verified by probe round 12 (262 jobs on the board).
+  - name: Fivetran
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: fivetran
+    enabled: true
+    note: verified by probe round 12 (206 jobs on the board).
+  - name: Rubrik
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: rubrik
+    enabled: true
+    note: verified by probe round 12 (109 jobs on the board).
+  - name: UiPath
+    tier: A
+    category: tech
+    ats: ashby
+    ashby_org: uipath
+    enabled: true
+    note: verified by probe round 12 (118 jobs on the board).
+  - name: Carta
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: carta
+    enabled: true
+    note: verified by probe round 12 (57 jobs on the board).
+  - name: Gusto
+    tier: A
+    category: tech
+    ats: greenhouse
+    greenhouse_board: gusto
+    enabled: true
+    note: verified by probe round 12 (91 jobs on the board).
+  - name: Grafana Labs
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: grafanalabs
+    enabled: true
+    note: verified by probe round 12 (148 jobs on the board).
+  - name: Sentry
+    tier: B
+    category: tech
+    ats: ashby
+    ashby_org: sentry
+    enabled: true
+    note: verified by probe round 12 (47 jobs on the board).
+  - name: LaunchDarkly
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: launchdarkly
+    enabled: true
+    note: verified by probe round 12 (40 jobs on the board).
+  - name: Postman
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: postman
+    enabled: true
+    note: verified by probe round 12 (108 jobs on the board).
+  - name: Benchling
+    tier: B
+    category: tech
+    ats: ashby
+    ashby_org: benchling
+    enabled: true
+    note: verified by probe round 12 (50 jobs on the board).
+  - name: JFrog
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: jfrog
+    enabled: true
+    note: verified by probe round 12 (32 jobs on the board).
+  - name: Sigma Computing
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: sigmacomputing
+    enabled: true
+    note: verified by probe round 12 (68 jobs on the board).
+  - name: Supabase
+    tier: B
+    category: tech
+    ats: ashby
+    ashby_org: supabase
+    enabled: true
+    note: verified by probe round 12 (56 jobs on the board).
+  - name: Airbyte
+    tier: B
+    category: tech
+    ats: ashby
+    ashby_org: airbyte
+    enabled: true
+    note: verified by probe round 12 (10 jobs on the board).
+  - name: Monte Carlo
+    tier: B
+    category: tech
+    ats: ashby
+    ashby_org: montecarlodata
+    enabled: true
+    note: verified by probe round 12 (6 jobs on the board).
+  - name: Wealthfront
+    tier: B
+    category: finance
+    ats: lever
+    lever_company: wealthfront
+    enabled: true
+    note: verified by probe round 12 (20 jobs on the board).
+  - name: Checkr
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: checkr
+    enabled: true
+    note: verified by probe round 12 (48 jobs on the board).
+  - name: Faire
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: faire
+    enabled: true
+    note: verified by probe round 12 (65 jobs on the board).
+  - name: Rent the Runway
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: renttherunway
+    enabled: true
+    note: verified by probe round 12 (20 jobs on the board).
+  - name: Sweetgreen
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: sweetgreen
+    enabled: true
+    note: verified by probe round 12 (47 jobs on the board).
+  - name: HelloFresh
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: hellofresh
+    enabled: true
+    note: verified by probe round 12 (347 jobs on the board).
+  - name: Gopuff
+    tier: B
+    category: tech
+    ats: lever
+    lever_company: gopuff
+    enabled: true
+    note: verified by probe round 12 (812 jobs on the board).
+  - name: Olo
+    tier: B
+    category: tech
+    ats: lever
+    lever_company: olo
+    enabled: true
+    note: verified by probe round 12 (9 jobs on the board).
+  - name: Patreon
+    tier: B
+    category: tech
+    ats: ashby
+    ashby_org: patreon
+    enabled: true
+    note: verified by probe round 12 (6 jobs on the board).
+  - name: Oscar Health
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: oscar
+    enabled: true
+    note: verified by probe round 12 (263 jobs on the board).
+  - name: Komodo Health
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: komodohealth
+    enabled: true
+    note: verified by probe round 12 (35 jobs on the board).
+  - name: Flatiron Health
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: flatironhealth
+    enabled: true
+    note: verified by probe round 12 (36 jobs on the board).
+  - name: Modern Health
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: modernhealth
+    enabled: true
+    note: verified by probe round 12 (19 jobs on the board).
+  - name: Lyra Health
+    tier: B
+    category: tech
+    ats: lever
+    lever_company: lyrahealth
+    enabled: true
+    note: verified by probe round 12 (517 jobs on the board).
+  - name: BetterHelp
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: betterhelp
+    enabled: true
+    note: verified by probe round 12 (202 jobs on the board).
+  - name: Talkspace
+    tier: B
+    category: tech
+    ats: greenhouse
+    greenhouse_board: talkspace
+    enabled: true
+    note: verified by probe round 12 (10 jobs on the board).
+  - name: WHOOP
+    tier: B
+    category: tech
+    ats: ashby
+    ashby_org: whoop
+    enabled: true
+    note: verified by probe round 12 (183 jobs on the board).
+  - name: Hearst
+    tier: B
+    category: media
+    ats: greenhouse
+    greenhouse_board: hearst
+    enabled: true
+    note: verified by probe round 12 (14 jobs on the board).
+  - name: Forbes
+    tier: B
+    category: media
+    ats: greenhouse
+    greenhouse_board: forbes
+    enabled: true
+    note: verified by probe round 12 (19 jobs on the board).
+  - name: Axios
+    tier: B
+    category: media
+    ats: greenhouse
+    greenhouse_board: axios
+    enabled: true
+    note: verified by probe round 12 (24 jobs on the board).
