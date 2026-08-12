@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-11",
+  "updated": "2026-08-12",
   "warnings": [],
   "roster": [
     {
@@ -729,6 +729,358 @@
       "category": "media",
       "enabled": true,
       "note": "read off wmg.com/careers (round 11). WMGUS is the US site; WMGGLOBAL also exists and would pull non-US roles the scope filter then drops. NYC HQ."
+    },
+    {
+      "name": "Cloudflare",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (303 jobs on the board)."
+    },
+    {
+      "name": "Okta",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (337 jobs on the board)."
+    },
+    {
+      "name": "Twilio",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (163 jobs on the board)."
+    },
+    {
+      "name": "GitLab",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (195 jobs on the board)."
+    },
+    {
+      "name": "Elastic",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (259 jobs on the board)."
+    },
+    {
+      "name": "Confluent",
+      "tier": "A",
+      "ats": "ashby",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (29 jobs on the board)."
+    },
+    {
+      "name": "Toast",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (325 jobs on the board)."
+    },
+    {
+      "name": "Lyft",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (175 jobs on the board)."
+    },
+    {
+      "name": "Samsara",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (262 jobs on the board)."
+    },
+    {
+      "name": "Fivetran",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (206 jobs on the board)."
+    },
+    {
+      "name": "Rubrik",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (109 jobs on the board)."
+    },
+    {
+      "name": "UiPath",
+      "tier": "A",
+      "ats": "ashby",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (118 jobs on the board)."
+    },
+    {
+      "name": "Carta",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (57 jobs on the board)."
+    },
+    {
+      "name": "Gusto",
+      "tier": "A",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (91 jobs on the board)."
+    },
+    {
+      "name": "Grafana Labs",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (148 jobs on the board)."
+    },
+    {
+      "name": "Sentry",
+      "tier": "B",
+      "ats": "ashby",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (47 jobs on the board)."
+    },
+    {
+      "name": "LaunchDarkly",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (40 jobs on the board)."
+    },
+    {
+      "name": "Postman",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (108 jobs on the board)."
+    },
+    {
+      "name": "Benchling",
+      "tier": "B",
+      "ats": "ashby",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (50 jobs on the board)."
+    },
+    {
+      "name": "JFrog",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (32 jobs on the board)."
+    },
+    {
+      "name": "Sigma Computing",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (68 jobs on the board)."
+    },
+    {
+      "name": "Supabase",
+      "tier": "B",
+      "ats": "ashby",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (56 jobs on the board)."
+    },
+    {
+      "name": "Airbyte",
+      "tier": "B",
+      "ats": "ashby",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (10 jobs on the board)."
+    },
+    {
+      "name": "Monte Carlo",
+      "tier": "B",
+      "ats": "ashby",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (6 jobs on the board)."
+    },
+    {
+      "name": "Wealthfront",
+      "tier": "B",
+      "ats": "lever",
+      "category": "finance",
+      "enabled": true,
+      "note": "verified by probe round 12 (20 jobs on the board)."
+    },
+    {
+      "name": "Checkr",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (48 jobs on the board)."
+    },
+    {
+      "name": "Faire",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (65 jobs on the board)."
+    },
+    {
+      "name": "Rent the Runway",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (20 jobs on the board)."
+    },
+    {
+      "name": "Sweetgreen",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (47 jobs on the board)."
+    },
+    {
+      "name": "HelloFresh",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (347 jobs on the board)."
+    },
+    {
+      "name": "Gopuff",
+      "tier": "B",
+      "ats": "lever",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (812 jobs on the board)."
+    },
+    {
+      "name": "Olo",
+      "tier": "B",
+      "ats": "lever",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (9 jobs on the board)."
+    },
+    {
+      "name": "Patreon",
+      "tier": "B",
+      "ats": "ashby",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (6 jobs on the board)."
+    },
+    {
+      "name": "Oscar Health",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (263 jobs on the board)."
+    },
+    {
+      "name": "Komodo Health",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (35 jobs on the board)."
+    },
+    {
+      "name": "Flatiron Health",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (36 jobs on the board)."
+    },
+    {
+      "name": "Modern Health",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (19 jobs on the board)."
+    },
+    {
+      "name": "Lyra Health",
+      "tier": "B",
+      "ats": "lever",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (517 jobs on the board)."
+    },
+    {
+      "name": "BetterHelp",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (202 jobs on the board)."
+    },
+    {
+      "name": "Talkspace",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (10 jobs on the board)."
+    },
+    {
+      "name": "WHOOP",
+      "tier": "B",
+      "ats": "ashby",
+      "category": "tech",
+      "enabled": true,
+      "note": "verified by probe round 12 (183 jobs on the board)."
+    },
+    {
+      "name": "Hearst",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "media",
+      "enabled": true,
+      "note": "verified by probe round 12 (14 jobs on the board)."
+    },
+    {
+      "name": "Forbes",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "media",
+      "enabled": true,
+      "note": "verified by probe round 12 (19 jobs on the board)."
+    },
+    {
+      "name": "Axios",
+      "tier": "B",
+      "ats": "greenhouse",
+      "category": "media",
+      "enabled": true,
+      "note": "verified by probe round 12 (24 jobs on the board)."
     }
   ],
   "triage": [
@@ -852,9 +1204,7 @@
       "comp": "salary range for this position is $126,676 to $221,434 USD",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 97,
       "pivot": 10,
       "level": "director",
@@ -911,6 +1261,31 @@
       "scope": "unknown",
       "remote": false,
       "recommendation": "Strong Apply",
+      "below_comp": false
+    },
+    {
+      "id": "7fe8bdda66e735cb",
+      "kind": "direct",
+      "company": "Samsara",
+      "category": "tech",
+      "title": "Senior Manager, Finance and Strategy - R&D",
+      "location": "Remote - SF Bay Area",
+      "url": "https://www.samsara.com/company/careers/roles/7932125?gh_jid=7932125",
+      "posted_date": "2026-06-02T06:46:52-04:00",
+      "comp": "$118,720 — $212,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 94,
+      "pivot": 10,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "red",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Apply",
       "below_comp": false
     },
     {
@@ -994,9 +1369,7 @@
       "comp": "$140,000 – $205,000",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 90,
       "pivot": 7,
       "level": "director",
@@ -1196,6 +1569,32 @@
       "below_comp": false
     },
     {
+      "id": "59c943a5270a2009",
+      "kind": "direct",
+      "company": "Oscar Health",
+      "category": "tech",
+      "title": "VP of Strategic Finance for Lucie & Trove",
+      "location": "New York, New York, United States",
+      "url": "http://www.hioscar.com/careers/7758903?gh_jid=7758903",
+      "posted_date": "2026-03-26T14:58:34-04:00",
+      "comp": "pay for this role is: $240,120 - $315,157 per year",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new",
+        "long-posted"
+      ],
+      "fit": 84,
+      "pivot": 10,
+      "level": "vp",
+      "level_label": "VP",
+      "gap_severity": "yellow",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Apply",
+      "below_comp": false
+    },
+    {
       "id": "f8b50359e8cb06c1",
       "kind": "direct",
       "company": "Stripe",
@@ -1347,9 +1746,7 @@
       "comp": "Salary Range: $115,000 to $135,000 Annually",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 78,
       "pivot": 10,
       "level": "senior_manager",
@@ -1380,6 +1777,31 @@
       "gap_severity": "green",
       "scope": "nyc",
       "remote": false,
+      "recommendation": "Apply",
+      "below_comp": false
+    },
+    {
+      "id": "07ee5d98db04ae36",
+      "kind": "direct",
+      "company": "GitLab",
+      "category": "tech",
+      "title": "Manager, Strategic Finance",
+      "location": "Remote, United States",
+      "url": "https://job-boards.greenhouse.io/gitlab/jobs/8639170002",
+      "posted_date": "2026-07-21T16:47:30-04:00",
+      "comp": "$115,200 — $194,400 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 77,
+      "pivot": 8,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "red",
+      "scope": "remote",
+      "remote": true,
       "recommendation": "Apply",
       "below_comp": false
     },
@@ -1599,6 +2021,56 @@
       "below_comp": false
     },
     {
+      "id": "fa6c65c94955820a",
+      "kind": "direct",
+      "company": "Elastic",
+      "category": "tech",
+      "title": "Financial Planning and Analysis Manager -Professional Services and Partner Support ",
+      "location": "United States",
+      "url": "https://jobs.elastic.co/jobs?gh_jid=8068807&gh_jid=8068807",
+      "posted_date": "2026-07-21T06:43:28-04:00",
+      "comp": "$106,900 — $169,100 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 68,
+      "pivot": 8,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "yellow",
+      "scope": "unknown",
+      "remote": true,
+      "recommendation": "Stretch Apply",
+      "below_comp": true
+    },
+    {
+      "id": "27ad7bdc1a6a7e6e",
+      "kind": "direct",
+      "company": "Toast",
+      "category": "tech",
+      "title": "Strategic Finance Manager, Go-To-Market",
+      "location": "New York City",
+      "url": "https://careers.toasttab.com/jobs?gh_jid=7931717",
+      "posted_date": "2026-06-03T12:54:26-04:00",
+      "comp": "$143,000 — $229,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 66,
+      "pivot": 7,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Stretch Apply",
+      "below_comp": false
+    },
+    {
       "id": "757c966ae4d63bf0",
       "kind": "direct",
       "company": "Amazon",
@@ -1773,9 +2245,7 @@
       "comp": "$175,000.00 - $250,000.00",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 64,
       "pivot": 2,
       "level": "vp",
@@ -1798,9 +2268,7 @@
       "comp": "$250,000.00 - $500,000.00",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 64,
       "pivot": 2,
       "level": "director",
@@ -1808,6 +2276,57 @@
       "gap_severity": "green",
       "scope": "nyc_metro",
       "remote": true,
+      "recommendation": "Stretch Apply",
+      "below_comp": false
+    },
+    {
+      "id": "0222058ee6ec4e84",
+      "kind": "direct",
+      "company": "Grafana Labs",
+      "category": "tech",
+      "title": " Senior Finance Analytics Manager  | United States | Remote ",
+      "location": "United States (Remote)",
+      "url": "https://job-boards.greenhouse.io/grafanalabs/jobs/6103284004",
+      "posted_date": "2026-06-30T14:57:08-04:00",
+      "comp": null,
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 64,
+      "pivot": 6,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "red",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Stretch Apply",
+      "below_comp": false
+    },
+    {
+      "id": "489fff5c63079d2b",
+      "kind": "direct",
+      "company": "Faire",
+      "category": "tech",
+      "title": "Strategic Finance Lead, Fulfillment",
+      "location": "New York City, NY; San Francisco, CA",
+      "url": "https://boards.greenhouse.io/faire/jobs/8547681002?gh_jid=8547681002",
+      "posted_date": "2026-05-13T12:54:10-04:00",
+      "comp": null,
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new",
+        "long-posted"
+      ],
+      "fit": 64,
+      "pivot": 7,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
       "recommendation": "Stretch Apply",
       "below_comp": false
     },
@@ -1830,6 +2349,31 @@
       "pivot": 5,
       "level": "manager",
       "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Stretch Apply",
+      "below_comp": false
+    },
+    {
+      "id": "06f381b1845471b9",
+      "kind": "direct",
+      "company": "Faire",
+      "category": "tech",
+      "title": "Strategic Finance Senior Lead, Growth",
+      "location": "New York City, NY; San Francisco, CA",
+      "url": "https://boards.greenhouse.io/faire/jobs/8633365002?gh_jid=8633365002",
+      "posted_date": "2026-07-15T08:54:33-04:00",
+      "comp": "pay range for this role is $197,500 to $",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 62,
+      "pivot": 5,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
       "gap_severity": "green",
       "scope": "nyc",
       "remote": false,
@@ -1894,9 +2438,7 @@
       "comp": "$250,000.00 - $500,000.00",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 59,
       "pivot": 4,
       "level": "vp",
@@ -1931,6 +2473,56 @@
       "below_comp": true
     },
     {
+      "id": "e41f92dee456b948",
+      "kind": "direct",
+      "company": "Rent the Runway",
+      "category": "tech",
+      "title": "Manager, Financial Planning & Analysis",
+      "location": "Brooklyn, NY (Rent the Runway HQ)",
+      "url": "https://job-boards.greenhouse.io/renttherunway/jobs/8077006",
+      "posted_date": "2026-07-23T09:43:02-04:00",
+      "comp": "salary for this position is $98,800 to $125,000",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 55,
+      "pivot": 8,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Skip",
+      "below_comp": true
+    },
+    {
+      "id": "51de1c9562caebb6",
+      "kind": "direct",
+      "company": "Faire",
+      "category": "tech",
+      "title": "Strategic Finance Lead, Value",
+      "location": "New York City, NY; San Francisco, CA",
+      "url": "https://boards.greenhouse.io/faire/jobs/8649510002?gh_jid=8649510002",
+      "posted_date": "2026-07-24T16:44:12-04:00",
+      "comp": null,
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 54,
+      "pivot": 5,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Skip",
+      "below_comp": false
+    },
+    {
       "id": "619c4c445dee3a2f",
       "kind": "direct",
       "company": "Plaid",
@@ -1952,6 +2544,31 @@
       "remote": false,
       "recommendation": "Skip",
       "below_comp": true
+    },
+    {
+      "id": "27e3f916ff1ed2e0",
+      "kind": "direct",
+      "company": "Modern Health",
+      "category": "tech",
+      "title": "Strategic Finance and Pricing Lead ",
+      "location": "Remote - US",
+      "url": "https://job-boards.greenhouse.io/modernhealth/jobs/8662822002",
+      "posted_date": "2026-07-31T17:54:15-04:00",
+      "comp": "$152,300 — $179,200 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 53,
+      "pivot": 5,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "green",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Skip",
+      "below_comp": false
     },
     {
       "id": "df67919620d7cc77",
@@ -1990,9 +2607,7 @@
       "comp": "salary range for this position is USD $142,100 to $192,000",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 50,
       "pivot": 3,
       "level": "director",
