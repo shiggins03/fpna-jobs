@@ -45,9 +45,32 @@ remote_patterns:
   - 'telecommute'
   - 'distributed'
 
+# Matching the loose list above against a 5,000-character job description would
+# fire on any passing mention ("occasional remote work", "our remote-first
+# culture"). Body text therefore needs one of these explicit statements that the
+# ROLE is remote. Used only when the location field names another city, to
+# rescue postings that are genuinely open to New York.
+remote_body_patterns:
+  - 'remote[- ]eligible'
+  - 'fully remote'
+  - 'this (?:role|position) is remote'
+  - 'remote \(us'
+  - 'us[- ]remote'
+  - 'remote, us'
+  - 'work from anywhere'
+  - 'remote anywhere in the (?:us|united states)'
+  - 'open to remote'
+  - 'remote within the united states'
+
 # Remote postings that exclude New York residents are out of scope. Rare in
 # the posting text, so this is a light net, not a guarantee.
 remote_excluded_patterns:
   - 'excluding new york'
   - 'not available in new york'
   - 'except new york'
+  - 'not a remote'
+  - 'not remote[- ]eligible'
+  - 'no remote work'
+  - 'onsite only'
+  - 'on-site only'
+  - 'fully on[- ]?site'

@@ -183,14 +183,18 @@ def is_remote(location, description, cities):
     """Stated remote only — never inferred. Checks the location field first,
     then the description, because Workday often says "New York, NY" in the
     location and "this role is remote-eligible" in the body."""
-    pats = cities.get("remote_patterns", [])
-    for text in (location, description):
+    excl = cities.get("remote_excluded_patterns", [])
+    body_pats = cities.get("remote_body_patterns") or cities.get("remote_patterns", [])
+    # Loose wording is fine in the location FIELD ("Remote - US"), but a long
+    # description needs an explicit statement that the role itself is remote,
+    # or "our remote-first culture" would qualify every posting at the company.
+    for text, pats in ((location, cities.get("remote_patterns", [])),
+                       (description, body_pats)):
         low = _words(text)
         if not low:
             continue
         if any(re.search(rf"\b{p}\b", low, re.I) for p in pats):
-            if any(re.search(pe, low, re.I)
-                   for pe in cities.get("remote_excluded_patterns", [])):
+            if any(re.search(pe, low, re.I) for pe in excl):
                 return False
             return True
     return False
@@ -475,7 +479,13 @@ def qualifies(title, body, location, kw, cities):
     if is_non_us(location):
         return False, "outside US scope"
     scope = location_scope(location, cities)
-    if scope == "other":
+    if scope == "other" and not is_remote(location, body, cities):
+        # A posting whose LOCATION field names another city can still be
+        # remote-eligible — big tech routinely lists a home office on a role
+        # open to US-remote, and the owner said remote is acceptable. Dropping
+        # on the location field alone was silently discarding those, and
+        # location was the second-largest filter bucket (3,477 in one run).
+        # The body still has to SAY remote; nothing is inferred from the field.
         return False, f"outside NYC/remote scope: {location}"
     if seniority_level(title, kw) is None:
         return False, "below seniority floor"
@@ -594,6 +604,11 @@ def score_job(job, kw, roles, cities, tier=None):
     job["recommendation"] = recommendation(fit, pivot, severity, roles)
     job["scope"] = location_scope(job.get("location"), cities)
     job["remote"] = is_remote(job.get("location"), body, cities)
+    if job["scope"] == "other" and job["remote"]:
+        # It cleared the gate on stated remote eligibility, so it must score as
+        # remote too — leaving it "other" would zero the location component of
+        # a role we deliberately kept.
+        job["scope"] = "remote"
     job["extras"] = comp_extras(body)
     job["comp_offsite"] = (not job.get("comp")) and comp_stated_offsite(body)
     # The page-derived flag has to survive here: when comp came from the

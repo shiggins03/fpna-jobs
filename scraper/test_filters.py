@@ -126,6 +126,32 @@ check("remote in body", is_remote("New York, NY",
                                   "This role is remote-eligible.", CITIES), True)
 check("hybrid is not remote",
       is_remote("New York, NY", "Hybrid, 3 days in office.", CITIES), False)
+# Body text needs an explicit statement, not a passing mention — otherwise
+# "our remote-first culture" would mark every posting at that company remote.
+check("culture mention is not remote", is_remote(
+    "Seattle, WA", "We have a remote-first culture and offices worldwide.",
+    CITIES), False)
+check("explicit body remote", is_remote(
+    "Seattle, WA", "This role is remote-eligible for US-based candidates.",
+    CITIES), True)
+check("explicit denial wins", is_remote(
+    "Seattle, WA", "This role is remote-eligible? No - onsite only.", CITIES),
+    False)
+
+# A role whose office is elsewhere but which states remote eligibility must
+# QUALIFY (the owner accepts remote) and must score as remote, not as "other".
+ok, why = qualifies("Director, FP&A", FPNA_BODY + "\nThis role is remote-eligible.",
+                    "San Francisco, CA", KW, CITIES)
+check("remote-eligible SF role qualifies", ok, True)
+remote_sf = {"title": "Director, FP&A", "id": "r1", "company": "Stripe",
+             "flags": [], "first_seen": "2026-08-12", "location": "San Francisco, CA",
+             "comp": "$210,000 - $260,000", "description":
+             FPNA_BODY + "\nThis role is remote-eligible."}
+score_job(remote_sf, KW, ROLES, CITIES, tier="A")
+check("scored as remote, not other", remote_sf["scope"], "remote")
+# ...but an SF role with no remote statement is still out of scope.
+ok, why = qualifies("Director, FP&A", FPNA_BODY, "San Francisco, CA", KW, CITIES)
+check("plain SF role still rejected", ok, False)
 
 # ---- qualification --------------------------------------------------------
 ok, why = qualifies("Director, FP&A", FPNA_BODY, "New York, NY", KW, CITIES)
