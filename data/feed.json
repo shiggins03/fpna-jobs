@@ -673,6 +673,62 @@
       "category": "tech",
       "enabled": true,
       "note": "verified by probe round 10 (60 jobs)."
+    },
+    {
+      "name": "S&P Global",
+      "tier": "A",
+      "ats": "workday",
+      "category": "finance",
+      "enabled": true,
+      "note": "read off careers.spglobal.com/search-jobs (round 11). Large NYC corporate FP&A org."
+    },
+    {
+      "name": "Citi",
+      "tier": "A",
+      "ats": "workday",
+      "category": "finance",
+      "enabled": true,
+      "note": "read off jobs.citi.com/search-jobs (round 11). The site name really is \"2\" — from the /en-US/2 path. They also run citi.eightfold.ai; Workday is the ATS."
+    },
+    {
+      "name": "Blackstone",
+      "tier": "A",
+      "ats": "workday",
+      "category": "finance",
+      "enabled": true,
+      "note": "read off blackstone.com/careers (round 11)."
+    },
+    {
+      "name": "Apollo Global",
+      "tier": "A",
+      "ats": "workday",
+      "category": "finance",
+      "enabled": true,
+      "note": "read off apollo.com/careers (round 11). Tenant is athene, not apollo — exactly why round 10's slug brute-force found nothing."
+    },
+    {
+      "name": "Prudential",
+      "tier": "B",
+      "ats": "workday",
+      "category": "finance",
+      "enabled": true,
+      "note": "read off prudential.com/careers (round 11). Newark NJ — in the NYC metro bucket."
+    },
+    {
+      "name": "TIAA",
+      "tier": "B",
+      "ats": "workday",
+      "category": "finance",
+      "enabled": true,
+      "note": "read off careers.tiaa.org (round 11). NYC HQ."
+    },
+    {
+      "name": "Warner Music Group",
+      "tier": "B",
+      "ats": "workday",
+      "category": "media",
+      "enabled": true,
+      "note": "read off wmg.com/careers (round 11). WMGUS is the US site; WMGGLOBAL also exists and would pull non-US roles the scope filter then drops. NYC HQ."
     }
   ],
   "triage": [
@@ -749,7 +805,6 @@
       "status": "active",
       "gone_date": null,
       "flags": [
-        "new",
         "long-posted"
       ],
       "fit": 99,
@@ -779,6 +834,31 @@
       "pivot": 9,
       "level": "vp",
       "level_label": "VP",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Strong Apply",
+      "below_comp": false
+    },
+    {
+      "id": "faba7017aa8f927f",
+      "kind": "direct",
+      "company": "S&P Global",
+      "category": "finance",
+      "title": "Director, Financial Planning & Analysis (FP&A) Business Partner,  Enterprise Technology Product Development",
+      "location": "New York, NY",
+      "url": "https://spgi.wd5.myworkdayjobs.com/en-US/SPGI_Careers/job/New-York-NY/Director--Financial-Planning---Analysis--FP-A--Business-Partner---Enterprise-Technology-Product-Development_330870-1",
+      "posted_date": "Posted 5 Days Ago",
+      "comp": "salary range for this position is $126,676 to $221,434 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 97,
+      "pivot": 10,
+      "level": "director",
+      "level_label": "Director",
       "gap_severity": "green",
       "scope": "nyc",
       "remote": false,
@@ -821,7 +901,6 @@
       "status": "active",
       "gone_date": null,
       "flags": [
-        "new",
         "long-posted"
       ],
       "fit": 95,
@@ -869,37 +948,12 @@
       "comp": "$125,000 - $207,000 USD",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 93,
       "pivot": 10,
       "level": "manager",
       "level_label": "Manager",
       "gap_severity": "yellow",
-      "scope": "nyc",
-      "remote": false,
-      "recommendation": "Strong Apply",
-      "below_comp": false
-    },
-    {
-      "id": "de959577414c1b39",
-      "kind": "direct",
-      "company": "Mastercard",
-      "category": "tech",
-      "title": "Director, Finance Business Partner",
-      "location": "Purchase, New York",
-      "url": "https://mastercard.wd1.myworkdayjobs.com/en-US/CorporateCareers/job/Purchase-New-York/Director--Finance-Business-Partner_R-287478",
-      "posted_date": "Posted 4 Days Ago",
-      "comp": "$163,000 - $269,000 USD",
-      "status": "active",
-      "gone_date": null,
-      "flags": [],
-      "fit": 92,
-      "pivot": 7,
-      "level": "director",
-      "level_label": "Director",
-      "gap_severity": "green",
       "scope": "nyc",
       "remote": false,
       "recommendation": "Strong Apply",
@@ -923,6 +977,31 @@
       "level": "manager",
       "level_label": null,
       "gap_severity": "yellow",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Strong Apply",
+      "below_comp": false
+    },
+    {
+      "id": "64cd5632ddcdc785",
+      "kind": "direct",
+      "company": "Apollo Global",
+      "category": "finance",
+      "title": "Associate Director, Strategic Finance – Principal Investing Segment",
+      "location": "New York, New York",
+      "url": "https://athene.wd5.myworkdayjobs.com/en-US/Apollo_Careers/job/New-York-New-York/Associate-Director--Strategic-Finance---Principal-Investing-Segment_R254529",
+      "posted_date": "Posted 30+ Days Ago",
+      "comp": "$140,000 – $205,000",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 90,
+      "pivot": 7,
+      "level": "director",
+      "level_label": "Director",
+      "gap_severity": "green",
       "scope": "nyc",
       "remote": false,
       "recommendation": "Strong Apply",
@@ -986,9 +1065,7 @@
       "comp": "$293K – $325K • Offers Equity",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 88,
       "pivot": 9,
       "level": "director",
@@ -1255,6 +1332,54 @@
       "gap_severity": "green",
       "scope": "nyc",
       "remote": true,
+      "recommendation": "Apply",
+      "below_comp": false
+    },
+    {
+      "id": "3c57b6e660a1bc04",
+      "kind": "direct",
+      "company": "Warner Music Group",
+      "category": "media",
+      "title": "Senior Manager, Merch Finance",
+      "location": "USA - New York - 1633 Broadway",
+      "url": "https://wmg.wd1.myworkdayjobs.com/en-US/WMGUS/job/USA---New-York---1633-Broadway/Senior-Manager--Merch-Finance_R-027969",
+      "posted_date": "Posted 29 Days Ago",
+      "comp": "Salary Range: $115,000 to $135,000 Annually",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 78,
+      "pivot": 10,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Apply",
+      "below_comp": true
+    },
+    {
+      "id": "de959577414c1b39",
+      "kind": "direct",
+      "company": "Mastercard",
+      "category": "tech",
+      "title": "Director, Finance Business Partner",
+      "location": "Purchase, New York",
+      "url": "https://mastercard.wd1.myworkdayjobs.com/en-US/CorporateCareers/job/Purchase-New-York/Director--Finance-Business-Partner_R-282092-1",
+      "posted_date": "Posted 30+ Days Ago",
+      "comp": "$142,000 - $234,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [],
+      "fit": 77,
+      "pivot": 6,
+      "level": "director",
+      "level_label": "Director",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
       "recommendation": "Apply",
       "below_comp": false
     },
@@ -1554,9 +1679,7 @@
       "comp": "$152K – $200K • Offers Equity",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 65,
       "pivot": 8,
       "level": "manager",
@@ -1639,6 +1762,56 @@
       "below_comp": false
     },
     {
+      "id": "3c13bcdc79dab808",
+      "kind": "direct",
+      "company": "Citi",
+      "category": "finance",
+      "title": "CRE Finance Banker  - Vice President",
+      "location": "New York New York United States",
+      "url": "https://citi.wd5.myworkdayjobs.com/en-US/2/job/New-York-New-York-United-States/CRE-Finance-Banker----Vice-President_26984265",
+      "posted_date": "Posted 7 Days Ago",
+      "comp": "$175,000.00 - $250,000.00",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 64,
+      "pivot": 2,
+      "level": "vp",
+      "level_label": "VP",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Stretch Apply",
+      "below_comp": false
+    },
+    {
+      "id": "963ff93468ffcda0",
+      "kind": "direct",
+      "company": "Citi",
+      "category": "finance",
+      "title": "Managing Director , Securities Finance Technology C16 - JERSEY CITY",
+      "location": "Jersey City New Jersey United States",
+      "url": "https://citi.wd5.myworkdayjobs.com/en-US/2/job/Jersey-City-New-Jersey-United-States/Managing-Director---Securities-Finance-Technology-C16---JERSEY-CITY_26965835",
+      "posted_date": "Posted 30+ Days Ago",
+      "comp": "$250,000.00 - $500,000.00",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 64,
+      "pivot": 2,
+      "level": "director",
+      "level_label": "Director",
+      "gap_severity": "green",
+      "scope": "nyc_metro",
+      "remote": true,
+      "recommendation": "Stretch Apply",
+      "below_comp": false
+    },
+    {
       "id": "ac72b67c79659749",
       "kind": "direct",
       "company": "Headway",
@@ -1651,7 +1824,6 @@
       "status": "active",
       "gone_date": null,
       "flags": [
-        "new",
         "long-posted"
       ],
       "fit": 63,
@@ -1709,6 +1881,31 @@
       "remote": true,
       "recommendation": "Stretch Apply",
       "below_comp": true
+    },
+    {
+      "id": "57333dcc8db96de4",
+      "kind": "direct",
+      "company": "Citi",
+      "category": "finance",
+      "title": "Head of FP&A Model Development – C16",
+      "location": "New York New York United States",
+      "url": "https://citi.wd5.myworkdayjobs.com/en-US/2/job/New-York-New-York-United-States/Head-of-FP-A-Model-Development---C16_26986118",
+      "posted_date": "Posted Today",
+      "comp": "$250,000.00 - $500,000.00",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 59,
+      "pivot": 4,
+      "level": "vp",
+      "level_label": "VP",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
+      "recommendation": "Skip",
+      "below_comp": false
     },
     {
       "id": "497a528990ccde3c",
@@ -1769,7 +1966,6 @@
       "status": "active",
       "gone_date": null,
       "flags": [
-        "new",
         "long-posted"
       ],
       "fit": 51,
@@ -1779,6 +1975,31 @@
       "gap_severity": "green",
       "scope": "unknown",
       "remote": true,
+      "recommendation": "Skip",
+      "below_comp": false
+    },
+    {
+      "id": "ac5000a5591681d6",
+      "kind": "direct",
+      "company": "S&P Global",
+      "category": "finance",
+      "title": "Associate Director – Structured Finance, New York",
+      "location": "New York, NY",
+      "url": "https://spgi.wd5.myworkdayjobs.com/en-US/SPGI_Careers/job/New-York-NY/Associate-Director---Structured-Credit---Alternative-Investment-Funds_319369-1",
+      "posted_date": "Posted 18 Days Ago",
+      "comp": "salary range for this position is USD $142,100 to $192,000",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 50,
+      "pivot": 3,
+      "level": "director",
+      "level_label": "Director",
+      "gap_severity": "green",
+      "scope": "nyc",
+      "remote": false,
       "recommendation": "Skip",
       "below_comp": false
     },

@@ -49,11 +49,11 @@
   },
   "workday:Accenture": {
     "counts": [
-      0,
       1,
       1,
       1,
-      1
+      1,
+      0
     ],
     "fail_streak": 0,
     "inventory": 2000,
@@ -160,6 +160,7 @@
     "counts": [
       1,
       1,
+      1,
       1
     ],
     "fail_streak": 0,
@@ -168,6 +169,7 @@
   },
   "eightfold:Netflix": {
     "counts": [
+      0,
       0,
       0,
       0
@@ -180,6 +182,7 @@
     "counts": [
       1,
       1,
+      1,
       1
     ],
     "fail_streak": 0,
@@ -188,6 +191,7 @@
   },
   "greenhouse:Databricks": {
     "counts": [
+      2,
       2,
       2
     ],
@@ -198,6 +202,7 @@
   "greenhouse:Figma": {
     "counts": [
       1,
+      1,
       1
     ],
     "fail_streak": 0,
@@ -206,6 +211,7 @@
   },
   "ashby:Notion": {
     "counts": [
+      0,
       0,
       0
     ],
@@ -216,6 +222,7 @@
   "ashby:Ramp": {
     "counts": [
       0,
+      0,
       0
     ],
     "fail_streak": 0,
@@ -224,6 +231,7 @@
   },
   "ashby:Plaid": {
     "counts": [
+      4,
       4,
       4
     ],
@@ -234,6 +242,7 @@
   "greenhouse:Coinbase": {
     "counts": [
       1,
+      1,
       1
     ],
     "fail_streak": 0,
@@ -242,6 +251,7 @@
   },
   "greenhouse:Robinhood": {
     "counts": [
+      0,
       0,
       0
     ],
@@ -252,6 +262,7 @@
   "greenhouse:Reddit": {
     "counts": [
       1,
+      1,
       1
     ],
     "fail_streak": 0,
@@ -260,6 +271,7 @@
   },
   "greenhouse:Roblox": {
     "counts": [
+      0,
       0,
       0
     ],
@@ -270,6 +282,7 @@
   "greenhouse:Instacart": {
     "counts": [
       0,
+      0,
       0
     ],
     "fail_streak": 0,
@@ -278,6 +291,7 @@
   },
   "greenhouse:MongoDB": {
     "counts": [
+      1,
       1,
       1
     ],
@@ -288,6 +302,7 @@
   "greenhouse:Affirm": {
     "counts": [
       2,
+      2,
       2
     ],
     "fail_streak": 0,
@@ -296,6 +311,7 @@
   },
   "greenhouse:Brex": {
     "counts": [
+      3,
       3,
       3
     ],
@@ -306,6 +322,7 @@
   "greenhouse:Chime": {
     "counts": [
       0,
+      0,
       0
     ],
     "fail_streak": 0,
@@ -314,6 +331,7 @@
   },
   "greenhouse:SoFi": {
     "counts": [
+      0,
       0,
       0
     ],
@@ -324,6 +342,7 @@
   "greenhouse:Betterment": {
     "counts": [
       0,
+      0,
       0
     ],
     "fail_streak": 0,
@@ -332,6 +351,7 @@
   },
   "greenhouse:Gemini": {
     "counts": [
+      0,
       0,
       0
     ],
@@ -342,6 +362,7 @@
   "greenhouse:Marqeta": {
     "counts": [
       2,
+      2,
       2
     ],
     "fail_streak": 0,
@@ -351,14 +372,16 @@
   "greenhouse:Squarespace": {
     "counts": [
       0,
+      0,
       0
     ],
     "fail_streak": 0,
-    "inventory": 20,
+    "inventory": 21,
     "last_run": "2026-08-11"
   },
   "greenhouse:Peloton": {
     "counts": [
+      1,
       1,
       1
     ],
@@ -369,6 +392,7 @@
   "greenhouse:Discord": {
     "counts": [
       0,
+      0,
       0
     ],
     "fail_streak": 0,
@@ -377,6 +401,7 @@
   },
   "greenhouse:Braze": {
     "counts": [
+      0,
       0,
       0
     ],
@@ -387,6 +412,7 @@
   "greenhouse:Asana": {
     "counts": [
       0,
+      0,
       0
     ],
     "fail_streak": 0,
@@ -395,6 +421,7 @@
   },
   "greenhouse:Airtable": {
     "counts": [
+      0,
       0,
       0
     ],
@@ -405,6 +432,7 @@
   "greenhouse:Amplitude": {
     "counts": [
       0,
+      0,
       0
     ],
     "fail_streak": 0,
@@ -413,6 +441,7 @@
   },
   "greenhouse:Klaviyo": {
     "counts": [
+      0,
       0,
       0
     ],
@@ -423,6 +452,7 @@
   "greenhouse:Justworks": {
     "counts": [
       0,
+      0,
       0
     ],
     "fail_streak": 0,
@@ -431,6 +461,7 @@
   },
   "greenhouse:Zocdoc": {
     "counts": [
+      1,
       1,
       1
     ],
@@ -441,6 +472,7 @@
   "greenhouse:Attentive": {
     "counts": [
       2,
+      2,
       2
     ],
     "fail_streak": 0,
@@ -449,6 +481,7 @@
   },
   "greenhouse:Dataiku": {
     "counts": [
+      1,
       1,
       1
     ],
@@ -459,6 +492,7 @@
   "lever:Ro": {
     "counts": [
       0,
+      0,
       0
     ],
     "fail_streak": 0,
@@ -468,7 +502,8 @@
   "workday:Mastercard": {
     "counts": [
       5,
-      6
+      6,
+      7
     ],
     "fail_streak": 0,
     "inventory": 1121,
@@ -476,6 +511,7 @@
   },
   "workday:Nasdaq": {
     "counts": [
+      0,
       0,
       0
     ],
@@ -486,6 +522,7 @@
   "workday:Bristol Myers Squibb": {
     "counts": [
       1,
+      1,
       1
     ],
     "fail_streak": 0,
@@ -494,14 +531,16 @@
   },
   "ashby:OpenAI": {
     "counts": [
+      2,
       2
     ],
     "fail_streak": 0,
-    "inventory": 736,
+    "inventory": 737,
     "last_run": "2026-08-11"
   },
   "greenhouse:Anthropic": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -510,6 +549,7 @@
   },
   "greenhouse:Scale AI": {
     "counts": [
+      1,
       1
     ],
     "fail_streak": 0,
@@ -518,6 +558,7 @@
   },
   "greenhouse:Flexport": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -526,6 +567,7 @@
   },
   "greenhouse:ClickHouse": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -534,6 +576,7 @@
   },
   "greenhouse:Vercel": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -542,6 +585,7 @@
   },
   "greenhouse:Duolingo": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -550,6 +594,7 @@
   },
   "greenhouse:Mercury": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -558,6 +603,7 @@
   },
   "greenhouse:Fireblocks": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -566,6 +612,7 @@
   },
   "greenhouse:Taboola": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -574,6 +621,7 @@
   },
   "greenhouse:Cockroach Labs": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -582,6 +630,7 @@
   },
   "greenhouse:Starburst": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -590,6 +639,7 @@
   },
   "greenhouse:SeatGeek": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -598,6 +648,7 @@
   },
   "greenhouse:Octave": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -606,6 +657,7 @@
   },
   "greenhouse:Trumid": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -614,6 +666,7 @@
   },
   "ashby:Headway": {
     "counts": [
+      2,
       2
     ],
     "fail_streak": 0,
@@ -622,6 +675,7 @@
   },
   "ashby:Paxos": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -630,6 +684,7 @@
   },
   "ashby:Lemonade": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -638,6 +693,7 @@
   },
   "ashby:Kin Insurance": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -646,6 +702,7 @@
   },
   "ashby:Temporal": {
     "counts": [
+      1,
       1
     ],
     "fail_streak": 0,
@@ -654,6 +711,7 @@
   },
   "ashby:Linear": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
@@ -662,10 +720,67 @@
   },
   "ashby:1Password": {
     "counts": [
+      0,
       0
     ],
     "fail_streak": 0,
     "inventory": 60,
+    "last_run": "2026-08-11"
+  },
+  "workday:S&P Global": {
+    "counts": [
+      2
+    ],
+    "fail_streak": 0,
+    "inventory": 296,
+    "last_run": "2026-08-11"
+  },
+  "workday:Citi": {
+    "counts": [
+      3
+    ],
+    "fail_streak": 0,
+    "inventory": 2000,
+    "last_run": "2026-08-11"
+  },
+  "workday:Blackstone": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 183,
+    "last_run": "2026-08-11"
+  },
+  "workday:Apollo Global": {
+    "counts": [
+      1
+    ],
+    "fail_streak": 0,
+    "inventory": 98,
+    "last_run": "2026-08-11"
+  },
+  "workday:Prudential": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 144,
+    "last_run": "2026-08-11"
+  },
+  "workday:TIAA": {
+    "counts": [
+      0
+    ],
+    "fail_streak": 0,
+    "inventory": 173,
+    "last_run": "2026-08-11"
+  },
+  "workday:Warner Music Group": {
+    "counts": [
+      1
+    ],
+    "fail_streak": 0,
+    "inventory": 69,
     "last_run": "2026-08-11"
   }
 }
