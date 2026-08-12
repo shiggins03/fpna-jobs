@@ -410,6 +410,42 @@ def marker_hunt(name, urls):
 
 
 def main():
+    """Round 12 — bulk sweep for the 40+ target.
+
+    Measured rate: 79 employers -> 53 roles -> 27 at fit 75+, i.e. roughly one
+    good role per three employers. Component analysis showed nothing is capped
+    (each earns 69-90% on average) and only 5 roles sit at 70-74, so
+    recalibrating the score would NOT close the gap — it is purely supply.
+    Reaching 40+ therefore needs ~40 more employers, so this sweep is wide.
+    """
+    section("board sweep 3 — wide, for volume")
+    board_sweep([
+        # devtools / infra / data (national, high comp, remote-friendly)
+        "gitlab", "hashicorp", "confluent", "elastic", "grafanalabs", "sentry",
+        "launchdarkly", "postman", "fivetran", "dbtlabs", "benchling", "samsara",
+        "rubrik", "wiz", "cloudflare", "twilio", "okta", "hubspot", "snyk",
+        "jfrog", "sigmacomputing", "montecarlodata", "airbyte", "supabase",
+        # fintech / payments / wealth
+        "gusto", "rippling", "deel", "toast", "carta", "addepar", "wealthfront",
+        "klarna", "wise", "chainalysis", "circle", "checkr", "found",
+        # consumer / commerce / marketplaces with real finance orgs
+        "lyft", "eventbrite", "patreon", "faire", "whatnot", "thredup",
+        "renttherunway", "sweetgreen", "shakeshack", "hellofresh", "grubhub",
+        "gopuff", "olo", "warbyparkerinc", "glossierinc",
+        # health tech (NYC-dense)
+        "hims", "talkspace", "komodohealth", "tempus", "maven", "kindbody",
+        "springhealth", "lyrahealth", "modernhealth", "calm", "noom", "whoop",
+        "oscar", "cityblockhealth", "included",
+        # NYC media / publishing — big corporate finance teams
+        "nytimes", "condenast", "hearst", "forbes", "businessinsider", "axios",
+        "vox", "buzzfeed", "vimeoinc", "outbrain", "integralad", "mediaocean",
+        # enterprise NYC
+        "uipath", "peloton-interactive", "betterhelp", "namely", "policygenius",
+        "bettercom", "compass", "flatironhealth", "capitalonesoftware",
+    ])
+
+
+def round11():
     """Round 11 — the missing sector: NYC financial services and media.
 
     The board is at 46 roles / 24 at fit 75+ against a 40+ target. Every
