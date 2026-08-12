@@ -1275,9 +1275,7 @@
       "comp": "$118,720 — $212,000 USD",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 94,
       "pivot": 10,
       "level": "senior_manager",
@@ -1581,7 +1579,6 @@
       "status": "active",
       "gone_date": null,
       "flags": [
-        "new",
         "long-posted"
       ],
       "fit": 84,
@@ -1616,6 +1613,31 @@
       "gap_severity": "red",
       "scope": "nyc",
       "remote": false,
+      "recommendation": "Apply",
+      "below_comp": false
+    },
+    {
+      "id": "f92d1678d25ffd56",
+      "kind": "direct",
+      "company": "Lyft",
+      "category": "tech",
+      "title": "Director, Strategic Finance (Global Growth) ",
+      "location": "San Francisco, CA",
+      "url": "https://app.careerpuck.com/job-board/lyft/job/8628962002?gh_jid=8628962002",
+      "posted_date": "2026-07-14T17:12:02-04:00",
+      "comp": "pay range for this position in the San Francisco Bay area is $203,000 - $253,750",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 82,
+      "pivot": 7,
+      "level": "director",
+      "level_label": "Director",
+      "gap_severity": "yellow",
+      "scope": "remote",
+      "remote": true,
       "recommendation": "Apply",
       "below_comp": false
     },
@@ -1712,6 +1734,31 @@
       "below_comp": false
     },
     {
+      "id": "e11b6305fd95e2ad",
+      "kind": "direct",
+      "company": "Brex",
+      "category": "tech",
+      "title": "Finance Manager",
+      "location": "San Francisco, California, United States",
+      "url": "https://www.brex.com/careers/8606210002?gh_jid=8606210002",
+      "posted_date": "2026-06-24T16:58:17-04:00",
+      "comp": "salary range for this role is $155,488-$194,360 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 79,
+      "pivot": 10,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Apply",
+      "below_comp": false
+    },
+    {
       "id": "72e432f09f2b4d1c",
       "kind": "direct",
       "company": "Zocdoc",
@@ -1730,7 +1777,7 @@
       "level_label": "Senior Manager",
       "gap_severity": "green",
       "scope": "nyc",
-      "remote": true,
+      "remote": false,
       "recommendation": "Apply",
       "below_comp": false
     },
@@ -1792,9 +1839,7 @@
       "comp": "$115,200 — $194,400 USD",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 77,
       "pivot": 8,
       "level": "manager",
@@ -1828,6 +1873,31 @@
       "scope": "unknown",
       "remote": true,
       "recommendation": "Apply",
+      "below_comp": false
+    },
+    {
+      "id": "5182bf4cdf61aded",
+      "kind": "direct",
+      "company": "Checkr",
+      "category": "tech",
+      "title": "Revenue Finance & Strategy Senior Manager",
+      "location": "San Francisco, California, United States",
+      "url": "https://job-boards.greenhouse.io/checkr/jobs/7974551",
+      "posted_date": "2026-06-04T11:57:03-04:00",
+      "comp": "$192,000 — $260,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 74,
+      "pivot": 7,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "green",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Stretch Apply",
       "below_comp": false
     },
     {
@@ -1943,7 +2013,7 @@
       "level_label": "Manager",
       "gap_severity": "green",
       "scope": "unknown",
-      "remote": true,
+      "remote": false,
       "recommendation": "Stretch Apply",
       "below_comp": true
     },
@@ -2032,18 +2102,41 @@
       "comp": "$106,900 — $169,100 USD",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 68,
       "pivot": 8,
       "level": "manager",
       "level_label": "Manager",
       "gap_severity": "yellow",
       "scope": "unknown",
-      "remote": true,
+      "remote": false,
       "recommendation": "Stretch Apply",
       "below_comp": true
+    },
+    {
+      "id": "7b1467a3af21d7ed",
+      "kind": "direct",
+      "company": "Checkr",
+      "category": "tech",
+      "title": "Product Finance & Strategy Manager",
+      "location": "San Francisco, California, United States",
+      "url": "https://job-boards.greenhouse.io/checkr/jobs/8008408",
+      "posted_date": "2026-06-15T15:06:49-04:00",
+      "comp": "$161,000 — $207,900 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 68,
+      "pivot": 7,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "yellow",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Stretch Apply",
+      "below_comp": false
     },
     {
       "id": "27ad7bdc1a6a7e6e",
@@ -2057,9 +2150,7 @@
       "comp": "$143,000 — $229,000 USD",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 66,
       "pivot": 7,
       "level": "manager",
@@ -2112,7 +2203,7 @@
       "level_label": "Manager",
       "gap_severity": "green",
       "scope": "nyc",
-      "remote": true,
+      "remote": false,
       "recommendation": "Stretch Apply",
       "below_comp": true
     },
@@ -2135,7 +2226,7 @@
       "level_label": "Manager",
       "gap_severity": "red",
       "scope": "unknown",
-      "remote": true,
+      "remote": false,
       "recommendation": "Stretch Apply",
       "below_comp": true
     },
@@ -2275,7 +2366,7 @@
       "level_label": "Director",
       "gap_severity": "green",
       "scope": "nyc_metro",
-      "remote": true,
+      "remote": false,
       "recommendation": "Stretch Apply",
       "below_comp": false
     },
@@ -2291,9 +2382,7 @@
       "comp": null,
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 64,
       "pivot": 6,
       "level": "senior_manager",
@@ -2317,7 +2406,6 @@
       "status": "active",
       "gone_date": null,
       "flags": [
-        "new",
         "long-posted"
       ],
       "fit": 64,
@@ -2327,6 +2415,31 @@
       "gap_severity": "green",
       "scope": "nyc",
       "remote": false,
+      "recommendation": "Stretch Apply",
+      "below_comp": false
+    },
+    {
+      "id": "f02406d4e8296f4e",
+      "kind": "direct",
+      "company": "Samsara",
+      "category": "tech",
+      "title": "Sr. Manager, Finance & Strategy - Marketing",
+      "location": "San Francisco, CA, United States",
+      "url": "https://www.samsara.com/company/careers/roles/8092918?gh_jid=8092918",
+      "posted_date": "2026-07-30T19:23:39-04:00",
+      "comp": "$118,720 — $212,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 64,
+      "pivot": 7,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "red",
+      "scope": "remote",
+      "remote": true,
       "recommendation": "Stretch Apply",
       "below_comp": false
     },
@@ -2367,9 +2480,7 @@
       "comp": "pay range for this role is $197,500 to $",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 62,
       "pivot": 5,
       "level": "senior_manager",
@@ -2450,6 +2561,31 @@
       "below_comp": false
     },
     {
+      "id": "64a59c0b7a744799",
+      "kind": "direct",
+      "company": "Checkr",
+      "category": "tech",
+      "title": "Senior Strategic Finance Manager - Marketing ",
+      "location": "San Francisco, California, United States",
+      "url": "https://job-boards.greenhouse.io/checkr/jobs/8094814",
+      "posted_date": "2026-07-29T14:12:52-04:00",
+      "comp": "$192,000 — $260,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 59,
+      "pivot": 7,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "red",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Skip",
+      "below_comp": false
+    },
+    {
       "id": "497a528990ccde3c",
       "kind": "direct",
       "company": "Marqeta",
@@ -2484,9 +2620,7 @@
       "comp": "salary for this position is $98,800 to $125,000",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 55,
       "pivot": 8,
       "level": "manager",
@@ -2509,9 +2643,7 @@
       "comp": null,
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 54,
       "pivot": 5,
       "level": "senior_manager",
@@ -2519,6 +2651,58 @@
       "gap_severity": "green",
       "scope": "nyc",
       "remote": false,
+      "recommendation": "Skip",
+      "below_comp": false
+    },
+    {
+      "id": "658d4a6027435976",
+      "kind": "direct",
+      "company": "Brex",
+      "category": "tech",
+      "title": "Finance Manager, Commissions",
+      "location": "Seattle, Washington, United States",
+      "url": "https://www.brex.com/careers/8494245002?gh_jid=8494245002",
+      "posted_date": "2026-04-03T21:17:11-04:00",
+      "comp": "salary range for this role is $155,000 - $194,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new",
+        "long-posted"
+      ],
+      "fit": 54,
+      "pivot": 6,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Skip",
+      "below_comp": false
+    },
+    {
+      "id": "3415cd1b6f440a3a",
+      "kind": "direct",
+      "company": "Brex",
+      "category": "tech",
+      "title": "Finance Manager, Commissions",
+      "location": "San Francisco, California, United States",
+      "url": "https://www.brex.com/careers/8494242002?gh_jid=8494242002",
+      "posted_date": "2026-04-03T21:17:10-04:00",
+      "comp": "salary range for this role is $155,000 - $194,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new",
+        "long-posted"
+      ],
+      "fit": 54,
+      "pivot": 6,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "remote",
+      "remote": true,
       "recommendation": "Skip",
       "below_comp": false
     },
@@ -2557,13 +2741,36 @@
       "comp": "$152,300 — $179,200 USD",
       "status": "active",
       "gone_date": null,
-      "flags": [
-        "new"
-      ],
+      "flags": [],
       "fit": 53,
       "pivot": 5,
       "level": "senior_manager",
       "level_label": "Senior Manager",
+      "gap_severity": "green",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Skip",
+      "below_comp": false
+    },
+    {
+      "id": "75e1afc72b5730b2",
+      "kind": "direct",
+      "company": "Lyft",
+      "category": "tech",
+      "title": "Director, Business Planning & Central Operations ",
+      "location": "Nashville, TN",
+      "url": "https://app.careerpuck.com/job-board/lyft/job/8625442002?gh_jid=8625442002",
+      "posted_date": "2026-07-14T19:07:22-04:00",
+      "comp": "pay range for this position in the Nashville area is $157,440 - $196,800",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 53,
+      "pivot": 4,
+      "level": "director",
+      "level_label": "Director",
       "gap_severity": "green",
       "scope": "remote",
       "remote": true,
@@ -2596,6 +2803,32 @@
       "below_comp": false
     },
     {
+      "id": "6079c0f8cb96d586",
+      "kind": "direct",
+      "company": "Databricks",
+      "category": "tech",
+      "title": "Finance Manager",
+      "location": "Mountain View, California; San Francisco, California",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=8182383002",
+      "posted_date": "2025-10-02T09:15:52-04:00",
+      "comp": "$169,100 — $232,550 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new",
+        "long-posted"
+      ],
+      "fit": 51,
+      "pivot": 5,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Skip",
+      "below_comp": false
+    },
+    {
       "id": "ac5000a5591681d6",
       "kind": "direct",
       "company": "S&P Global",
@@ -2619,6 +2852,31 @@
       "below_comp": false
     },
     {
+      "id": "c2cd7c3a27755ebb",
+      "kind": "direct",
+      "company": "Checkr",
+      "category": "tech",
+      "title": "Senior Strategic Finance Manager - Go-To-Market",
+      "location": "San Francisco, California, United States",
+      "url": "https://job-boards.greenhouse.io/checkr/jobs/8110103",
+      "posted_date": "2026-08-05T17:05:56-04:00",
+      "comp": "$192,000 — $260,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new"
+      ],
+      "fit": 46,
+      "pivot": 6,
+      "level": "senior_manager",
+      "level_label": "Senior Manager",
+      "gap_severity": "green",
+      "scope": "remote",
+      "remote": true,
+      "recommendation": "Skip",
+      "below_comp": false
+    },
+    {
       "id": "899f14d3ff5c2009",
       "kind": "direct",
       "company": "Bristol Myers Squibb",
@@ -2637,6 +2895,32 @@
       "level_label": null,
       "gap_severity": "yellow",
       "scope": "nyc_metro",
+      "remote": false,
+      "recommendation": "Skip",
+      "below_comp": true
+    },
+    {
+      "id": "9d581fec50cc65eb",
+      "kind": "direct",
+      "company": "Brex",
+      "category": "tech",
+      "title": "Finance Manager, Commissions",
+      "location": "Salt Lake City, Utah, United States",
+      "url": "https://www.brex.com/careers/8495855002?gh_jid=8495855002",
+      "posted_date": "2026-04-06T18:56:42-04:00",
+      "comp": "salary range for this role is $137,000 - $154,000 USD",
+      "status": "active",
+      "gone_date": null,
+      "flags": [
+        "new",
+        "long-posted"
+      ],
+      "fit": 43,
+      "pivot": 6,
+      "level": "manager",
+      "level_label": "Manager",
+      "gap_severity": "green",
+      "scope": "remote",
       "remote": true,
       "recommendation": "Skip",
       "below_comp": true
