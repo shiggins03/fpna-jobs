@@ -3,13 +3,13 @@
     "counts": [
       7,
       7,
-      7,
       6,
-      7
+      7,
+      6
     ],
     "fail_streak": 0,
     "inventory": 10000,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "meta_graphql:Meta": {
     "counts": [
@@ -21,7 +21,7 @@
     ],
     "fail_streak": 0,
     "inventory": 5,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "workday:NVIDIA": {
     "counts": [
@@ -33,7 +33,7 @@
     ],
     "fail_streak": 0,
     "inventory": 2000,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "oracle_orc:Oracle": {
     "counts": [
@@ -41,27 +41,25 @@
       2,
       2,
       2,
-      2
+      1
     ],
     "fail_streak": 0,
-    "inventory": 1545,
-    "last_run": "2026-08-19"
+    "inventory": 1540,
+    "last_run": "2026-08-20"
   },
   "workday:Accenture": {
     "counts": [
-      1,
       0,
+      1,
       1,
       1,
       1
     ],
     "fail_streak": 0,
     "inventory": 2000,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
-  "_warnings": [
-    "greenhouse:Marqeta: source reports 0 total jobs — monitor may be blind or endpoint changed"
-  ],
+  "_warnings": [],
   "workday:Adobe": {
     "counts": [
       0,
@@ -71,8 +69,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 769,
-    "last_run": "2026-08-19"
+    "inventory": 753,
+    "last_run": "2026-08-20"
   },
   "workday:Salesforce": {
     "counts": [
@@ -83,8 +81,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 1530,
-    "last_run": "2026-08-19"
+    "inventory": 1534,
+    "last_run": "2026-08-20"
   },
   "workday:PayPal": {
     "counts": [
@@ -95,8 +93,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 87,
-    "last_run": "2026-08-19"
+    "inventory": 86,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Airbnb": {
     "counts": [
@@ -107,8 +105,8 @@
       1
     ],
     "fail_streak": 0,
-    "inventory": 193,
-    "last_run": "2026-08-19"
+    "inventory": 191,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Pinterest": {
     "counts": [
@@ -116,11 +114,11 @@
       0,
       0,
       0,
-      0
+      1
     ],
     "fail_streak": 0,
-    "inventory": 215,
-    "last_run": "2026-08-19"
+    "inventory": 220,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Stripe": {
     "counts": [
@@ -131,8 +129,8 @@
       2
     ],
     "fail_streak": 0,
-    "inventory": 574,
-    "last_run": "2026-08-19"
+    "inventory": 576,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Datadog": {
     "counts": [
@@ -143,8 +141,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 430,
-    "last_run": "2026-08-19"
+    "inventory": 436,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Block": {
     "counts": [
@@ -155,8 +153,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 192,
-    "last_run": "2026-08-19"
+    "inventory": 188,
+    "last_run": "2026-08-20"
   },
   "greenhouse:DoorDash": {
     "counts": [
@@ -167,8 +165,8 @@
       1
     ],
     "fail_streak": 0,
-    "inventory": 464,
-    "last_run": "2026-08-19"
+    "inventory": 463,
+    "last_run": "2026-08-20"
   },
   "eightfold:Netflix": {
     "counts": [
@@ -180,43 +178,43 @@
     ],
     "fail_streak": 0,
     "inventory": 507,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "workday:Dentsu": {
     "counts": [
       1,
       1,
       1,
-      1,
+      2,
       2
     ],
     "fail_streak": 0,
-    "inventory": 891,
-    "last_run": "2026-08-19"
+    "inventory": 883,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Databricks": {
     "counts": [
-      3,
+      2,
       2,
       2,
       2,
       2
     ],
     "fail_streak": 0,
-    "inventory": 809,
-    "last_run": "2026-08-19"
+    "inventory": 805,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Figma": {
     "counts": [
       1,
       1,
       1,
-      1,
+      2,
       2
     ],
     "fail_streak": 0,
-    "inventory": 163,
-    "last_run": "2026-08-19"
+    "inventory": 164,
+    "last_run": "2026-08-20"
   },
   "ashby:Notion": {
     "counts": [
@@ -227,8 +225,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 127,
-    "last_run": "2026-08-19"
+    "inventory": 129,
+    "last_run": "2026-08-20"
   },
   "ashby:Ramp": {
     "counts": [
@@ -239,8 +237,8 @@
       1
     ],
     "fail_streak": 0,
-    "inventory": 137,
-    "last_run": "2026-08-19"
+    "inventory": 136,
+    "last_run": "2026-08-20"
   },
   "ashby:Plaid": {
     "counts": [
@@ -251,8 +249,8 @@
       3
     ],
     "fail_streak": 0,
-    "inventory": 106,
-    "last_run": "2026-08-19"
+    "inventory": 107,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Coinbase": {
     "counts": [
@@ -263,8 +261,8 @@
       1
     ],
     "fail_streak": 0,
-    "inventory": 169,
-    "last_run": "2026-08-19"
+    "inventory": 168,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Robinhood": {
     "counts": [
@@ -275,8 +273,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 124,
-    "last_run": "2026-08-19"
+    "inventory": 127,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Reddit": {
     "counts": [
@@ -287,8 +285,8 @@
       1
     ],
     "fail_streak": 0,
-    "inventory": 146,
-    "last_run": "2026-08-19"
+    "inventory": 149,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Roblox": {
     "counts": [
@@ -299,20 +297,20 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 221,
-    "last_run": "2026-08-19"
+    "inventory": 224,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Instacart": {
     "counts": [
       0,
       0,
-      0,
+      1,
       1,
       1
     ],
     "fail_streak": 0,
-    "inventory": 114,
-    "last_run": "2026-08-19"
+    "inventory": 116,
+    "last_run": "2026-08-20"
   },
   "greenhouse:MongoDB": {
     "counts": [
@@ -323,8 +321,8 @@
       1
     ],
     "fail_streak": 0,
-    "inventory": 405,
-    "last_run": "2026-08-19"
+    "inventory": 406,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Affirm": {
     "counts": [
@@ -332,11 +330,11 @@
       2,
       2,
       2,
-      2
+      3
     ],
     "fail_streak": 0,
-    "inventory": 198,
-    "last_run": "2026-08-19"
+    "inventory": 201,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Brex": {
     "counts": [
@@ -347,8 +345,8 @@
       7
     ],
     "fail_streak": 0,
-    "inventory": 303,
-    "last_run": "2026-08-19"
+    "inventory": 295,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Chime": {
     "counts": [
@@ -360,7 +358,7 @@
     ],
     "fail_streak": 0,
     "inventory": 59,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:SoFi": {
     "counts": [
@@ -371,8 +369,8 @@
       1
     ],
     "fail_streak": 0,
-    "inventory": 56,
-    "last_run": "2026-08-19"
+    "inventory": 57,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Betterment": {
     "counts": [
@@ -383,8 +381,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 29,
-    "last_run": "2026-08-19"
+    "inventory": 31,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Gemini": {
     "counts": [
@@ -396,19 +394,19 @@
     ],
     "fail_streak": 0,
     "inventory": 38,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Marqeta": {
     "counts": [
       2,
       2,
       2,
-      2,
+      0,
       0
     ],
     "fail_streak": 0,
-    "inventory": 0,
-    "last_run": "2026-08-19"
+    "inventory": 1,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Squarespace": {
     "counts": [
@@ -420,7 +418,7 @@
     ],
     "fail_streak": 0,
     "inventory": 23,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Peloton": {
     "counts": [
@@ -431,8 +429,8 @@
       1
     ],
     "fail_streak": 0,
-    "inventory": 51,
-    "last_run": "2026-08-19"
+    "inventory": 52,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Discord": {
     "counts": [
@@ -444,7 +442,7 @@
     ],
     "fail_streak": 0,
     "inventory": 51,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Braze": {
     "counts": [
@@ -455,8 +453,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 258,
-    "last_run": "2026-08-19"
+    "inventory": 272,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Asana": {
     "counts": [
@@ -467,8 +465,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 129,
-    "last_run": "2026-08-19"
+    "inventory": 130,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Airtable": {
     "counts": [
@@ -480,7 +478,7 @@
     ],
     "fail_streak": 0,
     "inventory": 16,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Amplitude": {
     "counts": [
@@ -491,8 +489,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 32,
-    "last_run": "2026-08-19"
+    "inventory": 33,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Klaviyo": {
     "counts": [
@@ -503,8 +501,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 149,
-    "last_run": "2026-08-19"
+    "inventory": 148,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Justworks": {
     "counts": [
@@ -515,8 +513,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 102,
-    "last_run": "2026-08-19"
+    "inventory": 103,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Zocdoc": {
     "counts": [
@@ -528,7 +526,7 @@
     ],
     "fail_streak": 0,
     "inventory": 53,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Attentive": {
     "counts": [
@@ -540,7 +538,7 @@
     ],
     "fail_streak": 0,
     "inventory": 38,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Dataiku": {
     "counts": [
@@ -552,7 +550,7 @@
     ],
     "fail_streak": 0,
     "inventory": 22,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "lever:Ro": {
     "counts": [
@@ -563,20 +561,20 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 52,
-    "last_run": "2026-08-19"
+    "inventory": 54,
+    "last_run": "2026-08-20"
   },
   "workday:Mastercard": {
     "counts": [
       7,
       7,
-      7,
+      6,
       6,
       6
     ],
     "fail_streak": 0,
-    "inventory": 1132,
-    "last_run": "2026-08-19"
+    "inventory": 1144,
+    "last_run": "2026-08-20"
   },
   "workday:Nasdaq": {
     "counts": [
@@ -587,8 +585,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 184,
-    "last_run": "2026-08-19"
+    "inventory": 183,
+    "last_run": "2026-08-20"
   },
   "workday:Bristol Myers Squibb": {
     "counts": [
@@ -599,8 +597,8 @@
       1
     ],
     "fail_streak": 0,
-    "inventory": 697,
-    "last_run": "2026-08-19"
+    "inventory": 698,
+    "last_run": "2026-08-20"
   },
   "ashby:OpenAI": {
     "counts": [
@@ -611,8 +609,8 @@
       2
     ],
     "fail_streak": 0,
-    "inventory": 729,
-    "last_run": "2026-08-19"
+    "inventory": 739,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Anthropic": {
     "counts": [
@@ -623,8 +621,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 470,
-    "last_run": "2026-08-19"
+    "inventory": 484,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Scale AI": {
     "counts": [
@@ -635,8 +633,8 @@
       1
     ],
     "fail_streak": 0,
-    "inventory": 207,
-    "last_run": "2026-08-19"
+    "inventory": 208,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Flexport": {
     "counts": [
@@ -647,8 +645,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 161,
-    "last_run": "2026-08-19"
+    "inventory": 162,
+    "last_run": "2026-08-20"
   },
   "greenhouse:ClickHouse": {
     "counts": [
@@ -659,8 +657,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 174,
-    "last_run": "2026-08-19"
+    "inventory": 175,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Vercel": {
     "counts": [
@@ -671,8 +669,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 85,
-    "last_run": "2026-08-19"
+    "inventory": 83,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Duolingo": {
     "counts": [
@@ -684,7 +682,7 @@
     ],
     "fail_streak": 0,
     "inventory": 64,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Mercury": {
     "counts": [
@@ -695,8 +693,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 58,
-    "last_run": "2026-08-19"
+    "inventory": 54,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Fireblocks": {
     "counts": [
@@ -707,8 +705,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 70,
-    "last_run": "2026-08-19"
+    "inventory": 72,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Taboola": {
     "counts": [
@@ -719,8 +717,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 94,
-    "last_run": "2026-08-19"
+    "inventory": 90,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Cockroach Labs": {
     "counts": [
@@ -732,7 +730,7 @@
     ],
     "fail_streak": 0,
     "inventory": 27,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Starburst": {
     "counts": [
@@ -744,7 +742,7 @@
     ],
     "fail_streak": 0,
     "inventory": 18,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:SeatGeek": {
     "counts": [
@@ -756,7 +754,7 @@
     ],
     "fail_streak": 0,
     "inventory": 25,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Octave": {
     "counts": [
@@ -767,8 +765,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 27,
-    "last_run": "2026-08-19"
+    "inventory": 28,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Trumid": {
     "counts": [
@@ -780,7 +778,7 @@
     ],
     "fail_streak": 0,
     "inventory": 4,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "ashby:Headway": {
     "counts": [
@@ -791,8 +789,8 @@
       2
     ],
     "fail_streak": 0,
-    "inventory": 82,
-    "last_run": "2026-08-19"
+    "inventory": 81,
+    "last_run": "2026-08-20"
   },
   "ashby:Paxos": {
     "counts": [
@@ -804,7 +802,7 @@
     ],
     "fail_streak": 0,
     "inventory": 13,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "ashby:Lemonade": {
     "counts": [
@@ -816,7 +814,7 @@
     ],
     "fail_streak": 0,
     "inventory": 34,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "ashby:Kin Insurance": {
     "counts": [
@@ -828,7 +826,7 @@
     ],
     "fail_streak": 0,
     "inventory": 20,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "ashby:Temporal": {
     "counts": [
@@ -840,7 +838,7 @@
     ],
     "fail_streak": 0,
     "inventory": 54,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "ashby:Linear": {
     "counts": [
@@ -852,7 +850,7 @@
     ],
     "fail_streak": 0,
     "inventory": 32,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "ashby:1Password": {
     "counts": [
@@ -863,32 +861,32 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 60,
-    "last_run": "2026-08-19"
+    "inventory": 61,
+    "last_run": "2026-08-20"
   },
   "workday:S&P Global": {
     "counts": [
       2,
       2,
       2,
-      2,
+      3,
       3
     ],
     "fail_streak": 0,
     "inventory": 304,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "workday:Citi": {
     "counts": [
       3,
       3,
       3,
-      3,
-      2
+      2,
+      3
     ],
     "fail_streak": 0,
     "inventory": 2000,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "workday:Blackstone": {
     "counts": [
@@ -896,11 +894,11 @@
       0,
       0,
       0,
-      0
+      1
     ],
     "fail_streak": 0,
-    "inventory": 174,
-    "last_run": "2026-08-19"
+    "inventory": 176,
+    "last_run": "2026-08-20"
   },
   "workday:Apollo Global": {
     "counts": [
@@ -912,7 +910,7 @@
     ],
     "fail_streak": 0,
     "inventory": 68,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "workday:Prudential": {
     "counts": [
@@ -923,8 +921,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 147,
-    "last_run": "2026-08-19"
+    "inventory": 153,
+    "last_run": "2026-08-20"
   },
   "workday:TIAA": {
     "counts": [
@@ -935,20 +933,20 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 193,
-    "last_run": "2026-08-19"
+    "inventory": 195,
+    "last_run": "2026-08-20"
   },
   "workday:Warner Music Group": {
     "counts": [
       1,
       1,
-      1,
+      2,
       2,
       2
     ],
     "fail_streak": 0,
-    "inventory": 61,
-    "last_run": "2026-08-19"
+    "inventory": 63,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Cloudflare": {
     "counts": [
@@ -959,8 +957,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 305,
-    "last_run": "2026-08-19"
+    "inventory": 304,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Okta": {
     "counts": [
@@ -971,8 +969,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 344,
-    "last_run": "2026-08-19"
+    "inventory": 338,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Twilio": {
     "counts": [
@@ -983,8 +981,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 149,
-    "last_run": "2026-08-19"
+    "inventory": 145,
+    "last_run": "2026-08-20"
   },
   "greenhouse:GitLab": {
     "counts": [
@@ -995,8 +993,8 @@
       1
     ],
     "fail_streak": 0,
-    "inventory": 201,
-    "last_run": "2026-08-19"
+    "inventory": 200,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Elastic": {
     "counts": [
@@ -1007,8 +1005,8 @@
       1
     ],
     "fail_streak": 0,
-    "inventory": 264,
-    "last_run": "2026-08-19"
+    "inventory": 248,
+    "last_run": "2026-08-20"
   },
   "ashby:Confluent": {
     "counts": [
@@ -1020,7 +1018,7 @@
     ],
     "fail_streak": 0,
     "inventory": 30,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Toast": {
     "counts": [
@@ -1031,8 +1029,8 @@
       1
     ],
     "fail_streak": 0,
-    "inventory": 320,
-    "last_run": "2026-08-19"
+    "inventory": 322,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Lyft": {
     "counts": [
@@ -1043,8 +1041,8 @@
       2
     ],
     "fail_streak": 0,
-    "inventory": 162,
-    "last_run": "2026-08-19"
+    "inventory": 157,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Samsara": {
     "counts": [
@@ -1056,7 +1054,7 @@
     ],
     "fail_streak": 0,
     "inventory": 261,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Fivetran": {
     "counts": [
@@ -1067,8 +1065,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 243,
-    "last_run": "2026-08-19"
+    "inventory": 241,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Rubrik": {
     "counts": [
@@ -1079,8 +1077,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 109,
-    "last_run": "2026-08-19"
+    "inventory": 113,
+    "last_run": "2026-08-20"
   },
   "ashby:UiPath": {
     "counts": [
@@ -1091,8 +1089,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 120,
-    "last_run": "2026-08-19"
+    "inventory": 116,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Carta": {
     "counts": [
@@ -1104,7 +1102,7 @@
     ],
     "fail_streak": 0,
     "inventory": 59,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Gusto": {
     "counts": [
@@ -1115,8 +1113,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 87,
-    "last_run": "2026-08-19"
+    "inventory": 92,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Grafana Labs": {
     "counts": [
@@ -1128,7 +1126,7 @@
     ],
     "fail_streak": 0,
     "inventory": 143,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "ashby:Sentry": {
     "counts": [
@@ -1140,7 +1138,7 @@
     ],
     "fail_streak": 0,
     "inventory": 38,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:LaunchDarkly": {
     "counts": [
@@ -1152,7 +1150,7 @@
     ],
     "fail_streak": 0,
     "inventory": 48,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Postman": {
     "counts": [
@@ -1164,7 +1162,7 @@
     ],
     "fail_streak": 0,
     "inventory": 111,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "ashby:Benchling": {
     "counts": [
@@ -1175,8 +1173,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 48,
-    "last_run": "2026-08-19"
+    "inventory": 50,
+    "last_run": "2026-08-20"
   },
   "greenhouse:JFrog": {
     "counts": [
@@ -1187,8 +1185,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 34,
-    "last_run": "2026-08-19"
+    "inventory": 37,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Sigma Computing": {
     "counts": [
@@ -1199,8 +1197,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 65,
-    "last_run": "2026-08-19"
+    "inventory": 66,
+    "last_run": "2026-08-20"
   },
   "ashby:Supabase": {
     "counts": [
@@ -1211,8 +1209,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 52,
-    "last_run": "2026-08-19"
+    "inventory": 51,
+    "last_run": "2026-08-20"
   },
   "ashby:Airbyte": {
     "counts": [
@@ -1224,7 +1222,7 @@
     ],
     "fail_streak": 0,
     "inventory": 10,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "ashby:Monte Carlo": {
     "counts": [
@@ -1235,8 +1233,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 6,
-    "last_run": "2026-08-19"
+    "inventory": 7,
+    "last_run": "2026-08-20"
   },
   "lever:Wealthfront": {
     "counts": [
@@ -1248,19 +1246,19 @@
     ],
     "fail_streak": 0,
     "inventory": 23,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Checkr": {
     "counts": [
       3,
       3,
-      3,
+      2,
       2,
       2
     ],
     "fail_streak": 0,
-    "inventory": 46,
-    "last_run": "2026-08-19"
+    "inventory": 44,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Faire": {
     "counts": [
@@ -1271,8 +1269,8 @@
       3
     ],
     "fail_streak": 0,
-    "inventory": 67,
-    "last_run": "2026-08-19"
+    "inventory": 64,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Rent the Runway": {
     "counts": [
@@ -1283,8 +1281,8 @@
       1
     ],
     "fail_streak": 0,
-    "inventory": 21,
-    "last_run": "2026-08-19"
+    "inventory": 20,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Sweetgreen": {
     "counts": [
@@ -1295,8 +1293,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 45,
-    "last_run": "2026-08-19"
+    "inventory": 47,
+    "last_run": "2026-08-20"
   },
   "greenhouse:HelloFresh": {
     "counts": [
@@ -1307,8 +1305,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 376,
-    "last_run": "2026-08-19"
+    "inventory": 380,
+    "last_run": "2026-08-20"
   },
   "lever:Gopuff": {
     "counts": [
@@ -1319,8 +1317,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 814,
-    "last_run": "2026-08-19"
+    "inventory": 813,
+    "last_run": "2026-08-20"
   },
   "lever:Olo": {
     "counts": [
@@ -1331,8 +1329,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 9,
-    "last_run": "2026-08-19"
+    "inventory": 8,
+    "last_run": "2026-08-20"
   },
   "ashby:Patreon": {
     "counts": [
@@ -1344,19 +1342,19 @@
     ],
     "fail_streak": 0,
     "inventory": 7,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Oscar Health": {
     "counts": [
       1,
       1,
-      1,
+      2,
       2,
       2
     ],
     "fail_streak": 0,
-    "inventory": 257,
-    "last_run": "2026-08-19"
+    "inventory": 249,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Komodo Health": {
     "counts": [
@@ -1367,8 +1365,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 34,
-    "last_run": "2026-08-19"
+    "inventory": 36,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Flatiron Health": {
     "counts": [
@@ -1379,8 +1377,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 37,
-    "last_run": "2026-08-19"
+    "inventory": 35,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Modern Health": {
     "counts": [
@@ -1392,7 +1390,7 @@
     ],
     "fail_streak": 0,
     "inventory": 17,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "lever:Lyra Health": {
     "counts": [
@@ -1403,8 +1401,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 537,
-    "last_run": "2026-08-19"
+    "inventory": 535,
+    "last_run": "2026-08-20"
   },
   "greenhouse:BetterHelp": {
     "counts": [
@@ -1416,7 +1414,7 @@
     ],
     "fail_streak": 0,
     "inventory": 202,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Talkspace": {
     "counts": [
@@ -1427,8 +1425,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 13,
-    "last_run": "2026-08-19"
+    "inventory": 16,
+    "last_run": "2026-08-20"
   },
   "ashby:WHOOP": {
     "counts": [
@@ -1439,8 +1437,8 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 168,
-    "last_run": "2026-08-19"
+    "inventory": 167,
+    "last_run": "2026-08-20"
   },
   "greenhouse:Hearst": {
     "counts": [
@@ -1452,7 +1450,7 @@
     ],
     "fail_streak": 0,
     "inventory": 17,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Forbes": {
     "counts": [
@@ -1464,7 +1462,7 @@
     ],
     "fail_streak": 0,
     "inventory": 18,
-    "last_run": "2026-08-19"
+    "last_run": "2026-08-20"
   },
   "greenhouse:Axios": {
     "counts": [
@@ -1475,7 +1473,7 @@
       0
     ],
     "fail_streak": 0,
-    "inventory": 26,
-    "last_run": "2026-08-19"
+    "inventory": 25,
+    "last_run": "2026-08-20"
   }
 }
